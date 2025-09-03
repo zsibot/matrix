@@ -51,11 +51,11 @@ It provides a unified environment for **robotics research, reinforcement learnin
 
     - **Method 1: Google Drive**
 
-      [Google Drive Download Link](https://drive.google.com/file/d/1Ft_0C07CzakZnQ4LvOTsuBrz5TLowgra/view?usp=drive_link)
+      [Google Drive Download Link](https://drive.google.com/file/d/1-lGchEtyevkziMCmkrBUn7p59XsgMbSp/view?usp=sharing)
 
     - **Method 2: Baidu Netdisk**  
 
-      [Baidu Netdisk Link](https://pan.baidu.com/s/1JD1G51MiagNlmNXf144w7g?pwd=6k1w)  
+      [Baidu Netdisk Link](https://pan.baidu.com/s/1gXctNIrQGyVcuTbJKuZO3g?pwd=id7d)  
 
     - **Method 3: JFrog**  
 
