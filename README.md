@@ -22,6 +22,7 @@ It provides a unified environment for **robotics research, reinforcement learnin
 ├── src/
 │   ├── jszr_mc/
 │   ├── jszr_mujoco/
+│   ├── navigo/
 │   └── UeSim/
 ├── build.sh                     # One-click build script
 ├── run_sim.sh                   # Simulation launch script
@@ -49,12 +50,18 @@ It provides a unified environment for **robotics research, reinforcement learnin
 1. **Download the UE simulator**
 
     - **Method 1: Google Drive**
-      ```bash
-      gdown https://drive.google.com/uc?id=1abu-Vi_l0UAx-ji4isJAvj8rkoG7jZ_i
-      ```
+
+      [Google Drive Download Link](https://drive.google.com/file/d/1Ft_0C07CzakZnQ4LvOTsuBrz5TLowgra/view?usp=drive_link)
 
     - **Method 2: Baidu Netdisk**  
-      [https://pan.baidu.com/s/1JD1G51MiagNlmNXf144w7g?pwd=6k1w](https://pan.baidu.com/s/1JD1G51MiagNlmNXf144w7g?pwd=6k1w)  
+
+      [Baidu Netdisk Link](https://pan.baidu.com/s/1JD1G51MiagNlmNXf144w7g?pwd=6k1w)  
+
+    - **Method 3: JFrog**  
+
+      ```bash
+      curl -H "Authorization: Bearer cmVmdGtuOjAxOjE3ODQ2MDY4OTQ6eFJvZVA5akpiMmRzTFVwWXQ3YWRIbTI3TEla"  -o "matrix.zip" -# "http://192.168.50.40:8082/artifactory/jszrsim/UeSim/matrix.zip"  
+      ```
 
 2. **Unzip**
    ```bash

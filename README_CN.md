@@ -22,6 +22,7 @@
 ├── src/
 │   ├── jszr_mc/
 │   ├── jszr_mujoco/
+│   ├── navigo/
 │   └── UeSim/
 ├── build.sh                     # 一键构建脚本
 ├── run_sim.sh                   # 仿真启动脚本
@@ -49,12 +50,18 @@
 1. **下载 UE 仿真器**
 
     - **方式一：Google Drive**
-      ```bash
-      gdown https://drive.google.com/uc?id=1abu-Vi_l0UAx-ji4isJAvj8rkoG7jZ_i
-      ```
+
+      [Google Drive Download Link](https://drive.google.com/file/d/1Ft_0C07CzakZnQ4LvOTsuBrz5TLowgra/view?usp=drive_link)
 
     - **方式二：百度网盘**  
+
       [https://pan.baidu.com/s/1JD1G51MiagNlmNXf144w7g?pwd=6k1w](https://pan.baidu.com/s/1JD1G51MiagNlmNXf144w7g?pwd=6k1w)   
+
+    - **Method 3: JFrog**  
+
+      ```bash
+      curl -H "Authorization: Bearer cmVmdGtuOjAxOjE3ODQ2MDY4OTQ6eFJvZVA5akpiMmRzTFVwWXQ3YWRIbTI3TEla"  -o "matrix.zip" -# "http://192.168.50.40:8082/artifactory/jszrsim/UeSim/matrix.zip"  
+      ```
 
 2. **解压**
    ```bash
