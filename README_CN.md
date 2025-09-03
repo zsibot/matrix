@@ -53,6 +53,13 @@
 
       [Google Drive Download Link](https://drive.google.com/file/d/1-lGchEtyevkziMCmkrBUn7p59XsgMbSp/view?usp=sharing)
 
+
+      **Download via gdown:**
+      ```bash
+      pip install gdown
+      gdown https://drive.google.com/uc?id=1-lGchEtyevkziMCmkrBUn7p59XsgMbSp
+      ```
+      
     - **方式二：百度网盘**  
 
       [https://pan.baidu.com/s/1JD1G51MiagNlmNXf144w7g?pwd=6k1w](https://pan.baidu.com/s/1gXctNIrQGyVcuTbJKuZO3g?pwd=id7d)   
