@@ -20,8 +20,8 @@
 │   ├── install_deps.sh
 │   └── modify_config.sh
 ├── src/
-│   ├── jszr_mc/
-│   ├── jszr_mujoco/
+│   ├── robot_mc/
+│   ├── robot_mujoco/
 │   ├── navigo/
 │   └── UeSim/
 ├── build.sh                     # 一键构建脚本

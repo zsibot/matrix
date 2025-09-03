@@ -20,8 +20,8 @@ It provides a unified environment for **robotics research, reinforcement learnin
 │   ├── install_deps.sh
 │   └── modify_config.sh
 ├── src/
-│   ├── jszr_mc/
-│   ├── jszr_mujoco/
+│   ├── robot_mc/
+│   ├── robot_mujoco/
 │   ├── navigo/
 │   └── UeSim/
 ├── build.sh                     # One-click build script
