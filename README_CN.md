@@ -1,7 +1,7 @@
 # Matrix
 
 **Matrix** 是一个基于 **Unreal Engine 5 (UE5)** 和 **MuJoCo** 的联合仿真工具包。  
-它为**机器人研究、强化学习和虚实交互**提供了统一环境，将 UE5 的高保真渲染与物理效果和 MuJoCo 的轻量级、可微分物理引擎结合在一起。
+它为**机器人研究、强化学习和虚实交互**提供了统一的环境，将 UE5 的高保真渲染与物理效果和 MuJoCo 的轻量级、可微分物理引擎相结合。
 
 ---
 
@@ -51,20 +51,19 @@
 
     - **方式一：Google Drive**
 
-      [Google Drive Download Link](https://drive.google.com/file/d/1-lGchEtyevkziMCmkrBUn7p59XsgMbSp/view?usp=sharing)
+      [Google Drive 下载链接](https://drive.google.com/file/d/1zvpvW1np9IfS-2DA6Uca7Ufar9JY1nwu/view?usp=sharing)
 
-
-      **Download via gdown:**
+      **使用 gdown 下载：**
       ```bash
       pip install gdown
-      gdown https://drive.google.com/uc?id=1-lGchEtyevkziMCmkrBUn7p59XsgMbSp
+      gdown https://drive.google.com/uc?id=1zvpvW1np9IfS-2DA6Uca7Ufar9JY1nwu
       ```
-      
+
     - **方式二：百度网盘**  
 
-      [https://pan.baidu.com/s/1JD1G51MiagNlmNXf144w7g?pwd=6k1w](https://pan.baidu.com/s/1gXctNIrQGyVcuTbJKuZO3g?pwd=id7d)   
+      [百度网盘链接](https://pan.baidu.com/s/1zvnp9itzHtWgH5Wfl3gKDA?pwd=5ygf)  
 
-    - **Method 3: JFrog**  
+    - **方式三：JFrog**  
 
       ```bash
       curl -H "Authorization: Bearer cmVmdGtuOjAxOjE3ODQ2MDY4OTQ6eFJvZVA5akpiMmRzTFVwWXQ3YWRIbTI3TEla"  -o "matrix.zip" -# "http://192.168.50.40:8082/artifactory/jszrsim/UeSim/matrix.zip"  
@@ -75,7 +74,7 @@
    unzip <下载文件名>
    ```
 
-3. **安装依赖**
+3. **安装依赖并构建**
    ```bash
    cd matrix
    ./build.sh
@@ -86,27 +85,27 @@
 
 ## 🏞️ 演示环境
 
-- **起始地图**  
+- **Start Map**  
   <img src="demo_gif/start_map.png" alt="Matrix Demo Screenshot" width="500"/>
 
-- **仓库**  
+- **Warehouse**  
   <img src="demo_gif/whmap.gif" alt="Matrix Warehouse Demo" width="500"/>
 
 - **Town10**  
   <img src="demo_gif/Town10.gif" alt="Matrix Town Demo" width="500"/>
 
-- **院子**  
+- **Yard**  
   <img src="demo_gif/Yardmap.gif" alt="Matrix Yardmap Demo" width="500"/>
 
-> **注意：** 上述截图展示了用于机器人与强化学习实验的 UE5 高保真渲染效果。
+> **注：** 上述截图展示了用于机器人与强化学习实验的 UE5 高保真渲染效果。
 
 ---
 
 ## ▶️ 仿真运行方式
 
-### 无渲染模式
+### 无渲染模式（Headless Mode）
 ```bash
-./run_sim.sh offrender
+./run_sim.sh MapId offrender # 示例：./run_sim.sh 1 offrender
 ```
 - MuJoCo 物理仿真窗口弹出  
 - Unreal Engine 在后台运行  
@@ -118,23 +117,30 @@
 
 ### 渲染模式
 ```bash
-./run_sim.sh
+./run_sim.sh MapId  # 示例：./run_sim.sh 1 
 ```
 - UE 可视化窗口弹出  
 - MuJoCo 物理仿真窗口弹出  
+
+| MapId | 地图名称      |
+|-------|--------------|
+| 1     | **仓库** |
+| 2     | **城镇**    |
+| 3     | **庭院**      |
+| 4     | **crown**     |
 
 ---
 
 ## 🎮 手柄操作说明
 
 | 动作                                 | 手柄操作                                 |
-|--------------------------------------|------------------------------------------|
-| 站立 / 坐下                          | 长按 **LB** + **Y**                      |
+|--------------------------------------|-----------------------------------------|
+| 站立 / 坐下                          | 长按 **LB** + **Y**                     |
 | 前进 / 后退 / 左移 / 右移            | **左摇杆**（上 / 下 / 左 / 右）           |
-| 左转 / 右转                          | **右摇杆**（左 / 右）                     |
-| 向前跳跃                             | 长按 **RB** + **Y**                      |
-| 原地跳跃                             | 长按 **RB** + **X**                      |
-| 翻滚                                 | 长按 **RB** + **B**                      |
+| 左转 / 右转                          | **右摇杆**（左 / 右）                    |
+| 前跳                                 | 长按 **RB** + **Y**                     |
+| 原地跳                               | 长按 **RB** + **X**                     |
+| 翻滚                                 | 长按 **RB** + **B**                     |
 
 ---
 
@@ -145,26 +151,7 @@
 ```bash
 vim matrix/src/jszr_mujoco/simulate/config.yaml
 ```
-修改：
-```yaml
-robot_scene: "scene_terrain.xml"
-```
-为以下之一：
-```yaml
-robot_scene: "scene_terrain_wh.xml"
-robot_scene: "scene_terrain_t10.xml"
-robot_scene: "scene_terrain_yard.xml"
-```
-
----
-
-### 2. 切换 UE 地图
-在 Unreal Engine 窗口内：  
-- 按 **1 / 2 / 3 / 4** 切换地图（起始、仓库、Town10、院子）。
-
----
-
-### 3. 调整传感器配置
+### 调整传感器配置
 编辑：
 ```bash
 vim matrix/src/UeSim/jszr_mujoco_ue/Content/model/config/config.json
@@ -195,7 +182,7 @@ vim matrix/src/UeSim/jszr_mujoco_ue/Content/model/config/config.json
 ```
 
 - 可根据需要调整**位姿**和**传感器数量**  
-- 移除未使用的传感器以提升 **UE FPS 性能**
+- 删除未使用的传感器以提升 **UE FPS 性能**
 
 ---
 

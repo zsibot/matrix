@@ -51,17 +51,17 @@ It provides a unified environment for **robotics research, reinforcement learnin
 
     - **Method 1: Google Drive**
 
-      [Google Drive Download Link](https://drive.google.com/file/d/1-lGchEtyevkziMCmkrBUn7p59XsgMbSp/view?usp=sharing)
+      [Google Drive Download Link](https://drive.google.com/file/d/1zvpvW1np9IfS-2DA6Uca7Ufar9JY1nwu/view?usp=sharing)
 
       **Download via gdown:**
       ```bash
       pip install gdown
-      gdown https://drive.google.com/uc?id=1-lGchEtyevkziMCmkrBUn7p59XsgMbSp
+      gdown https://drive.google.com/uc?id=1zvpvW1np9IfS-2DA6Uca7Ufar9JY1nwu
       ```
 
     - **Method 2: Baidu Netdisk**  
 
-      [Baidu Netdisk Link](https://pan.baidu.com/s/1gXctNIrQGyVcuTbJKuZO3g?pwd=id7d)  
+      [Baidu Netdisk Link](https://pan.baidu.com/s/1zvnp9itzHtWgH5Wfl3gKDA?pwd=5ygf)  
 
     - **Method 3: JFrog**  
 
@@ -105,7 +105,7 @@ It provides a unified environment for **robotics research, reinforcement learnin
 
 ### Headless Mode
 ```bash
-./run_sim.sh offrender
+./run_sim.sh MapId offrender # example command: ./run_sim.sh 1 offrender
 ```
 - MuJoCo physics simulation window pops up  
 - Unreal Engine runs in the background  
@@ -117,10 +117,17 @@ It provides a unified environment for **robotics research, reinforcement learnin
 
 ### Rendering Mode
 ```bash
-./run_sim.sh
+./run_sim.sh MapId  # example command: ./run_sim.sh 1 
 ```
 - UE visualization window pops up  
 - MuJoCo physics simulation window pops up  
+
+| MapId | Map Name      |
+|-------|--------------|
+| 1     | **warehouse** |
+| 2     | **town10**    |
+| 3     | **yard**      |
+| 4     | **crown**     |
 
 ---
 
@@ -139,31 +146,7 @@ It provides a unified environment for **robotics research, reinforcement learnin
 
 ## 🔧 Configuration Guide
 
-### 1. Update MuJoCo Scene
-Edit the configuration file:
-```bash
-vim matrix/src/jszr_mujoco/simulate/config.yaml
-```
-Change:
-```yaml
-robot_scene: "scene_terrain.xml"
-```
-to one of:
-```yaml
-robot_scene: "scene_terrain_wh.xml"
-robot_scene: "scene_terrain_t10.xml"
-robot_scene: "scene_terrain_yard.xml"
-```
-
----
-
-### 2. Switch UE Map
-Inside the Unreal Engine window:  
-- Press **1 / 2 / 3 / 4** to switch maps (Start, Warehouse, Town10, Yard).
-
----
-
-### 3. Adjust Sensor Configuration
+### Adjust Sensor Configuration
 Edit:
 ```bash
 vim matrix/src/UeSim/jszr_mujoco_ue/Content/model/config/config.json
