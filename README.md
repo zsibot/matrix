@@ -61,7 +61,7 @@ It provides a unified environment for **robotics research, reinforcement learnin
 
     - **Method 2: Baidu Netdisk**  
 
-      [Baidu Netdisk Link](https://pan.baidu.com/s/1zvnp9itzHtWgH5Wfl3gKDA?pwd=5ygf)  
+      [Baidu Netdisk Link](https://pan.baidu.com/s/1lvhGLcZOR6CMIcnpBxt53g?pwd=d2xu)  
 
     - **Method 3: JFrog**  
 

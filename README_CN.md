@@ -61,7 +61,7 @@
 
     - **方式二：百度网盘**  
 
-      [百度网盘链接](https://pan.baidu.com/s/1zvnp9itzHtWgH5Wfl3gKDA?pwd=5ygf)  
+      [百度网盘链接](https://pan.baidu.com/s/1lvhGLcZOR6CMIcnpBxt53g?pwd=d2xu)  
 
     - **方式三：JFrog**  
 
