@@ -51,12 +51,12 @@ It provides a unified environment for **robotics research, reinforcement learnin
 
     - **Method 1: Google Drive**
 
-      [Google Drive Download Link](https://drive.google.com/file/d/1zvpvW1np9IfS-2DA6Uca7Ufar9JY1nwu/view?usp=sharing)
+      [Google Drive Download Link](https://drive.google.com/file/d/1qD5abF5zFt-BGPt9fZb2e9DL7_A3UI1w/view?usp=sharing)
 
       **Download via gdown:**
       ```bash
       pip install gdown
-      gdown https://drive.google.com/uc?id=1zvpvW1np9IfS-2DA6Uca7Ufar9JY1nwu
+      gdown https://drive.google.com/uc?id=1qD5abF5zFt-BGPt9fZb2e9DL7_A3UI1w
       ```
 
     - **Method 2: Baidu Netdisk**  
