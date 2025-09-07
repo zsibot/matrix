@@ -47,7 +47,20 @@
 
 ## 🚀 安装与构建
 
-1. **下载 UE 仿真器**
+1. **LCM 安装**
+
+   ```bash
+    sudo apt install cmake-qt-gui gcc g++ libglib2.0-dev python3-pip
+    下载lcm源码，链接https://github.com/lcm-proj/lcm/releases，解压，进入解压目录
+    cd lcm
+    mkdir build 
+    cd build
+    cmake ..
+    make -j32
+    sudo make install
+   ```
+
+2. **下载 UE 仿真器**
 
     - **方式一：Google Drive**
 
@@ -69,16 +82,16 @@
       curl -H "Authorization: Bearer cmVmdGtuOjAxOjE3ODQ2MDY4OTQ6eFJvZVA5akpiMmRzTFVwWXQ3YWRIbTI3TEla"  -o "matrix.zip" -# "http://192.168.50.40:8082/artifactory/jszrsim/UeSim/matrix.zip"  
       ```
 
-2. **解压**
+3. **解压**
    ```bash
    unzip <下载文件名>
    ```
 
-3. **安装依赖并构建**
-   ```bash
-   cd matrix
-   ./build.sh
-   ```
+4. **安装依赖并构建**
+    ```bash
+    cd matrix
+    ./build.sh
+     ```
    *(包含依赖安装)*
 
 ---

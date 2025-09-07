@@ -47,7 +47,24 @@ It provides a unified environment for **robotics research, reinforcement learnin
 
 ## 🚀 Installation & Build
 
-1. **Download the UE simulator**
+1. **LCM Installation**
+```bash
+sudo apt update
+sudo apt install -y cmake-qt-gui gcc g++ libglib2.0-dev python3-pip
+```
+1. Download the source code from [LCM Releases](https://github.com/lcm-proj/lcm/releases) and extract it.
+2. Build and install:
+```bash
+cd lcm-<version>
+mkdir build
+cd build
+cmake ..
+make -j$(nproc)
+sudo make install
+```
+> **Note:** Replace `<version>` with the actual extracted LCM directory name.
+
+2. **Download the UE simulator**
 
     - **Method 1: Google Drive**
 
@@ -69,17 +86,17 @@ It provides a unified environment for **robotics research, reinforcement learnin
       curl -H "Authorization: Bearer cmVmdGtuOjAxOjE3ODQ2MDY4OTQ6eFJvZVA5akpiMmRzTFVwWXQ3YWRIbTI3TEla"  -o "matrix.zip" -# "http://192.168.50.40:8082/artifactory/jszrsim/UeSim/matrix.zip"  
       ```
 
-2. **Unzip**
+3. **Unzip**
    ```bash
    unzip <downloaded_filename>
    ```
 
-3. **Install dependency**
-   ```bash
-   cd matrix
-   ./build.sh
-   ```
-   *(includes dependency installation)*
+4. **Install Dependencies**
+  ```bash
+  cd matrix
+  ./build.sh
+  ```
+  *(This script will automatically install all required dependencies.)*
 
 ---
 
