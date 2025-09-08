@@ -68,17 +68,17 @@ sudo make install
 
     - **Method 1: Google Drive**
 
-      [Google Drive Download Link](https://drive.google.com/file/d/1qD5abF5zFt-BGPt9fZb2e9DL7_A3UI1w/view?usp=sharing)
+      [Google Drive Download Link](https://drive.google.com/file/d/1Z-2zNr6sAI4HnbDqNkkBhM5gE60qvhPY/view?usp=sharing)
 
       **Download via gdown:**
       ```bash
       pip install gdown
-      gdown https://drive.google.com/uc?id=1qD5abF5zFt-BGPt9fZb2e9DL7_A3UI1w
+      gdown https://drive.google.com/uc?id=1Z-2zNr6sAI4HnbDqNkkBhM5gE60qvhPY
       ```
 
     - **Method 2: Baidu Netdisk**  
 
-      [Baidu Netdisk Link](https://pan.baidu.com/s/1lvhGLcZOR6CMIcnpBxt53g?pwd=d2xu)  
+      [Baidu Netdisk Link](https://pan.baidu.com/s/1yea5DmJZ2Zp3S4llA4nmFA?pwd=ht9a)  
 
     - **Method 3: JFrog**  
 

@@ -64,17 +64,17 @@
 
     - **方式一：Google Drive**
 
-      [Google Drive 下载链接](https://drive.google.com/file/d/1qD5abF5zFt-BGPt9fZb2e9DL7_A3UI1w/view?usp=sharing)
+      [Google Drive 下载链接](https://drive.google.com/file/d/1Z-2zNr6sAI4HnbDqNkkBhM5gE60qvhPY/view?usp=sharing)
 
       **使用 gdown 下载：**
       ```bash
       pip install gdown
-      gdown https://drive.google.com/uc?id=1qD5abF5zFt-BGPt9fZb2e9DL7_A3UI1w
+      gdown https://drive.google.com/uc?id=1Z-2zNr6sAI4HnbDqNkkBhM5gE60qvhPY
       ```
 
     - **方式二：百度网盘**  
 
-      [百度网盘链接](https://pan.baidu.com/s/1lvhGLcZOR6CMIcnpBxt53g?pwd=d2xu)  
+      [百度网盘链接](https://pan.baidu.com/s/1yea5DmJZ2Zp3S4llA4nmFA?pwd=ht9a)  
 
     - **方式三：JFrog**  
 
