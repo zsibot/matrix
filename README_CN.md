@@ -39,7 +39,7 @@
 - **构建环境：**  
   - GCC/G++ ≥ C++11  
   - CMake ≥ 3.16  
-- **MuJoCo：** 3.3.2 开源版（已集成）  
+- **MuJoCo：** 3.3.0 开源版（已集成）  
 - **遥控手柄：** 必需（推荐：*Logitech Wireless Gamepad F710*）  
 - **Python 依赖：** `gdown`  
 

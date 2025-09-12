@@ -39,7 +39,7 @@ It provides a unified environment for **robotics research, reinforcement learnin
 - **Build Environment:**  
   - GCC/G++ ≥ C++11  
   - CMake ≥ 3.16  
-- **MuJoCo:** 3.3.2 open-source version (integrated)  
+- **MuJoCo:** 3.3.0 open-source version (integrated)  
 - **Remote Controller:** Required (Recommended: *Logitech Wireless Gamepad F710*)  
 - **Python Dependency:** `gdown`  
 
