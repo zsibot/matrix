@@ -34,7 +34,7 @@ It provides a unified environment for **robotics research, reinforcement learnin
 ## ⚙️ Environment Dependencies
 
 - **Operating System:** Ubuntu 22.04  
-- **Recommended GPU:** NVIDIA RTX 4080 or above  
+- **Recommended GPU:** NVIDIA RTX 4060 or above  
 - **Unreal Engine:** Integrated (no separate installation required)  
 - **Build Environment:**  
   - GCC/G++ ≥ C++11  
