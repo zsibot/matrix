@@ -1,0 +1,22 @@
+name: Repository quality
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  fast-checks:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate Bash syntax
+        shell: bash
+        run: find scripts src -type f -name '*.sh' -print0 | xargs -0 -n1 bash -n
+      - name: Compile Python tools
+        run: python3 -m py_compile scripts/validate_xml_contract.py scripts/ci/check_repo.py
+      - name: Check repository consistency
+        run: python3 scripts/ci/check_repo.py

@@ -1,0 +1,55 @@
+# Chunk package temporary files
+.chunk_downloads_*/
+
+# Release package files (upload to GitHub Releases instead of Git)
+# Assets are downloaded directly to releases/ directory
+# Developers use upload_to_release.sh to upload these files
+releases/*.tar.gz
+releases/*.tar
+releases/*.json
+releases/*.merge.sh
+releases/*.part*
+releases/*.sha256
+releases/*.bak
+releases/chunks/
+!releases/.gitkeep
+
+# UeSim content (filled by downloading releases)
+# Keep directory structure but ignore content
+src/UeSim/Linux/zsibot_mujoco_ue/Content/Paks/*
+src/UeSim/Linux/zsibot_mujoco_ue/Content/model/*
+src/UeSim/Linux/zsibot_mujoco_ue/Binaries/*
+!src/UeSim/Linux/zsibot_mujoco_ue/Binaries/Linux/
+!src/UeSim/Linux/zsibot_mujoco_ue/Binaries/Linux/zsibot_mujoco_ue-Linux-Shipping
+!src/UeSim/Linux/zsibot_mujoco_ue/.gitkeep
+
+# MuJoCo robot model mirror generated from UeSim Content/model during install
+src/robot_mujoco/zsibot_robots/*
+!src/robot_mujoco/zsibot_robots/.gitkeep
+
+# Build artifacts
+*.log
+*.tmp
+bin/*.log
+bin/log.txt
+
+# Build directories
+**/build/
+**/build_*/
+**/*.bak.*/
+
+# Runtime logs
+**/run_*.log
+**/*_ue.log
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+.codex_tmp*

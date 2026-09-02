@@ -1,0 +1,61 @@
+name: Bug report
+description: Report a reproducible MATRiX runtime or tooling problem
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: "Do not report security vulnerabilities here; follow SECURITY.md."
+  - type: input
+    id: version
+    attributes:
+      label: MATRiX version
+      description: Release/tag or the value from VERSION.
+      placeholder: "0.1.2"
+    validations:
+      required: true
+  - type: dropdown
+    id: component
+    attributes:
+      label: Component
+      options:
+        - Installation or release assets
+        - Launcher or runtime scripts
+        - Custom URDF or scene conversion
+        - ROS 2 or RoamerX integration
+        - Documentation
+        - Other
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: OS, GPU/driver, ROS version, robot/map, and relevant hardware.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: Provide the smallest sequence that consistently reproduces the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior and logs
+      description: Remove credentials, private URLs, and personal data before pasting logs.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Environment-check output
+      description: Paste relevant output from scripts/check_env.sh when available.

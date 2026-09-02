@@ -1,0 +1,29 @@
+name: Documentation issue
+description: Report missing, incorrect, or unclear documentation
+title: "[Docs]: "
+labels: ["documentation", "needs-triage"]
+body:
+  - type: input
+    id: location
+    attributes:
+      label: Document or section
+      placeholder: "docs/Custom_Robot_Tutorial.md — Import workflow"
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is unclear or incorrect?
+    validations:
+      required: true
+  - type: textarea
+    id: suggestion
+    attributes:
+      label: Suggested improvement
+  - type: checkboxes
+    id: languages
+    attributes:
+      label: Affected language versions
+      options:
+        - label: English
+        - label: Chinese

@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/zsibot/matrix/security/advisories/new
+    about: Report suspected vulnerabilities privately.
