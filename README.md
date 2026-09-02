@@ -1,121 +1,152 @@
 <div align="center">
 
-<p><strong>English</strong> | <a href="docs/README_CN.md">简体中文</a></p>
+<p><strong>English</strong> | <a href="docs/README_CN.md">Simplified Chinese</a></p>
 
-# MATRiX v1.0.13
+# MATRiX
 
-**A high-fidelity robot simulation platform powered by Unreal Engine, MuJoCo, and Zenoh**
+**A High-Fidelity Robot Simulation Platform Powered by Unreal Engine and MuJoCo**
 
-<img src="demo_gif/Forest.png" alt="MATRiX high-fidelity simulation environment" width="800"/>
+<img src="demo_gif/Forest.png" alt="A quadruped robot exploring a high-fidelity forest in MATRiX" width="800"/>
 
-[GitHub Download](https://github.com/zsibot/matrix/releases/tag/v1.0.13) · [Baidu Netdisk](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q) (`118g`) · [Quick Start](#quick-start) · [Documentation](#documentation) · [Robots & Maps](docs/Robots_and_Maps.md) · [Contributing](CONTRIBUTING.md)
+[Why MATRiX](#why-matrix) · [Promotional Demo](#-promotional-demo) · [Quick Start](#-quick-start) · [Documentation](#-documentation) · [Robots & Maps](docs/Robots_and_Maps.md)
 
 </div>
 
-MATRiX combines Unreal Engine 5 visualization, MuJoCo physics, configurable robot sensors, Zenoh transport, built-in motion control, and downloadable map DLCs. The v1.0.13 open release is a ready-to-run Linux x86_64 package; the core simulator does not require ROS 2.
+MATRiX is a runtime-first robot simulation platform that combines Unreal Engine 5 rendering with MuJoCo dynamics in one workflow. Load an MJCF/XML robot directly, assemble a calibrated sensor suite, run built-in motion control, and stream ROS 2-compatible data over Zenoh—without installing ROS 2 for the core simulator.
 
-## Highlights
+> [!IMPORTANT]
+> The current release is **v1.0.13** and provides a Linux x86_64 runtime. Install a suitable graphics driver before running it; the simulator is not limited to Ubuntu 22.04. Ubuntu 22.04 x86_64 is required only for the optional external motion controller downloaded separately.
 
-- Runtime MJCF/XML loading and MuJoCo robot physics.
-- RGB, infrared, depth, fisheye, panorama, LiDAR, IMU, odometry, and GPS sensors.
-- Built-in motion control enabled by default; no separate controller process is required.
-- Dynamic map catalog updates and automatic DLC downloads from the map-selection UI.
-- Zenoh sensor transport and optional ROS 2 bridging.
-- LiDAR-to-camera projection, Zenoh monitoring, sensor viewing, bounding-box, gimbal, and UDP test tools.
-- Joint targets and actuator commands constrained by the current MuJoCo model limits.
+## Why MATRiX
 
-## Requirements
+| From model to algorithm | What MATRiX provides |
+|---|---|
+| **Bring up robots faster** | Load MJCF/XML at runtime and configure robots, initial poses, sensors, topics, and control mode through JSON instead of rebuilding the simulator for every model. |
+| **Test perception with sensor realism** | RGB, infrared, GPU depth, panorama, fisheye, generic LiDAR, Mid360, Airy, IMU, GPS, and odometry; camera calibration, Brown-Conrady and Kannala-Brandt distortion, LiDAR scan timing, and motion distortion are modeled in the simulation path. |
+| **Keep multi-sensor data coherent** | A unified ROS 2 time model supports stable UTC, Unreal simulation time, external `/clock`, and fixed-step time. Camera and LiDAR can share hardware-style trigger groups and timestamps. |
+| **Move from simulation control to controller integration** | MuJoCo runs on a dedicated worker with a 500 Hz target. Built-in motion control is ready by default, while the optional external `robot_mc` uses the same simulated-hardware ABI; joint and actuator targets are constrained by the active MuJoCo model. |
+| **Use ROS-compatible data without a ROS dependency** | Zenoh publishes ROS 2-compatible CDR messages such as compressed images and `PointCloud2`. The simulator can run standalone, while ROS 2 bridges remain optional. |
+| **Scale scenes independently from the base runtime** | The launcher updates a validated remote map catalog, detects mounted content, and downloads map DLCs on demand. Standard UE scenes, dynamic actors, Gaussian-splatting content, and Pixel Streaming 2 can share the same runtime. |
+| **Debug with tools already in the release** | Sensor receiver, topic monitor, LiDAR-camera projection, 2D/3D bounding-box visualization, gimbal control, motion-control UDP tests, spawn tests, and voice-message tests are included under `Tools/`. |
 
-The v1.0.13 simulator requires Linux x86_64 and a correctly installed graphics driver. It is not limited to Ubuntu 22.04. At least 16 GB of memory is recommended.
-
-Ubuntu 22.04 x86_64 is required only when using the separately downloaded external motion controller; it is not a simulator requirement.
-
-## Quick Start
-
-Choose either download source:
-
-- GitHub: download all three archive parts plus `SHA256SUMS` from the [v1.0.13 Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13), keeping the original filenames in one directory.
-- Baidu Netdisk: download the complete Linux package from the [Linux share](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q) with access code `118g`.
-
-The following commands apply to the GitHub split archive:
-
-```bash
-sha256sum -c SHA256SUMS
-cat MATRiX_v1.0.13.tar.gz.part-* | tar -xzf -
-cd MATRiX_v1.0.13
-./UeSim.sh
-```
-
-The archive preserves executable permissions; no `chmod` step is required for `UeSim.sh` or the UeSim binary.
-
-The release defaults to:
-
-```text
-mujoco_model:     model/xgb/xgb.xml
-inside_mc:        true
-sensor_sync_mode: false
-zenoh_router:     tcp/0.0.0.0:7447
-```
-
-On the map-selection screen, select **UPDATE LIST** first, then select **DOWNLOAD** below a map to download its DLC automatically. If automatic download is unavailable, use the [Baidu Netdisk mirror (code: `6sth`)](https://pan.baidu.com/s/1I87hQ9C8XzIGXgbyWk3i9A?pwd=6sth#list/path=%2F) and follow the [manual DLC guide](docs/Map_DLC.md).
-
-## Motion Control
-
-Built-in control is the default (`robot.inside_mc=true`) and runs inside UeSim. The standalone `robot_mc` runtime is intentionally not included in the open package.
-
-Users who need a separate controller process can download a supported runtime from [MATRiX_Robot_MC](https://github.com/GENISOM-AI/MATRiX_Robot_MC/releases), set `inside_mc=false` manually, start UeSim first, and then start that controller. Never run built-in and external motion control together. See the [motion-control guide](docs/Motion_Control.md).
-
-## LiDAR-to-Camera Projection
-
-The release includes `Tools/visualize_lidar_camera_projection.py`. Enable synchronized scheduling in `UeSim/Content/model/config/config.json` before use:
-
-```json
-"sensor_sync_mode": true
-```
-
-```bash
-python3 -m pip install numpy opencv-python eclipse-zenoh
-python3 Tools/visualize_lidar_camera_projection.py --check-only
-python3 Tools/visualize_lidar_camera_projection.py
-```
-
-See the [projection guide](docs/Lidar_Camera_Projection.md) for calibration, coordinates, topic overrides, and troubleshooting.
-
-## Documentation
-
-| Topic | English | 中文 |
-|---|---|---|
-| Installation and startup | [Getting Started](docs/Getting_Started.md) | [快速开始](docs/Getting_Started_CN.md) |
-| Release download and checksums | [Download Guide](docs/Release_Download.md) | [下载与校验](docs/Release_Download_CN.md) |
-| Motion control | [Motion Control](docs/Motion_Control.md) | [运动控制](docs/Motion_Control_CN.md) |
-| Maps and DLCs | [Map DLC](docs/Map_DLC.md) | [地图与 DLC](docs/Map_DLC_CN.md) |
-| Robots and maps | [Robots and Maps](docs/Robots_and_Maps.md) | [机器人与地图](docs/Robots_and_Maps_CN.md) |
-| LiDAR-camera projection | [Projection](docs/Lidar_Camera_Projection.md) | [投影与坐标系](docs/Lidar_Camera_Projection_CN.md) |
-| Sensors and Zenoh | [Sensor Configuration](docs/Sensor_Config_Tutorial.md) | [传感器与通信](docs/Sensor_and_Communication_CN.md) |
-| Python tools | — | [Python 工具](docs/Python_Tools_CN.md) |
-| Controllers | [Controller Guide](docs/Controller_Guide.md) | [手柄与相机](docs/Controller_Guide_CN.md) |
-| Gimbal UDP control | — | [Protocol](docs/Camera_Gimbal_UDP_JSON_Protocol_CN.md) · [UI tool](docs/Camera_Gimbal_UI_Tool_CN.md) |
-| Zenoh 2D bounding boxes | — | [BBox tool](docs/Zenoh_BBox2D_CN.md) |
-| RoamerX Lite integration | [Integration Guide](docs/RoamerX_Lite_Integration.md) | — |
-| Pixel Streaming | [Pixel Streaming 2](docs/pixelstreaming_tutorial.md) | — |
-| Advanced configuration | — | [高级配置](docs/Advanced_Configuration_CN.md) |
-| Docker status | [Docker Support Status](docs/Docker_Tutorial.md) | — |
-| Architecture and releases | [Maintainer Guide](docs/MAINTAINER_GUIDE.md) | — |
-| Troubleshooting | — | [常见问题](docs/FAQ_CN.md) |
-| Release changes | — | [v1.0.13 发布说明](docs/Release_Notes_CN.md) |
-
-## Community
+## 🎥 Promotional Demo
 
 <div align="center">
-  <img src="demo_gif/wechat.png" alt="GENISOM AI WeChat assistant QR code" style="height: 320px; width: auto; margin: 0 12px;"/>
+  <img src="demo_gif/demo.gif" alt="Selecting a robot and starting a MATRiX simulation" width="800"/>
+  <p>
+    <strong>MATRiX 2.0 Simulation Showcase</strong><br/>
+    <sub>Robot selection · High-fidelity environments · Multi-robot simulation · Reinforcement learning · Real-world scene reconstruction</sub>
+  </p>
+</div>
+
+## ✨ Core Capabilities
+
+- **Runtime robot onboarding:** MJCF/XML loading, custom models, visual/collision binding, and reusable sensor schemes without baking every robot into a separate package.
+- **High-rate physics and control:** Dedicated MuJoCo simulation worker, 500 Hz target control/hardware loops, command timeout handling, and model-derived joint/actuator limit enforcement.
+- **Calibrated perception:** GPU scene depth, asynchronous GPU readback and encoding, perspective and fisheye lens models, synchronized capture, and LiDAR per-point timing/motion-distortion support.
+- **Open data plane:** Zenoh publish/subscribe with ROS 2-compatible message layouts, configurable key expressions, unified timestamps, and optional LAN state/event synchronization.
+- **Flexible control architecture:** Built-in motion control for a ready-to-run experience, or a separately downloaded external controller through the original shared-memory hardware interface—selected with one configuration switch.
+- **Expandable environments:** Dynamic map catalog updates, automatic DLC download and mounting, runtime map detection, Gaussian-splatting rendering, crowds/vehicles, and Pixel Streaming 2.
+- **Developer-facing workflow:** JSON and graphical sensor configuration plus Linux tools for data inspection, projection, bounding boxes, gimbal control, and protocol testing.
+
+### Built for
+
+- Perception, SLAM, sensor-fusion, and synthetic-data development.
+- Locomotion, whole-body control, reinforcement learning, and controller regression.
+- Simulated-hardware and external-controller integration before physical-robot deployment.
+- Multi-scene testing, remote demonstrations, and browser-based visualization.
+
+## 🎬 Simulation Gallery
+
+<div align="center">
+<table>
+<tr>
+<td align="center"><img src="demo_gif/Town10.gif" alt="Quadruped robot navigating a Town10 city street" width="360"/><br/><sub>Town10 · Urban Robot Navigation</sub></td>
+<td align="center"><img src="demo_gif/Venice.gif" alt="Venice simulation with RGB and sensor views" width="360"/><br/><sub>Venice · RGB and Sensor Visualization</sub></td>
+</tr>
+<tr>
+<td align="center"><img src="demo_gif/whmap.gif" alt="Robot simulation in a sunlit warehouse" width="360"/><br/><sub>Warehouse · Industrial Lighting and Scale</sub></td>
+<td align="center"><img src="demo_gif/Yardmap.gif" alt="Quadruped robot moving through a courtyard" width="360"/><br/><sub>Courtyard · Locomotion Near Steps</sub></td>
+</tr>
+</table>
+</div>
+
+## 🚀 Quick Start
+
+1. Download MATRiX v1.0.13 using either source:
+   - [GitHub Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13): download all three archive parts and `SHA256SUMS` into one directory without renaming them.
+   - [Baidu Netdisk Linux package](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q): access code `118g`.
+2. For the GitHub split archive, verify and extract it:
+
+~~~bash
+sha256sum -c SHA256SUMS
+cat MATRiX_v1.0.13.tar.gz.part-* | tar -xzf -
+~~~
+
+3. Start MATRiX:
+
+~~~bash
+cd MATRiX_v1.0.13
+./UeSim.sh
+~~~
+
+The archive preserves executable permissions; no `chmod` step is required for `UeSim.sh` or `UeSim/Binaries/Linux/UeSim`.
+
+Built-in motion control is enabled by default (`robot.inside_mc=true`), so a separate controller process is not required. The open runtime does not include standalone `robot_mc`; if needed, download a supported Linux runtime from [MATRiX_Robot_MC](https://github.com/GENISOM-AI/MATRiX_Robot_MC/releases) and follow the [motion-control guide](docs/Motion_Control.md).
+
+On the map-selection screen, select **UPDATE LIST** first and then select **DOWNLOAD** below a map. For manual installation, download the map DLC from [Baidu Netdisk](https://pan.baidu.com/s/1I87hQ9C8XzIGXgbyWk3i9A?pwd=6sth#list/path=%2F) with access code `6sth` and follow the [map DLC guide](docs/Map_DLC.md).
+
+If the runtime package includes `Tools/`, a typical sensor receiver setup is:
+
+~~~bash
+python3 -m pip install eclipse-zenoh opencv-python numpy
+python3 Tools/zenoh_sensor_receiver.py
+~~~
+
+See the [Getting Started guide](docs/Getting_Started.md) for the complete requirements, runtime layout, and verification steps.
+
+## 📚 Documentation
+
+| Topic | Documentation |
+|---|---|
+| Installation and startup | [English](docs/Getting_Started.md) · [Chinese](docs/Getting_Started_CN.md) |
+| Release download and checksums | [English](docs/Release_Download.md) · [Chinese](docs/Release_Download_CN.md) |
+| Robots and environments | [English](docs/Robots_and_Maps.md) · [Chinese](docs/Robots_and_Maps_CN.md) |
+| Maps and DLCs | [English](docs/Map_DLC.md) · [Chinese](docs/Map_DLC_CN.md) |
+| Sensors and Zenoh | [Sensor and Communication (Chinese)](docs/Sensor_and_Communication_CN.md) |
+| Sensor configuration | [Sensor Configuration Tutorial](docs/Sensor_Config_Tutorial.md) |
+| Data tools | [Python Tools (Chinese)](docs/Python_Tools_CN.md) |
+| LiDAR-camera projection | [English](docs/Lidar_Camera_Projection.md) · [Chinese](docs/Lidar_Camera_Projection_CN.md) |
+| Motion control | [English](docs/Motion_Control.md) · [Chinese](docs/Motion_Control_CN.md) |
+| Controllers | [Controller Guide](docs/Controller_Guide.md) · [Chinese](docs/Controller_Guide_CN.md) |
+| Manual configuration | [Advanced Configuration (Chinese)](docs/Advanced_Configuration_CN.md) |
+| Architecture and maintenance | [Maintainer Guide](docs/MAINTAINER_GUIDE.md) |
+| Troubleshooting | [FAQ (Chinese)](docs/FAQ_CN.md) |
+| Docker | [Docker Support Status](docs/Docker_Tutorial.md) |
+| Pixel Streaming | [Pixel Streaming Guide](docs/pixelstreaming_tutorial.md) |
+| Release changes | [v1.0.13 Release Notes (Chinese)](docs/Release_Notes_CN.md) |
+| Chinese documentation index | [Simplified Chinese](docs/README_CN.md) |
+
+## 💬 Community
+
+**Add the GENISOM AI WeChat assistant for MATRiX simulation discussions and support:**
+
+<div align="center">
+  <img src="demo_gif/wechat.png" alt="GENISOM AI WeChat Assistant QR Code" style="height: 320px; width: auto; margin: 0 12px;"/>
   <p><em>Scan to add XinQi Robo; mention MATRiX to join the simulation community.</em></p>
 </div>
 
-## Contributing and Security
+## 🤝 Contributing
 
-Bug reports and documentation improvements are welcome. Read [CONTRIBUTING.md](CONTRIBUTING.md) before opening a pull request. Report security issues privately as described in [SECURITY.md](SECURITY.md).
+Bug reports, documentation improvements, and runtime tooling changes are
+welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md), and review the
+[architecture and maintainer guide](docs/MAINTAINER_GUIDE.md) before changing
+launch or release scripts. Security issues should follow [SECURITY.md](SECURITY.md)
+rather than being filed as public issues.
 
-## Acknowledgements
+## 🙏 Acknowledgements
+
+This project builds upon the incredible work of the following open-source projects:
 
 - [MuJoCo-Unreal-Engine-Plugin](https://github.com/oneclicklabs/MuJoCo-Unreal-Engine-Plugin)
 - [MuJoCo](https://github.com/google-deepmind/mujoco)
