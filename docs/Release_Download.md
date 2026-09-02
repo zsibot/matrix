@@ -2,7 +2,12 @@
 
 [README](../README.md) | [中文](Release_Download_CN.md)
 
-The Linux runtime archive is split because each GitHub Release asset must remain below 2 GB. Download these files from the [v1.0.13 Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13):
+Two download sources are available:
+
+- [GitHub Release v1.0.13](https://github.com/zsibot/matrix/releases/tag/v1.0.13): split archive with checksums.
+- [Baidu Netdisk Linux package](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q): complete package, access code `118g`.
+
+The Linux runtime archive on GitHub is split because each Release asset must remain below 2 GB. Download these files:
 
 ```text
 MATRiX_v1.0.13.tar.gz.part-001

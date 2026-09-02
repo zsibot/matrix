@@ -8,7 +8,7 @@
 
 <img src="../demo_gif/Forest.png" alt="MATRiX 高保真仿真环境" width="800"/>
 
-[下载](https://github.com/zsibot/matrix/releases/tag/v1.0.13) · [快速开始](#快速开始) · [文档中心](#文档中心) · [机器人与地图](Robots_and_Maps_CN.md) · [参与贡献](../CONTRIBUTING.md)
+[GitHub 下载](https://github.com/zsibot/matrix/releases/tag/v1.0.13) · [百度网盘](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q)（`118g`） · [快速开始](#快速开始) · [文档中心](#文档中心) · [机器人与地图](Robots_and_Maps_CN.md) · [参与贡献](../CONTRIBUTING.md)
 
 </div>
 
@@ -32,7 +32,12 @@ v1.0.13 仿真器需要 Linux x86_64 环境和正确安装的显卡驱动，不�
 
 ## 快速开始
 
-从 [v1.0.13 Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13) 下载全部 3 个压缩分片和 `SHA256SUMS`，保持原文件名并放在同一目录：
+可任选一种下载方式：
+
+- GitHub：从 [v1.0.13 Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13) 下载全部 3 个压缩分片和 `SHA256SUMS`，保持原文件名并放在同一目录；
+- 百度网盘：从 [Linux 运行包分享](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q)下载完整包，提取码 `118g`。
+
+使用 GitHub 分片时执行：
 
 ```bash
 sha256sum -c SHA256SUMS

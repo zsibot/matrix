@@ -4,7 +4,7 @@
 
 ## Download and extract
 
-Download all three archive parts and `SHA256SUMS` from the [v1.0.13 Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13), then run:
+Download either the complete package from [Baidu Netdisk](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q) (access code `118g`), or all three archive parts and `SHA256SUMS` from the [v1.0.13 GitHub Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13). For the GitHub split archive, run:
 
 ```bash
 sha256sum -c SHA256SUMS

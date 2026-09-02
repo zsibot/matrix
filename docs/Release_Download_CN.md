@@ -2,7 +2,12 @@
 
 [中文主页](README_CN.md) | [English](Release_Download.md)
 
-GitHub Release 单文件需要低于 2 GB，因此 Linux 运行包拆成 3 个分片。从 [v1.0.13 Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13) 下载：
+提供两种下载方式：
+
+- [GitHub Release v1.0.13](https://github.com/zsibot/matrix/releases/tag/v1.0.13)：分片压缩包和校验文件；
+- [百度网盘 Linux 运行包](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q)：完整包，提取码 `118g`。
+
+GitHub Release 单文件需要低于 2 GB，因此 Linux 运行包拆成 3 个分片。需要下载：
 
 ```text
 MATRiX_v1.0.13.tar.gz.part-001

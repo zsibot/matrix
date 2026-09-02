@@ -4,7 +4,7 @@
 
 ## 1. 下载与解压
 
-从 [v1.0.13 Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13) 下载全部 3 个压缩分片及 `SHA256SUMS`：
+可从[百度网盘](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q)下载完整 Linux 运行包（提取码 `118g`），也可从 [v1.0.13 GitHub Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13) 下载全部 3 个压缩分片及 `SHA256SUMS`。使用 GitHub 分片时执行：
 
 ```bash
 sha256sum -c SHA256SUMS

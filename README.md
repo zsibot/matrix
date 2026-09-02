@@ -8,7 +8,7 @@
 
 <img src="demo_gif/Forest.png" alt="MATRiX high-fidelity simulation environment" width="800"/>
 
-[Download](https://github.com/zsibot/matrix/releases/tag/v1.0.13) · [Quick Start](#quick-start) · [Documentation](#documentation) · [Robots & Maps](docs/Robots_and_Maps.md) · [Contributing](CONTRIBUTING.md)
+[GitHub Download](https://github.com/zsibot/matrix/releases/tag/v1.0.13) · [Baidu Netdisk](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q) (`118g`) · [Quick Start](#quick-start) · [Documentation](#documentation) · [Robots & Maps](docs/Robots_and_Maps.md) · [Contributing](CONTRIBUTING.md)
 
 </div>
 
@@ -32,7 +32,12 @@ Ubuntu 22.04 x86_64 is required only when using the separately downloaded extern
 
 ## Quick Start
 
-Download all three archive parts plus `SHA256SUMS` from the [v1.0.13 Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13). Keep the original filenames in one directory.
+Choose either download source:
+
+- GitHub: download all three archive parts plus `SHA256SUMS` from the [v1.0.13 Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13), keeping the original filenames in one directory.
+- Baidu Netdisk: download the complete Linux package from the [Linux share](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q) with access code `118g`.
+
+The following commands apply to the GitHub split archive:
 
 ```bash
 sha256sum -c SHA256SUMS
