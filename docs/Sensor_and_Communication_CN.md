@@ -14,10 +14,12 @@ Content/model/config/sensors/
 ├── config_infrared.json
 ├── config_lidar.json
 ├── config_panorama.json
+├── config_ptzrgb.json
+├── mid360_slam.json
 └── config_zg.json
 ~~~
 
-打包版通常位于 `Windows/UeSim/Content/model/config/` 或 `Linux/UeSim/Content/model/config/`。
+v1.0.13 Linux 运行包位于 `UeSim/Content/model/config/`。
 
 ## 当前传感器类型
 
@@ -205,9 +207,9 @@ uint32 nanosec
 
 若下载的运行包包含 `Tools/`：
 
-~~~powershell
-python zenoh_sensor_receiver.py --mode client --connect tcp/192.168.1.100:7447
-python zenoh_topic_monitor.py --mode client --connect tcp/192.168.1.100:7447
+~~~bash
+python3 Tools/zenoh_sensor_receiver.py --connect tcp/192.168.1.100:7447
+python3 Tools/zenoh_topic_monitor.py --connect tcp/192.168.1.100:7447
 ~~~
 
 同时确认 MATRiX 侧确实在 `0.0.0.0:7447` 监听，并放行 TCP 7447。

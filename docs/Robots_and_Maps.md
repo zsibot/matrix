@@ -2,7 +2,7 @@
 
 [README](../README.md) | [中文](Robots_and_Maps_CN.md)
 
-This page reflects the current `uesim` source tree. A packaged release may contain only a subset of source assets, and its DLCs must match the target platform and release version.
+This page describes the MATRiX v1.0.13 Linux release. DLCs must match this release and its Unreal Engine build.
 
 ## Robot models
 
@@ -14,11 +14,12 @@ This page reflects the current `uesim` source tree. A packaged release may conta
 | `xg2` | Yes | Yes | Second XG quadruped |
 | `xgw` | Yes | Yes | Wheeled XG variant |
 | `xgw2` | Yes | Yes | Second wheeled XG variant |
+| `xxg` | Yes | Yes | XXG quadruped with head joints |
 | `zgws` | Yes | Yes | Embedded Passive / Stand / Walk |
 | `zgwt` | Yes | Yes | Embedded Passive / Stand / Walk |
 | `zgwsarm` | Yes | Yes | UI label may appear as `zgws_arm` |
 
-The model key must match the model directory and MJCF selected by `mujoco_model`. The embedded controller supports Passive, Stand, and Walk for all seven documented motion-controlled models; Jump and FrontJump are implemented only for `xgb`.
+The model key must match the model directory and MJCF selected by `mujoco_model`. The embedded controller is registered for `xgb`, `xg2`, `xgw`, `xgw2`, `xxg`, `zgws`, `zgwt`, and `zgwsarm`. `go2` and `go2w` are simulation assets without a v1.0.13 built-in motion core.
 
 ### Robot previews
 
@@ -36,33 +37,28 @@ The model key must match the model directory and MJCF selected by `mujoco_model`
     <td></td>
   </tr>
 </table>
-## Maps in the source packaging list
+## Dynamic map catalog
 
-`MainWorld` is the base/default map. The Windows bulk-packaging script currently lists these DLC maps:
+The open base package intentionally starts with an empty `UeSim/Content/model/MapDataTable.json`. On the map-selection screen:
 
-| Group | Map names |
-|---|---|
-| Reconstructed and indoor | `3DGSWorld`, `ApartmentWorld`, `HouseWorld`, `House2World`, `MeetRoomWorld`, `OfficeWorld`, `SceneWorld` |
-| Urban and outdoor | `BatuluWorld`, `CaliWorld`, `Custom2World`, `Town10World`, `VeniceWorld`, `YardWorld`, `ForestWorld` |
-| Interaction and games | `CrowdWorld`, `RunningWorld`, `Town10Zombie`, `BloodWorld`, `DungeonWorld` |
-| Competition and terrain | `IROSFlatWorld`, `IROSFlatWorld2025`, `IROSSlopedWorld`, `IROSSloppedWorld2025`, `MoonWorld`, `MarsWorld` |
+1. select **UPDATE LIST** to retrieve the current catalog;
+2. select **DOWNLOAD** below the required map;
+3. wait for the DLC download and mount to complete;
+4. enter the map when its card is marked ready.
 
-Do not rely on the old numeric map IDs: runtime discovery and opening use asset/map names. The Linux bulk-packaging list can differ from the Windows list, and a public release can ship fewer DLCs than the source project contains.
-
-The runtime also discovers maps through the asset registry, including HELIOS map locations. Extra maps such as calibration, home, or laboratory environments can therefore appear in a particular build even when they are not in the bulk DLC list above.
+The catalog is the source of truth for the maps currently offered for v1.0.13. Do not rely on old numeric IDs or copy a catalog from another release.
 
 ## DLC locations and loading
 
-The runtime scans both locations recursively:
+For manual installation, download the required DLC from the [Baidu Netdisk mirror (code: `6sth`)](https://pan.baidu.com/s/1I87hQ9C8XzIGXgbyWk3i9A?pwd=6sth#list/path=%2F), extract the `.pak`, and place it in the preferred directory:
 
 ```text
-Saved/DLCs/*.pak
-Content/DLCs/*.pak
+UeSim/Saved/DLCs/*.pak
 ```
 
-Installed DLCs are mounted during startup. The game instance also implements runtime operations to load a DLC file, enumerate available maps, and open an installed map. A restart is only needed when the packaged UI does not expose those operations or when a mount fails.
+The runtime also scans `UeSim/Content/DLCs/*.pak`. Restart UeSim after manual installation. A `.pak` without a matching current catalog entry may be mounted but not shown as a card.
 
-Use DLCs built for the same platform and compatible MATRiX release. A `.pak` from another platform or engine build may be discovered but fail to mount or open.
+See [Map_DLC.md](Map_DLC.md) for the complete automatic and manual workflow.
 
 ## Map previews
 

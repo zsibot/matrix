@@ -16,10 +16,12 @@ Content/model/config/sensors/
 ├── config_infrared.json
 ├── config_lidar.json
 ├── config_panorama.json
+├── config_ptzrgb.json
+├── mid360_slam.json
 └── config_zg.json
 ~~~
 
-Packaged builds commonly expose the same tree under `Windows/UeSim/Content/model/` or `Linux/UeSim/Content/model/`.
+The v1.0.13 Linux package exposes this tree under `UeSim/Content/model/`.
 
 `config.json` is the active robot configuration. Files in `sensors/` are templates. Editing a template does not change `config.json` until the launcher or a config-library operation applies it.
 
@@ -28,14 +30,12 @@ Packaged builds commonly expose the same tree under `Windows/UeSim/Content/model
 ~~~json
 {
   "robot": {
-    "robot_type": "xgb",
-    "mujoco_model": "Content/model/xgb/xgb.xml",
+    "mujoco_model": "model/xgb/xgb.xml",
     "main_body": "base_link",
     "weapon": "",
     "network_mode": "standalone",
     "sensor_sync_mode": false,
     "inside_mc": true,
-    "hardware_simulation": false,
     "zenoh_router": "tcp/0.0.0.0:7447",
     "position": { "x": 0, "y": 0, "z": 1 },
     "state_port": "mujoco/state",
@@ -54,7 +54,7 @@ Important corrections from older configurations:
 - Do not use `synchronous_mode`, `synchronous_frequency`, `EgoView`, or per-sensor `synchronized`.
 - `sensor_master_rate_hz`, `sensor_overrun_policy`, and `require_realtime_sensor_frequency` are legacy runtime pins and are removed when the current config library saves JSON.
 
-The `mujoco_model` path must exist on the target machine. Do not copy a developer-specific absolute path into a distributed package.
+The `mujoco_model` path is relative to `UeSim/Content`. Keep it relative so the extracted release can be moved.
 
 ## 3. Dynamic sensor objects
 

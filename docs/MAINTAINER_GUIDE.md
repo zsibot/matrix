@@ -2,7 +2,7 @@
 
 [README](../README.md) | [Contributing](../CONTRIBUTING.md)
 
-This guide records the architecture that can be verified in the current `uesim` source tree. It intentionally avoids release-package layouts and helper scripts that are not present in source.
+This guide records the v1.0.13 Linux release boundary and the corresponding `uesim` source architecture reviewed at commit `b666c0d9`.
 
 ## Runtime architecture
 
@@ -26,8 +26,9 @@ Other enabled plugins, including task, procedural world, and Gaussian-splatting 
 3. The selected MJCF is loaded and converted into the Unreal representation.
 4. Sensors are created from the dynamic `robot.sensors` object.
 5. The MuJoCo worker advances physics; transport and sensors publish from their own scheduling paths.
-6. Installed DLCs are discovered from `Saved/DLCs` and `Content/DLCs`. A packaged UI may additionally call the runtime load/open functions.
-7. Motion control starts only for the selected and configured control mode.
+6. The map UI loads `Content/model/MapDataTable.json`; the base release starts with an empty catalog and can download a validated replacement.
+7. Installed DLCs are discovered from `Saved/DLCs` and `Content/DLCs`; the UI can download, mount, and open a selected catalog entry.
+8. Motion control starts only for the selected and configured control mode.
 
 Changes to spawn order need regression tests for sensor attachment, body-to-geom transforms, transport startup, and controller initialization.
 
@@ -35,8 +36,8 @@ Changes to spawn order need regression tests for sensor attachment, body-to-geom
 
 The current saved schema is rooted at `robot` and includes:
 
-- identity/model: `robot_type`, `mujoco_model`, `main_body`;
-- execution: `mujoco_running`, `inside_mc`, `hardware_simulation`;
+- identity/model: `mujoco_model`, `main_body`, `weapon`;
+- execution: `mujoco_running`, `inside_mc`;
 - networking: `network_mode`, `zenoh_router`, `state_port`, `cmd_port`;
 - timing: robot-level `sensor_sync_mode`;
 - pose: `position`;
@@ -89,44 +90,46 @@ Sensor payloads use ROS 2-compatible CDR encodings over Zenoh. Keep `frame_id` /
 
 ## Motion-control contract
 
-Public documentation currently lists `xgb`, `xg2`, `xgw`, `xgw2`, `zgws`, `zgwt`, and `zgwsarm`. UI/protocol aliases include `xg` for `xgb` and `zgws_arm` for `zgwsarm`.
+Public documentation lists `xgb`, `xg2`, `xgw`, `xgw2`, `xxg`, `zgws`, `zgwt`, and `zgwsarm`. UI/protocol aliases include `xg` for `xgb` and `zgws_arm` for `zgwsarm`.
 
-- All seven documented models support Passive, Stand, and Walk.
+- All eight documented models have a built-in motion core; available actions must be queried per model.
 - Only `xgb` registers Jump and FrontJump.
 - The embedded loop targets 500 Hz and ONNX inference targets 100 Hz.
-- The embedded core currently uses local Zenoh `tcp/127.0.0.1:7447` with fixed `mujoco/state` and `mujoco/cmd` keys.
-- Linux simulated hardware uses a process-global shared-memory path and should be limited to one robot per UeSim process/container.
-- Embedded control and external simulated-hardware control must not command the same robot simultaneously.
+- MuJoCo simulated hardware implements the original controller shared-memory ABI.
+- Built-in motion control connects to that ABI when `inside_mc=true`; an external controller uses it when `inside_mc=false`.
+- The shared-memory path is process-global and should be limited to one matching controller per robot runtime.
+- Built-in and external control must never command the same robot simultaneously.
 
 ## DLC and map releases
 
-`MainWorld` is the base map. DLC code recursively scans both supported directories and can mount packages at startup or at runtime.
+The public base package intentionally ships an empty `Content/model/MapDataTable.json`. The map UI updates that catalog, downloads a selected DLC, and refreshes installed-map state. DLC code recursively scans both supported directories and can mount packages at startup or at runtime.
 
-The Windows bulk packaging script and Linux bulk packaging script are separate sources of release intent and can contain different map lists. Before publishing:
+Before publishing a Linux release:
 
-1. compare the intended release manifest with both scripts;
-2. package on the target platform;
-3. start without DLCs and verify `MainWorld`;
-4. mount every shipped `.pak`;
-5. enumerate and open every expected map by name;
-6. confirm the release documentation lists only assets actually shipped.
+1. compare the intended release manifest with the Linux packaging output;
+2. start without DLCs and verify the empty catalog state;
+3. update `MapDataTable.json` through the UI;
+4. automatically download and mount a catalog DLC;
+5. manually install a `.pak` under `UeSim/Saved/DLCs` and restart;
+6. enumerate and open every expected map by name;
+7. confirm the release documentation lists only downloadable assets.
 
 Do not publish stable numeric map IDs unless a versioned runtime API explicitly defines them.
 
 ## Platform and release checks
 
-Minimum smoke-test matrix:
+Minimum Linux smoke-test matrix:
 
-| Area | Windows | Linux |
-|---|---:|---:|
-| DX12/Vulkan startup and `MainWorld` | Required | Required |
-| Runtime MJCF load | Required | Required |
-| Zenoh state/command keys | Required | Required |
-| Every sensor family included in release | Required | Required |
-| DLC discovery and map opening | Required | Required |
-| Embedded motion models included in release | Required | Required |
-| Shared-memory simulated hardware | N/A | Required when shipped |
-| Pixel Streaming 2 | Required when shipped | Required when shipped |
+| Area | Requirement |
+|---|---:|
+| Vulkan startup and default scene | Required |
+| Runtime MJCF load | Required |
+| Zenoh state/command keys | Required |
+| Every sensor family included in release | Required |
+| Map-list update, DLC download, discovery, and opening | Required |
+| Embedded motion models included in release | Required |
+| Optional external shared-memory control | Required when documented |
+| Pixel Streaming 2 | Required when shipped |
 
 Also verify that documentation-only repositories do not advertise runtime tools, Docker images, model weights, or web-server bundles unless those artifacts are actually downloadable and versioned.
 

@@ -1,106 +1,203 @@
-# 运动控制指南
+# MATRiX v1.0.13 运动控制指南
 
-[中文主页](README_CN.md) | [机器人与地图](Robots_and_Maps_CN.md) | [手柄控制](Controller_Guide_CN.md)
+[返回中文主页](README_CN.md) | [English](Motion_Control.md)
 
-本文依据当前 `MatrixMotionControl` 与 MuJoCo 运行时代码整理。旧版文档中的 `mc_python/run.py` 和 `matrix_mc_unreal` 不属于当前所核对源码的标准启动链路。
+v1.0.13 开源发布包默认只使用内置运控。独立 `robot_mc` 不随包分发，需要时由用户自行下载。
 
-## 控制架构
+## 1. 默认模式
 
-当前源码提供两种用途不同的控制方式：
+主配置：
 
-| 模式 | 数据链路 | 适用场景 |
-|---|---|---|
-| 进程内运控 | UeSim ↔ Zenoh ↔ 内置 motion core | 直接在仿真进程内运行内置策略 |
-| Linux 模拟硬件 | UeSim ↔ 共享内存 ↔ 外部 `mc_ctrl` | 让外部控制程序使用模拟硬件 ABI |
-
-两种方式不应同时向同一个机器人写入控制命令。Linux 模拟硬件后端使用进程级共享资源，因此一个 UeSim 进程/容器只应承载一个使用该链路的机器人。
-
-## 支持的模型
-
-| 配置模型 | UI/协议名称 | 基本动作 | 扩展动作 |
-|---|---|---|---|
-| `xgb` | `xg` | Passive、Stand、Walk | Jump、FrontJump |
-| `xg2` | `xg2` | Passive、Stand、Walk | — |
-| `xgw` | `xgw` | Passive、Stand、Walk | — |
-| `xgw2` | `xgw2` | Passive、Stand、Walk | — |
-| `zgws` | `zgws` | Passive、Stand、Walk | — |
-| `zgwt` | `zgwt` | Passive、Stand、Walk | — |
-| `zgwsarm` | `zgws_arm` | Passive、Stand、Walk | — |
-
-`go2` 与 `go2w` 有 MJCF 模型资产，但当前内置运控工厂没有为它们注册 motion core。
-
-## 进程内运控
-
-配置中的关键字段：
-
-```json
-{
-  "robot": {
-    "robot_type": "xgb",
-    "mujoco_model": "xgb/scene.xml",
-    "inside_mc": true,
-    "zenoh_router": "tcp/127.0.0.1:7447",
-    "state_port": "mujoco/state",
-    "cmd_port": "mujoco/cmd"
-  }
-}
+```text
+UeSim/Content/model/config/config.json
 ```
 
-注意：
+默认值：
 
-- 内置 motion core 当前要求本机 Zenoh endpoint `tcp/127.0.0.1:7447`。
-- 插件内部使用固定 key `mujoco/state` 和 `mujoco/cmd`。配置中最好保持相同值，避免仿真和控制端订阅不同 key。
-- 控制循环目标为 500 Hz，ONNX 推理目标为 100 Hz；实际频率会受渲染、模型和系统负载影响。
-- `robot_type`、模型目录和策略类型必须匹配。
+```json
+"inside_mc": true
+```
 
-推荐启动顺序：
+此时 UeSim 同时启动模拟硬件和内置控制器。不要另外启动独立控制器。
 
-1. 确认本机 Zenoh Router 可在 `127.0.0.1:7447` 连接。
-2. 在机器人配置中启用 `inside_mc`。
-3. 选择受支持的模型并启动 UeSim。
-4. 先进入 Stand，再进入 Walk；确认状态反馈稳定后再发送跳跃动作。
+```bash
+./UeSim.sh
+```
 
-## Linux 模拟硬件模式
+可用以下命令确认当前值：
 
-该模式由 UeSim 提供模拟硬件共享内存，再由外部 `mc_ctrl` 访问。它不是“通过 Zenoh 启动外部控制器”。
+```bash
+rg -n '"inside_mc"' UeSim/Content/model/config/config.json
+```
 
-推荐顺序：
+手动修改模式后必须重启 UeSim。
 
-1. 启动启用了 simulated hardware 的 UeSim 和机器人。
-2. 等待共享内存与机器人状态初始化完成。
-3. 启动与当前机器人 ABI、模型和版本匹配的 `mc_ctrl`。
-4. 停止时先让机器人进入安全状态，再退出外部控制器和仿真。
+## 2. 内置运控
 
-此后端只在 Linux 路径中实现。外部 `mc_ctrl` 的二进制、模型和参数不在当前文档仓库中，应以对应控制器发布包为准。
+当前源码注册的内置运控机型：
 
-## 本地与 UDP 手柄输入
+```text
+xgb  xg2  xgw  xgw2  xxg  zgws  zgwt  zgwsarm
+```
 
-运控插件支持四种输入模式：
+`go2`、`go2w` 可作为仿真模型使用，但不在当前内置运控列表中。内置策略资源位于：
 
-- `Hardware`：使用 Unreal 的逻辑 Gamepad 输入。
-- `UDP`：接收 UDP JSON 手柄状态。
-- `Auto`：按插件逻辑自动选择可用输入。
-- `Disabled`：不接收手柄控制。
+```text
+UeSim/Plugins/MatrixMotionControl/
+```
 
-UDP 输入默认监听 `0.0.0.0:7447`。这是 UDP socket，可以与同端口号的 Zenoh TCP endpoint 共存，但二者不是同一协议。源码提供 `send_gamepad_udp.py` 作为发送端参考；发布包是否附带该脚本取决于打包内容。
+运行日志：
 
-## 默认动作映射
+```text
+UeSim/Saved/Logs/UeSim.log
+```
 
-| 动作 | 输入 |
+检查运控状态：
+
+```bash
+rg 'MatrixMotionControl|embedded motion|inside_mc' UeSim/Saved/Logs/UeSim.log
+```
+
+## 3. 手柄与 UDP
+
+默认输入模式为 `Auto`：最近收到的 UDP 输入优先，否则读取硬件手柄。Linux 默认读取 `/dev/input/js0`。
+
+| 输入 | 动作 |
 |---|---|
-| 行走指令 | 左摇杆；A 进入 Walk |
-| 偏航 | 右摇杆水平轴 |
-| 站立 | Y |
-| 被动/卸力 | LB + RB |
-| 原地跳跃 | RB + X，仅 `xgb` |
-| 向前跳跃 | RB + Y，仅 `xgb` |
+| 左摇杆 | 前后、横移 |
+| 右摇杆左右 | 转向 |
+| `LB + Y` | 起身/站立 |
+| `LB + B` | 平衡站立 |
+| `LB + X` | 关节保持 |
+| `LB + RB` | 被动模式/停止力矩 |
+| `RB + X` | 原地跳跃，取决于机型策略 |
+| `RB + Y` | 前跳，取决于机型策略 |
 
-动作切换前应确保机器人已稳定站立并留有安全空间。没有为某个模型注册的动作不会自动降级为相似动作。
+检查手柄：
 
-## 排查
+```bash
+ls -l /dev/input/js0
+test -r /dev/input/js0 && echo 'gamepad ready'
+```
 
-- 没有状态：确认 Router 地址、`mujoco/state` 和机器人是否已开始推进 MuJoCo。
-- 没有动作：确认 `inside_mc`、模型名称、`mujoco/cmd` 和策略资源一致。
-- 手柄无响应：检查输入模式是否为 `Hardware` / `Auto`，以及 Unreal 是否识别到逻辑 Gamepad 轴和按键。
-- UDP 无响应：确认发送目标 IP、UDP 7447、防火墙以及 JSON 格式与当前发送脚本一致。
-- 频率不足：降低渲染和传感器负载，并以实际时间戳和日志为准，不要假设目标频率一定达到。
+UDP 示例只使用 Python 标准库：
+
+```bash
+python3 Tools/matrix_mc_udp_test.py stand
+python3 Tools/matrix_mc_udp_test.py walk --stand-first --forward 0.25 --duration 3
+python3 Tools/matrix_mc_udp_test.py rotate --yaw 0.25 --duration 2
+python3 Tools/matrix_mc_udp_test.py passive
+```
+
+远程控制：
+
+```bash
+python3 Tools/matrix_mc_udp_test.py --host <仿真器IP> stand
+```
+
+内置运控默认监听 UDP `0.0.0.0:7447`。速度输入超过 0.5 秒未刷新会失效；UDP 没有执行确认，请同时观察仿真画面和日志。
+
+## 4. 可选独立 robot_mc（需另行下载）
+
+本发布包不包含独立运控。需要独立进程时，从开源项目的 Releases 下载 Linux x86_64 **runtime asset**：
+
+<https://github.com/GENISOM-AI/MATRiX_Robot_MC/releases>
+
+独立运控的运行和依赖安装环境限定为 Ubuntu 22.04 x86_64。该限制只针对独立运控，不是 UeSim 仿真器本体的系统限制。
+
+不要下载 GitHub 自动生成的 `Source code (zip)` 或 `Source code (tar.gz)`，它们不包含完整运行环境。
+
+### 4.1 解压并安装依赖
+
+独立运控可放在 MATRiX 目录之外，例如作为同级目录：
+
+```text
+workspace/
+├── MATRiX_v1.0.13/
+└── MATRiX_Robot_MC-v0.6.4-linux-x86_64/
+```
+
+进入下载并解压的独立运控目录：
+
+```bash
+chmod +x install_deps.sh run_mc.sh
+./install_deps.sh
+```
+
+安装脚本会使用 `sudo`、APT、网络及其自带的 `deps/` 软件包。执行前应先阅读脚本。
+
+### 4.2 配置机型
+
+编辑下载目录中的 `run_mc.sh`：
+
+```bash
+export ROBOT_TYPE=XG
+```
+
+随本次发布核对的独立运控 v0.6.4 README 声明以下类型：
+
+| UeSim 模型 | 独立项目机型 | `ROBOT_TYPE` |
+|---|---|---|
+| `xgb` | `zsl-1` / `zsl-2` | `XG` |
+| `xgw` | `zsl-1w` | `XGW` |
+| `xgw2` | `zsl-2w` | `XGW2` |
+| `zgws` / `zgwt` | `zsm-1w` | `ZGWS` |
+| `zgwsarm` | `zgwsarm` | `ZGWS_ARM` |
+
+值区分大小写。`xg2`、`xxg` 虽可使用 v1.0.13 内置运控，但不在 v0.6.4 外部项目公开的支持表中，不要自行推测 `ROBOT_TYPE`。独立项目的新版本可能调整支持列表和启动参数，始终以实际下载版本的 README 为准。
+
+### 4.3 切换并启动
+
+先关闭 UeSim，然后编辑：
+
+```text
+UeSim/Content/model/config/config.json
+```
+
+将下面字段改为 `false`：
+
+```json
+"inside_mc": false
+```
+
+保存后启动仿真器：
+
+```bash
+./UeSim.sh
+```
+
+等待 UeSim 进入场景并创建模拟硬件，再在第二个终端进入下载的运控目录：
+
+```bash
+./run_mc.sh r
+```
+
+如果独立启动脚本无法选择本地网卡，可按该版本 README 指定控制计算机的物理网卡 IPv4，例如：
+
+```bash
+SDK_CLIENT_IP=192.168.1.20 ./run_mc.sh r
+```
+
+不要填机器人 IP。独立运行时必须满足：
+
+- `inside_mc=false`；
+- UeSim 先启动，独立运控后启动；
+- `ROBOT_TYPE` 与仿真模型一致；
+- 不存在第二个独立控制器；
+- 严格遵守下载版本的物理机器人安全说明。
+
+### 4.4 恢复默认内置运控
+
+先停止独立控制器并退出 UeSim，将配置改回：
+
+```json
+"inside_mc": true
+```
+
+然后重新运行 `./UeSim.sh`。
+
+## 5. 排查
+
+内置运控未启动时，检查 `inside_mc=true`、机型是否受支持，以及日志中的资源缺失或机器人类型错误。
+
+独立运控无状态时，依次检查启动顺序、模式、机型、独立项目版本和其运行依赖。MATRiX 发布包不维护外部项目内部文件，外部参数以其对应 Release 文档为准。

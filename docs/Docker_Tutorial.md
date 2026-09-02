@@ -8,7 +8,7 @@ As a result, the previous Docker tutorial could not be verified against the simu
 
 ## What the source does verify
 
-- The Unreal project and relevant native plugins contain Win64 and Linux build targets.
+- The v1.0.13 public runtime and this documentation support Linux x86_64.
 - Linux rendering is configured for Vulkan/Shader Model 6.
 - MuJoCo native libraries are packaged for supported desktop targets.
 - Pixel Streaming 2 is enabled in the project, but its web server setup is separate from containerization.

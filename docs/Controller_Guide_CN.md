@@ -2,7 +2,7 @@
 
 [中文主页](README_CN.md) | [English](Controller_Guide.md)
 
-当前源码将机器人运控输入和仿真相机输入分开处理。发布包中的 Blueprint 或 GameMode 可能增加或覆盖按键；若界面提示不同，以当前运行包为准。
+MATRiX v1.0.13 将机器人运控输入和仿真相机输入分开处理。发布包中的 Blueprint 或 GameMode 可能增加或覆盖按键；若界面提示不同，以当前运行包为准。
 
 ## 内置机器人运控
 
@@ -10,12 +10,14 @@
 |---|---|---|
 | 平面移动 | 左摇杆 | 内置运控模型 |
 | 偏航 | 右摇杆水平轴 | 内置运控模型 |
-| 进入 Stand | LB + Y | 公开文档列出的 7 类内置运控模型 |
-| 进入 Passive | LB + RB | 公开文档列出的 7 类内置运控模型 |
+| 进入 Stand | LB + Y | 公开文档列出的 8 类内置运控模型 |
+| 进入平衡站立 | LB + B | 公开文档列出的 8 类内置运控模型 |
+| 关节保持 | LB + X | 公开文档列出的 8 类内置运控模型 |
+| 进入 Passive | LB + RB | 公开文档列出的 8 类内置运控模型 |
 | 原地跳跃 | RB + X | 仅 `xgb` |
 | 向前跳跃 | RB + Y | 仅 `xgb` |
 
-输入模式包括 `Hardware`、`UDP`、`Auto` 和 `Disabled`。Hardware 使用 Unreal 跨平台逻辑 Gamepad 键位；源码不限定手柄品牌，也不要求 Linux `/dev/input/js0` 路径。
+输入模式包括 `Hardware`、`UDP`、`Auto` 和 `Disabled`。v1.0.13 Linux 运行包在硬件输入模式下默认读取 `/dev/input/js0`。`Auto` 模式优先采用最近收到的 UDP 输入，否则读取硬件手柄。
 
 UDP 手柄输入默认监听 `0.0.0.0:7447` 并接收 JSON 状态。这是 UDP socket，与 Zenoh TCP endpoint 相互独立，即使二者都使用 7447 端口号。
 

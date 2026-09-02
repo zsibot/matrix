@@ -2,14 +2,14 @@
 
 [中文主页](README_CN.md) | [快速开始](Getting_Started_CN.md)
 
-以下说明依据当前 `uesim` 源码与 MATRiX v1.0.5 文档整理。若问题只出现在某个发布包中，请同时核对该发布包的版本、平台和附带说明。
+以下说明依据 MATRiX v1.0.13 Linux 运行包及对应源码整理。
 
 ## 启动与显示
 
 **Q：启动后黑屏或停留在空场景**
 
 - 默认地图应为 `/Game/Maps/MainWorld.MainWorld`。
-- Windows 使用 DX12/SM6，Linux 使用 Vulkan/SM6；先更新显卡驱动并确认硬件支持。
+- Linux 使用 Vulkan/SM6；先更新显卡驱动并确认硬件支持。
 - 移除不兼容的 DLC 后重试，并查看日志中的 map load、pak mount 和 shader 错误。
 - 若是 Pixel Streaming，先在本机窗口确认场景可以正常渲染，再排查信令服务器。
 
@@ -69,11 +69,11 @@ depth_m = R + G / 255
 
 **Q：DLC 应放在哪里？**
 
-运行时递归扫描 `Saved/DLCs/*.pak` 与 `Content/DLCs/*.pak`。DLC 必须与平台、引擎和 MATRiX 版本兼容。
+推荐使用地图界面的 **UPDATE LIST** 和地图卡片下方的 **DOWNLOAD** 自动安装。手动安装目录为 `UeSim/Saved/DLCs/*.pak`，运行时也扫描 `UeSim/Content/DLCs/*.pak`。DLC 必须与 v1.0.13 Linux 包兼容。
 
 **Q：添加 DLC 后一定要重启吗？**
 
-不一定。源码实现了启动扫描，也实现了运行时加载 DLC、枚举地图和打开地图。若当前发布包的界面没有暴露运行时入口，或挂载失败，重启是最简单的刷新方式。
+界面自动下载完成后可以直接刷新安装状态。手动放置 `.pak` 后应重启 UeSim，使程序重新扫描并挂载。
 
 **Q：为什么旧文档中的地图 ID 不工作？**
 
@@ -93,7 +93,7 @@ depth_m = R + G / 255
 
 **Q：文档中的 `Tools/` 在哪里？**
 
-当前文档仓库和所核对的 `uesim` 源码快照都没有这些 Python 工具。它们只适用于确实附带 `Tools/` 的运行包；先运行脚本 `--help`，不要假设旧版参数仍然有效。
+v1.0.13 Release 包含 `Tools/`。从发布根目录运行 `python3 Tools/<脚本>.py --help`，工具清单见 [Python 工具](Python_Tools_CN.md)。
 
 **Q：官方 Docker 脚本在哪里？**
 

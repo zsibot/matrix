@@ -1,131 +1,176 @@
-# 快速开始
+# MATRiX v1.0.13 快速开始
 
-[English README](../README.md) | [中文主页](README_CN.md)
+[返回中文主页](README_CN.md) | [English](Getting_Started.md)
 
-本文依据当前 `uesim` 源码与 MATRiX v1.0.5 文档仓库整理。源码可以验证运行时配置、插件和启动行为；具体下载包的显卡驱动、系统依赖和附带工具仍以该发布包说明为准。
+## 1. 下载与解压
 
-## 1. 平台与图形接口
+从 [v1.0.13 Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13) 下载全部 3 个压缩分片及 `SHA256SUMS`：
 
-当前工程和关键插件面向以下目标：
+```bash
+sha256sum -c SHA256SUMS
+cat MATRiX_v1.0.13.tar.gz.part-* | tar -xzf -
+```
 
-- Windows 64 位：DirectX 12 / Shader Model 6
-- Linux 64 位：Vulkan / Shader Model 6
+分片大小和完整校验值见[下载与校验](Release_Download_CN.md)。
 
-建议使用支持对应图形接口的独立显卡，并安装最新稳定版驱动。源码没有定义统一的最低 CPU、内存或显存门槛，因此不要把某一台开发机的配置当作官方最低要求。
+## 2. 启动
 
-## 2. 获取运行包
+要求 Linux x86_64 环境并正确安装显卡驱动，不限定 Ubuntu 22.04。建议 6 核以上 CPU、16 GB 以上内存。仿真器本体不依赖 ROS 2。
 
-从项目发布页下载与你的平台匹配的 MATRiX 运行包和所需地图 DLC：
+```bash
+cd MATRiX_v1.0.13
+./UeSim.sh
+```
 
-- [GitHub Releases](https://github.com/GENISAMA/MATRiX/releases)
-- [项目主页](https://matrix.genesilico.cn/)
+不需要对 `UeSim.sh` 或 `UeSim/Binaries/Linux/UeSim` 执行 `chmod`。
 
-解压到不含特殊权限限制的目录。文档仓库本身不包含可执行程序；若运行包提供 `Tools/`、控制器或其他辅助目录，以运行包内的说明为准。
+启动参数会原样传给 UeSim：
 
-## 3. 运行时关键目录
+```bash
+./UeSim.sh -ResX=1280 -ResY=720 -Windowed
+```
 
-不同发布包的顶层布局可能略有差异，但源码使用的核心位置如下：
+日志在首次启动后生成：
 
 ```text
-<runtime>/
-├── Content/
-│   ├── model/
-│   │   ├── config/config.json
-│   │   └── {go2,go2w,xgb,xg2,xgw,xgw2,zgws,zgwt,zgwsarm}/
-│   └── DLCs/*.pak
-├── Saved/
-│   └── DLCs/*.pak
-└── [optional] Tools/
+UeSim/Saved/Logs/UeSim.log
 ```
 
-- 默认机器人配置：`Content/model/config/config.json`
-- 基础地图：`MainWorld`
-- DLC 搜索位置：`Saved/DLCs/` 和 `Content/DLCs/`，包含子目录
-- `Tools/`：仅部分运行包附带，不属于当前文档仓库或所核对的 `uesim` 源码
+## 3. 配置与模型
 
-## 4. 启动仿真器
-
-1. 启动发布包中的 MATRiX / UeSim 可执行程序。
-2. 在启动界面选择机器人、地图、网络模式和传感器。
-3. 检查模型路径和 Zenoh Router 配置。
-4. 启动仿真。
-
-未额外选择 DLC 时，工程默认进入 `MainWorld`。默认配置使用 `xgb` 模型，Zenoh Router 为 `tcp/0.0.0.0:7447`，状态和命令 key 分别为 `mujoco/state` 与 `mujoco/cmd`。
-
-> `state_port` 和 `cmd_port` 是历史字段名，当前保存的是字符串消息 key，不是数字 UDP 端口。
-
-## 5. 安装与切换地图
-
-将与当前平台和版本匹配的 `.pak` 放入：
+主配置：
 
 ```text
-Saved/DLCs/
+UeSim/Content/model/config/config.json
 ```
 
-也可以使用源码支持的：
+发布默认值：
 
 ```text
-Content/DLCs/
+mujoco_model: model/xgb/xgb.xml
+inside_mc: true
+network_mode: standalone
+sensor_sync_mode: false
+zenoh_router: tcp/0.0.0.0:7447
+state_port: mujoco/state
+cmd_port: mujoco/cmd
 ```
 
-启动时系统会扫描并挂载 DLC；界面也实现了运行时加载和打开已安装地图的能力。若某个发布包没有暴露运行时加载入口，重启仿真器是最简单的刷新方式，但不是源码层面的强制要求。
-
-地图名称、打包列表和预览见 [机器人与地图](Robots_and_Maps_CN.md)。
-
-## 6. 配置机器人与传感器
-
-图形界面保存的机器人配置采用以下结构：
-
-```json
-{
-  "robot": {
-    "robot_type": "xgb",
-    "mujoco_model": "xgb/scene.xml",
-    "network_mode": "standalone",
-    "sensor_sync_mode": false,
-    "inside_mc": false,
-    "zenoh_router": "tcp/0.0.0.0:7447",
-    "state_port": "mujoco/state",
-    "cmd_port": "mujoco/cmd",
-    "sensors": {}
-  }
-}
-```
-
-当前源码覆盖 RGB、红外、深度、全景、鱼眼、通用 LiDAR、Mid-360、Airy、IMU、GPS 和里程计。修改配置后，应通过启动界面重新生成或重新启动机器人，使新的模型和传感器实例生效。
-
-详细说明：
-
-- [高级配置](Advanced_Configuration_CN.md)
-- [传感器与通信](Sensor_and_Communication_CN.md)
-- [传感器配置教程（英文）](Sensor_Config_Tutorial.md)
-
-## 7. 启用运动控制
-
-当前公开文档列出 7 类内置机器人运控：`xgb`、`xg2`、`xgw`、`xgw2`、`zgws`、`zgwt`、`zgwsarm`。
-
-- `inside_mc: true`：使用进程内运控核心。
-- Linux 模拟硬件模式：通过共享内存连接外部 `mc_ctrl`。
-- 两种方式是不同的控制链路，不应同时驱动同一机器人。
-
-内置控制循环目标为 500 Hz，ONNX 推理目标为 100 Hz。完整的模型映射、Zenoh 前置条件、手柄动作与安全限制见 [运动控制指南](Motion_Control_CN.md)。
-
-## 8. 首次通信检查
-
-传感器和机器人状态使用 Zenoh 传输 ROS 2 兼容的 CDR 负载。常用 key 包括：
+模型路径使用相对于 UeSim Content 的路径，移动整个发布目录后仍然有效。当前主要模型目录：
 
 ```text
-mujoco/state
-mujoco/cmd
-rt/camera/image/compressed
-rt/front_lidar
+go2  go2w  xg2  xgb  xgw  xgw2  xxg  zgws  zgwsarm  zgwt
 ```
 
-实际 key 可在传感器配置中覆盖。若下载包包含 `Tools/`，可使用其中的话题监控或接收器；先运行对应脚本的 `--help`，因为这些工具不在当前源码快照中，参数可能随发布包变化。
+## 4. 运动控制
 
-## 9. 下一步
+默认使用内置运控，不需要下载或安装独立控制器：
 
-- [运动控制](Motion_Control_CN.md)
-- [手柄与相机控制](Controller_Guide_CN.md)
-- [Python 工具说明](Python_Tools_CN.md)
-- [常见问题](FAQ_CN.md)
+```bash
+./UeSim.sh
+```
+
+本发布包不包含独立 `robot_mc`。需要时自行下载，并按 [运动控制指南](Motion_Control_CN.md#4-可选独立-robot_mc需另行下载) 手动修改 `inside_mc`。修改后必须重启 UeSim，且两种控制器不能同时运行。
+
+## 5. Zenoh 与传感器
+
+UeSim 默认监听 `tcp/0.0.0.0:7447`，本机工具连接 `tcp/127.0.0.1:7447`。
+
+按需安装 Python 工具依赖：
+
+```bash
+python3 -m pip install eclipse-zenoh numpy opencv-python matplotlib
+```
+
+发现实际主题：
+
+```bash
+python3 Tools/zenoh_topic_monitor.py --key '**'
+python3 Tools/zenoh_topic_monitor.py --key 'rt/**'
+python3 Tools/zenoh_sensor_receiver.py --key 'rt/**'
+```
+
+远端连接：
+
+```bash
+python3 Tools/zenoh_topic_monitor.py \
+  --connect tcp/192.168.1.100:7447
+```
+
+默认配置包含 IMU、里程计、GPS、RGB、深度和 Airy LiDAR。界面或传感器预设可能修改活动配置，最终 key 以监控器收到的数据为准。
+
+传感器预设：
+
+```text
+UeSim/Content/model/config/sensors/
+```
+
+## 6. 工具
+
+| 工具 | 用途 |
+|---|---|
+| `matrix_mc_udp_test.py` | 内置运控 UDP 控制示例 |
+| `zenoh_topic_monitor.py` | Zenoh 主题、频率和延迟监控 |
+| `zenoh_sensor_receiver.py` | 图像、深度和点云接收 |
+| `visualize_lidar_camera_projection.py` | LiDAR 到相机投影 |
+| `visualize_zenoh_bbox.py` / `_2d.py` | 3D/2D 包围盒显示 |
+| `gimbal_udp_client.py` / `_ui.py` | 云台控制和测试 |
+
+准确参数以对应脚本的 `--help` 为准。
+
+### LiDAR 到相机图像投影
+
+```bash
+python3 -m pip install numpy opencv-python eclipse-zenoh
+
+# 先检查传感器选择、内参和外参，不连接 Zenoh
+python3 Tools/visualize_lidar_camera_projection.py --check-only
+
+# 启动实时叠加窗口
+python3 Tools/visualize_lidar_camera_projection.py
+```
+
+工具默认读取 `UeSim/Content/model/config/config.json`，并连接 `tcp/127.0.0.1:7447`。使用前必须设置 `sensor_sync_mode=true`，并建议相机和 LiDAR 使用相同频率与相同 `sensor_attach`。详细说明见 [Lidar_Camera_Projection_CN.md](Lidar_Camera_Projection_CN.md)。
+
+## 7. DLC 地图
+
+基础开源发布目录不附带外部地图 DLC，且 `UeSim/Content/model/MapDataTable.json` 初始为合法的空目录。第一次进入地图界面没有地图卡片属于正常现象。先点击 **UPDATE LIST** 获取最新地图列表，再点击目标地图下方的 **DOWNLOAD** 按钮自动下载对应 DLC。
+
+自动下载不可用时，可从 [百度网盘（提取码：6sth）](https://pan.baidu.com/s/1I87hQ9C8XzIGXgbyWk3i9A?pwd=6sth#list/path=%2F) 手动下载。
+
+将获得授权且与 v1.0.13 匹配的 `.pak` 放入：
+
+```text
+UeSim/Saved/DLCs/
+```
+
+目录不存在时可创建：
+
+```bash
+mkdir -p UeSim/Saved/DLCs
+cp /path/to/MapBundle.pak UeSim/Saved/DLCs/
+```
+
+重启 UeSim 后在地图界面选择。若 `.pak` 已安装但没有对应卡片，先更新目录；完整说明见 [地图目录与 DLC](Map_DLC_CN.md)。
+
+## 8. ROS 2 与 Pixel Streaming
+
+运行包以 Zenoh 为主要传输。ROS 2 集成需要与当前消息格式匹配的 bridge，详见 [RoamerX_Lite_Integration.md](RoamerX_Lite_Integration.md)。
+
+Pixel Streaming 2 服务器下载入口：
+
+```text
+UeSim/Samples/PixelStreaming2/WebServers/get_ps_servers.sh
+```
+
+详见 [pixelstreaming_tutorial.md](pixelstreaming_tutorial.md)。
+
+## 9. 排查
+
+模型找不到时，确认 `mujoco_model` 指向存在的相对路径。黑屏、崩溃或 Vulkan 错误时查看：
+
+```bash
+tail -n 200 UeSim/Saved/Logs/UeSim.log
+```
+
+Zenoh 无数据时先订阅 `**`，再核对 UeSim 日志、IP、7447/TCP、防火墙和传感器状态。

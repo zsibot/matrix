@@ -1,92 +1,109 @@
-# Python 工具指南
+# MATRiX v1.0.13 Python 工具
 
-[← 返回项目首页](../README.md) · [中文文档索引](README_CN.md)
+[返回中文主页](README_CN.md) | [快速开始](Getting_Started_CN.md)
 
-本指南记录部分运行包 `Tools/` 目录中的传感器接收器和 Zenoh 话题监控器。当前文档仓库与所核对的 `uesim` 源码快照均不包含这些脚本，因此下列命令只适用于确实附带 `Tools/` 的运行包；请先执行脚本的 `--help`，以当前参数为准。若需运动控制，请转到 [运动控制指南](Motion_Control_CN.md)。
+v1.0.13 Linux 运行包在根目录提供 `Tools/`。以下脚本与本次 Release 中的版本一致；完整参数始终以 `python3 Tools/<脚本>.py --help` 为准。
 
-## Python 工具
+## 工具清单
 
-若发布包附带工具，它们位于 `Tools/` 目录，旧版工具通常需要 Python 3.10+。依赖版本和命令行参数不属于当前仿真源码的可验证接口。
+| 脚本 | 用途 | 主要依赖 |
+|---|---|---|
+| `zenoh_topic_monitor.py` | 显示 Zenoh topic、频率、大小和延迟 | `eclipse-zenoh` |
+| `zenoh_sensor_receiver.py` | 查看相机、深度和 LiDAR 数据 | `eclipse-zenoh`、`numpy`、`opencv-python` |
+| `visualize_lidar_camera_projection.py` | 将 LiDAR 点云投影到 RGB 图像 | `eclipse-zenoh`、`numpy`、`opencv-python` |
+| `visualize_zenoh_bbox.py` | 显示 3D 包围盒 | `eclipse-zenoh`、`matplotlib` |
+| `visualize_zenoh_bbox_2d.py` | 显示固定范围的 2D 俯视包围盒 | `eclipse-zenoh`、`matplotlib` |
+| `matrix_mc_udp_test.py` | 内置运控起身、行走、转向和动作测试 | Python 标准库 |
+| `gimbal_udp_client.py` | 云台 UDP/JSON 命令行客户端 | Python 标准库 |
+| `gimbal_udp_ui.py` | 云台四方向图形测试工具 | Python 标准库、Tkinter |
+| `send_spawn_udp.py` | 发送场景对象生成 UDP JSON | Python 标准库 |
+| `send_udp_voice.py` | 发送 JSON 或 MP3 UDP 数据 | Python 标准库 |
 
-### 安装依赖
+## 安装常用依赖
 
-```powershell
-pip install eclipse-zenoh opencv-python numpy
+```bash
+python3 -m pip install eclipse-zenoh numpy opencv-python matplotlib
 ```
 
----
+图形工具需要桌面显示环境。SSH 无图形会话不能直接显示 OpenCV、Matplotlib 或 Tkinter 窗口。
 
-### zenoh_sensor_receiver.py — 传感器数据接收器
+## Zenoh topic 监控
 
-订阅仿真器发布的传感器数据，自动识别图像并弹出 OpenCV 显示窗口，对点云和其他数据打印元信息。
+UeSim 默认监听 `tcp/0.0.0.0:7447`，本机工具在 client 模式下默认连接 `tcp/127.0.0.1:7447`。
 
-#### 基本用法
-
-```powershell
-# 默认模式（本机 Router，监听 tcp/0.0.0.0:7447）
-python zenoh_sensor_receiver.py
-
-# 客户端模式，连接指定 Router
-python zenoh_sensor_receiver.py --mode client --connect tcp/127.0.0.1:7447
-
-# 仅订阅激光雷达话题
-python zenoh_sensor_receiver.py --key "rt/front_lidar"
-
-# 深度图启用伪彩色显示
-python zenoh_sensor_receiver.py --show-depth
-
-# 订阅 MuJoCo 所有话题
-python zenoh_sensor_receiver.py --key "mujoco/**"
+```bash
+python3 Tools/zenoh_topic_monitor.py --key '**'
+python3 Tools/zenoh_topic_monitor.py --key 'rt/**'
+python3 Tools/zenoh_topic_monitor.py --connect tcp/192.168.1.100:7447
 ```
 
-#### 参数列表
+先订阅 `**` 发现实际 key，再按传感器配置缩小范围。界面切换传感器预设后，活动 topic 可能发生变化。
 
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--key` | `rt/**` | Zenoh key 表达式，支持通配符 |
-| `--mode` | `router` | Zenoh 会话模式：`router` / `client` / `peer` |
-| `--connect` | — | 连接端点，可多次指定 |
-| `--listen` | — | 监听端点，可多次指定 |
-| `--show-depth` | 关闭 | 对深度类 PNG 图像应用伪彩色 |
-| `--print-interval` | `1.0` | 非图像话题的打印节流间隔（秒） |
-| `--max-text` | `240` | 文本 payload 最大打印字符数 |
-| `--window-prefix` | `sensor` | OpenCV 窗口名前缀 |
+## 传感器接收
 
----
-
-### zenoh_topic_monitor.py — 话题监控器
-
-以表格形式实时显示所有活跃 Zenoh 话题的消息频率、payload 大小及时间戳延迟统计。
-
-#### 基本用法
-
-```powershell
-# 默认监控所有话题
-python zenoh_topic_monitor.py
-
-# 客户端模式
-python zenoh_topic_monitor.py --mode client --connect tcp/127.0.0.1:7447
-
-# 仅监控 MuJoCo 话题，0.5 秒刷新
-python zenoh_topic_monitor.py --key "mujoco/**" --interval 0.5
-
-# 按话题名排序
-python zenoh_topic_monitor.py --sort name
+```bash
+python3 Tools/zenoh_sensor_receiver.py --key 'rt/**'
+python3 Tools/zenoh_sensor_receiver.py --key 'rt/front_lidar' --stream-type lidar
+python3 Tools/zenoh_sensor_receiver.py \
+  --connect tcp/192.168.1.100:7447 \
+  --key 'rt/**'
 ```
 
-#### 参数列表
+接收器可自动识别压缩图像、深度图和 ROS 2 `PointCloud2`。使用 `--auto-range` 调整深度显示，使用 `--height-auto-range` 调整 LiDAR 高度图。
 
-| 参数 | 默认值 | 说明 |
-|------|--------|------|
-| `--key` | `**` | 监控的 key 表达式 |
-| `--mode` | `router` | Zenoh 会话模式 |
-| `--connect` | — | 连接端点 |
-| `--listen` | — | 监听端点 |
-| `--interval` | `1.0` | 表格刷新间隔（秒） |
-| `--window` | `5.0` | 计算 Hz 的滑动窗口时长（秒） |
-| `--max-topics` | `50` | 最多显示话题数 |
-| `--sort` | `hz` | 排序字段：`hz` / `name` / `last` |
-| `--no-clear` | 关闭 | 禁止清屏，保留历史输出 |
-| `--show-empty` | 关闭 | 保留窗口内无消息的话题行 |
+## LiDAR 到相机投影
 
----
+使用前编辑 `UeSim/Content/model/config/config.json`：
+
+```json
+"sensor_sync_mode": true
+```
+
+然后从发布包根目录运行：
+
+```bash
+python3 Tools/visualize_lidar_camera_projection.py --check-only
+python3 Tools/visualize_lidar_camera_projection.py
+```
+
+默认相机 key 为 `rt/front_camera/image/compressed`，LiDAR key 为 `rt/front_lidar`。按 `S` 保存，按 `Q` 或 `Esc` 退出。详细说明见 [LiDAR 到相机投影](Lidar_Camera_Projection_CN.md)。
+
+## 包围盒查看
+
+```bash
+python3 Tools/visualize_zenoh_bbox.py --key rt/dynamicinfo
+python3 Tools/visualize_zenoh_bbox_2d.py --key rt/dynamicinfo
+```
+
+2D 工具默认显示 X `-250…150 m`、Y `-50…50 m` 的 ROS FLU 世界坐标。详细消息格式见 [Zenoh 2D 包围盒工具](Zenoh_BBox2D_CN.md)。
+
+## 内置运控 UDP 测试
+
+```bash
+python3 Tools/matrix_mc_udp_test.py stand
+python3 Tools/matrix_mc_udp_test.py walk --stand-first --forward 0.25 --duration 3
+python3 Tools/matrix_mc_udp_test.py rotate --yaw 0.25 --duration 2
+python3 Tools/matrix_mc_udp_test.py passive
+```
+
+远程控制增加 `--host <仿真器IP>`。默认 UDP 端口为 7447，速度输入超过 0.5 秒未刷新会失效。
+
+## 云台工具
+
+```bash
+python3 Tools/gimbal_udp_client.py --port 8870 --gimbal-id camera_gimbal ping
+python3 Tools/gimbal_udp_ui.py \
+  --port 8870 \
+  --state-port 8871 \
+  --npc-state-port 8872 \
+  --gimbal-id camera_gimbal
+```
+
+UeSim 中的 PTZRGB 云台 UDP 服务必须先启动。协议和 UI 操作见 [云台 UDP/JSON 协议](Camera_Gimbal_UDP_JSON_Protocol_CN.md)及[图形测试工具](Camera_Gimbal_UI_Tool_CN.md)。
+
+## 排查
+
+- `ModuleNotFoundError`：使用运行脚本的同一个 Python 执行 `python3 -m pip install ...`。
+- 无 Zenoh 数据：先监控 `**`，再检查 UeSim 日志、IP、TCP 7447、防火墙和活动传感器。
+- 图形窗口无法打开：确认当前会话有桌面显示环境。
+- 参数不识别：运行对应脚本的 `--help`，不要照搬旧版本参数。

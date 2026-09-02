@@ -2,7 +2,7 @@
 
 [中文主页](README_CN.md) | [English](Robots_and_Maps.md)
 
-本文依据当前 `uesim` 源码整理。发布包可能只包含源码资产的一部分；地图 DLC 必须与目标平台和发布版本匹配。
+本文说明 MATRiX v1.0.13 Linux 运行包。地图 DLC 必须与该版本及其 Unreal Engine 构建匹配。
 
 ## 机器人模型
 
@@ -14,11 +14,12 @@
 | `xg2` | 有 | 有 | 第二代 XG 四足模型 |
 | `xgw` | 有 | 有 | XG 轮足版本 |
 | `xgw2` | 有 | 有 | 第二代 XG 轮足模型 |
+| `xxg` | 有 | 有 | 带头部关节的 XXG 四足模型 |
 | `zgws` | 有 | 有 | 支持 Passive / Stand / Walk |
 | `zgwt` | 有 | 有 | 支持 Passive / Stand / Walk |
 | `zgwsarm` | 有 | 有 | UI 中可能显示为 `zgws_arm` |
 
-模型标识需要与模型目录及 `mujoco_model` 指向的 MJCF 匹配。公开文档列出的 7 类内置运控模型均支持 Passive、Stand 和 Walk；Jump 与 FrontJump 目前只在 `xgb` 中实现。
+模型标识需要与模型目录及 `mujoco_model` 指向的 MJCF 匹配。v1.0.13 为 `xgb`、`xg2`、`xgw`、`xgw2`、`xxg`、`zgws`、`zgwt` 和 `zgwsarm` 注册了内置运控。`go2`、`go2w` 是仿真模型，不在当前内置运控列表中。
 
 ### 机器人预览
 
@@ -36,33 +37,28 @@
     <td></td>
   </tr>
 </table>
-## 源码打包列表中的地图
+## 动态地图列表
 
-`MainWorld` 是基础和默认地图。Windows 批量打包脚本当前列出以下 DLC 地图：
+开源基础包的 `UeSim/Content/model/MapDataTable.json` 初始为空，这是正常状态。进入地图选择界面后：
 
-| 分类 | 地图名称 |
-|---|---|
-| 重建与室内 | `3DGSWorld`、`ApartmentWorld`、`HouseWorld`、`House2World`、`MeetRoomWorld`、`OfficeWorld`、`SceneWorld` |
-| 城市与户外 | `BatuluWorld`、`CaliWorld`、`Custom2World`、`Town10World`、`VeniceWorld`、`YardWorld`、`ForestWorld` |
-| 交互与游戏 | `CrowdWorld`、`RunningWorld`、`Town10Zombie`、`BloodWorld`、`DungeonWorld` |
-| 赛事与地形 | `IROSFlatWorld`、`IROSFlatWorld2025`、`IROSSlopedWorld`、`IROSSloppedWorld2025`、`MoonWorld`、`MarsWorld` |
+1. 点击 **UPDATE LIST（更新列表）** 获取当前地图目录；
+2. 点击目标地图下方的 **DOWNLOAD（下载）**；
+3. 等待 DLC 下载和挂载完成；
+4. 地图卡片显示可进入后再选择地图。
 
-不要再依赖旧文档中的固定数字地图 ID：运行时按资产和地图名称发现、打开地图。Linux 批量打包清单可能与 Windows 不同，公开发布包也可能只提供上述地图的一部分。
-
-运行时还会通过资产注册表发现地图，包括 HELIOS 地图目录。因此，某些构建中可能出现校准室、Home 或 Laboratory 等附加场景，即使它们没有列入上面的批量 DLC 脚本。
+当前目录是 v1.0.13 可用地图的依据。不要继续使用旧数字地图 ID，也不要混用其他版本的目录。
 
 ## DLC 目录与加载行为
 
-运行时递归扫描：
+手动安装时，从[百度网盘（提取码：`6sth`）](https://pan.baidu.com/s/1I87hQ9C8XzIGXgbyWk3i9A?pwd=6sth#list/path=%2F)下载对应 DLC，解压 `.pak` 后放入推荐目录：
 
 ```text
-Saved/DLCs/*.pak
-Content/DLCs/*.pak
+UeSim/Saved/DLCs/*.pak
 ```
 
-已安装 DLC 会在启动时挂载。游戏实例还实现了运行时加载单个 DLC、枚举可用地图和打开已安装地图的操作。只有当发布包界面没有暴露这些操作或挂载失败时，才需要通过重启刷新。
+运行时也扫描 `UeSim/Content/DLCs/*.pak`。手动安装后重启 UeSim。只有 `.pak`、但当前地图列表中没有匹配条目时，程序可能已挂载地图但界面不显示卡片。
 
-请使用同平台、兼容 MATRiX 版本构建的 DLC。其他平台或不同引擎版本生成的 `.pak` 可能可以被发现，但无法成功挂载或打开。
+完整流程见[地图与 DLC](Map_DLC_CN.md)。
 
 ## 地图预览
 
