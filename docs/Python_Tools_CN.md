@@ -1,8 +1,12 @@
-# MATRiX v1.0.13 Python 工具
+# MATRiX v1.1.1 Python 工具
 
 [返回中文主页](README_CN.md) | [快速开始](Getting_Started_CN.md)
 
-v1.0.13 Linux 运行包在根目录提供 `Tools/`。以下脚本与本次 Release 中的版本一致；完整参数始终以 `python3 Tools/<脚本>.py --help` 为准。
+v1.1.1 Linux 运行包在根目录提供 `Tools/`。以下脚本与本次 Release 中的版本一致；完整参数始终以 `python3 Tools/<脚本>.py --help` 为准。
+
+工具源码也在本仓库的 [Tools](../Tools/README.md) 中维护。运行时把完整 `Tools/` 目录保留在解压的可执行包中，不能仅克隆此仓库就启动仿真。Python 3.10+，可用虚拟环境安装 `Tools/requirements.txt`；Tkinter 需系统提供。
+
+当前活动配置包含 IMU、Odom、GPS、RGB、Depth 和 Airy 六个传感器，与 `config_default.json` 一致；默认开启同步模式。进入仿真并创建机器人后再接收数据，其他方案需要加载并应用。
 
 ## 工具清单
 
@@ -11,7 +15,9 @@ v1.0.13 Linux 运行包在根目录提供 `Tools/`。以下脚本与本次 Relea
 | `zenoh_topic_monitor.py` | 显示 Zenoh topic、频率、大小和延迟 | `eclipse-zenoh` |
 | `zenoh_sensor_receiver.py` | 查看相机、深度和 LiDAR 数据 | `eclipse-zenoh`、`numpy`、`opencv-python` |
 | `visualize_lidar_camera_projection.py` | 将 LiDAR 点云投影到 RGB 图像 | `eclipse-zenoh`、`numpy`、`opencv-python` |
-| `visualize_zenoh_bbox.py` | 显示 3D 包围盒 | `eclipse-zenoh`、`matplotlib` |
+| `visualize_lidar_fisheye_projection.py` | 四路鱼眼点云与世界包围盒叠加 | `eclipse-zenoh`、`numpy`、`opencv-python` 及辅助模块 |
+| `zenoh_bbox_lidar_recorder.py` | 原始消息录制、离线预览、回放 | `eclipse-zenoh`、Tkinter、Pillow 及辅助模块 |
+| `visualize_zenoh_bbox.py` | 显示分类 XY 包围盒、速度和目标详情 | `eclipse-zenoh`、`matplotlib` |
 | `visualize_zenoh_bbox_2d.py` | 显示固定范围的 2D 俯视包围盒 | `eclipse-zenoh`、`matplotlib` |
 | `matrix_mc_udp_test.py` | 内置运控起身、行走、转向和动作测试 | Python 标准库 |
 | `gimbal_udp_client.py` | 云台 UDP/JSON 命令行客户端 | Python 标准库 |
@@ -107,3 +113,5 @@ UeSim 中的 PTZRGB 云台 UDP 服务必须先启动。协议和 UI 操作见 [�
 - 无 Zenoh 数据：先监控 `**`，再检查 UeSim 日志、IP、TCP 7447、防火墙和活动传感器。
 - 图形窗口无法打开：确认当前会话有桌面显示环境。
 - 参数不识别：运行对应脚本的 `--help`，不要照搬旧版本参数。
+
+鱼眼与录制工具需连同辅助模块一起复制，详见[工具清单](../Tools/README.md)、[鱼眼说明](Lidar_Fisheye_Projection_CN.md)和[录制回放](Zenoh_Recording_CN.md)。

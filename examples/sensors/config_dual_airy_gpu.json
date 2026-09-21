@@ -1,0 +1,58 @@
+{
+	"lidar": {
+		"sensor_type": "airy",
+		"max_distance": 100,
+		"topic": "/front_lidar",
+		"frame_id": "map",
+		"frequency": 10,
+		"position": {
+			"x": 0.46615,
+			"y": 0,
+			"z": 0.1
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": -90,
+			"yaw": 0
+		},
+		"simulate_motion_distortion": true,
+		"sensor_attach": "base_link",
+		"ignore_mounting_actor": true,
+		"RangeNoiseStdDevMeters": 0,
+		"RangeBiasMeters": 0,
+		"ReturnDropoutProbability": 0,
+		"MeasurementRandomSeed": 1,
+		"enabled": true,
+		"draw_points": false,
+		"random_scan": false,
+		"backend": "gpu"
+	},
+	"rear_lidar": {
+		"sensor_type": "airy",
+		"max_distance": 100,
+		"topic": "/rear_lidar",
+		"frame_id": "map",
+		"frequency": 10,
+		"position": {
+			"x": -0.454745,
+			"y": -0.040323,
+			"z": 0.156355
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": -90,
+			"yaw": 180
+		},
+		"simulate_motion_distortion": true,
+		"sensor_attach": "base_link",
+		"ignore_mounting_actor": true,
+		"RangeNoiseStdDevMeters": 0,
+		"RangeBiasMeters": 0,
+		"ReturnDropoutProbability": 0,
+		"MeasurementRandomSeed": 2,
+		"enabled": true,
+		"draw_points": false,
+		"random_scan": false,
+		"backend": "gpu"
+	}
+}

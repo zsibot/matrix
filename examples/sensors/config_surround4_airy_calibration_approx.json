@@ -1,0 +1,205 @@
+{
+	"front_lidar_imu": {
+		"sensor_type": "imu",
+		"topic": "/imu",
+		"position": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"sensor_attach": "base_link",
+		"frequency": 500,
+		"enabled": true,
+		"ignore_mounting_actor": true,
+		"frame_id": "map"
+	},
+	"Odom": {
+		"sensor_type": "odom",
+		"topic": "/odom",
+		"position": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"sensor_attach": "base_link",
+		"frequency": 100,
+		"enabled": true,
+		"ignore_mounting_actor": true,
+		"frame_id": "map",
+		"child_frame_id": "base_link"
+	},
+  "surround_front": {
+    "sensor_type": "fisheye",
+    "topic": "/surround_camera/front/compressed",
+    "position": {
+      "x": 0.44773545108655843,
+      "y": -0.006828773880545296,
+      "z": 0.08554706323932759
+    },
+    "rotation": {
+      "roll": 0.32454978420273384,
+      "pitch": -0.29063296425471724,
+      "yaw": -0.2872354429303135
+    },
+    "sensor_attach": "base_link",
+    "frequency": 10,
+    "enabled": true,
+    "ignore_mounting_actor": true,
+    "frame_id": "surround_front_optical",
+    "height": 768,
+    "width": 960,
+    "fov": 210,
+    "CubeFaceSize": 256,
+    "K1": 0,
+    "K2": 0,
+    "K3": 0,
+    "K4": 0
+  },
+  "surround_rear": {
+    "sensor_type": "fisheye",
+    "topic": "/surround_camera/rear/compressed",
+    "position": {
+      "x": -0.3890184174772212,
+      "y": 0.0034743415862610524,
+      "z": 0.08837181977267139
+    },
+    "rotation": {
+      "roll": -0.8850561450616891,
+      "pitch": 0.20414388244317178,
+      "yaw": 179.81706961229796
+    },
+    "sensor_attach": "base_link",
+    "frequency": 10,
+    "enabled": true,
+    "ignore_mounting_actor": true,
+    "frame_id": "surround_rear_optical",
+    "height": 768,
+    "width": 960,
+    "fov": 210,
+    "CubeFaceSize": 256,
+    "K1": 0,
+    "K2": 0,
+    "K3": 0,
+    "K4": 0
+  },
+  "surround_left": {
+    "sensor_type": "fisheye",
+    "topic": "/surround_camera/left/compressed",
+    "position": {
+      "x": 0.023530055659006406,
+      "y": 0.10977052233181575,
+      "z": 0.01671734892734611
+    },
+    "rotation": {
+      "roll": -0.9281459607390198,
+      "pitch": -0.904443563576285,
+      "yaw": 89.59725645168616
+    },
+    "sensor_attach": "base_link",
+    "frequency": 10,
+    "enabled": true,
+    "ignore_mounting_actor": true,
+    "frame_id": "surround_left_optical",
+    "height": 768,
+    "width": 960,
+    "fov": 210,
+    "CubeFaceSize": 256,
+    "K1": 0,
+    "K2": 0,
+    "K3": 0,
+    "K4": 0
+  },
+  "surround_right": {
+    "sensor_type": "fisheye",
+    "topic": "/surround_camera/right/compressed",
+    "position": {
+      "x": 0.02919363835312057,
+      "y": -0.11474655882583876,
+      "z": 0.020685439639987035
+    },
+    "rotation": {
+      "roll": 0.35409658702922925,
+      "pitch": -1.0168951942524551,
+      "yaw": -90.3940951274758
+    },
+    "sensor_attach": "base_link",
+    "frequency": 10,
+    "enabled": true,
+    "ignore_mounting_actor": true,
+    "frame_id": "surround_right_optical",
+    "height": 768,
+    "width": 960,
+    "fov": 210,
+    "CubeFaceSize": 256,
+    "K1": 0,
+    "K2": 0,
+    "K3": 0,
+    "K4": 0
+  },
+  "front_lidar": {
+    "sensor_type": "airy",
+    "max_distance": 100,
+    "topic": "/front_lidar",
+    "frame_id": "front_lidar",
+    "frequency": 10,
+    "position": {
+      "x": 0.36615,
+      "y": -3.2786273695961654e-16,
+      "z": -2.1337098754514727e-16
+    },
+    "rotation": {
+      "roll": -0.0,
+      "pitch": -90.0,
+      "yaw": 2.8156154582194313e-14
+    },
+    "simulate_motion_distortion": true,
+    "sensor_attach": "base_link",
+    "ignore_mounting_actor": true,
+    "RangeNoiseStdDevMeters": 0,
+    "RangeBiasMeters": 0,
+    "ReturnDropoutProbability": 0,
+    "MeasurementRandomSeed": 1,
+    "enabled": true,
+    "draw_points": false,
+    "random_scan": false,
+    "backend": "gpu"
+  },
+  "rear_lidar": {
+    "sensor_type": "airy",
+    "max_distance": 100,
+    "topic": "/rear_lidar",
+    "frame_id": "rear_lidar",
+    "frequency": 10,
+    "position": {
+      "x": -0.3515118781310578,
+      "y": 0.03061795634462286,
+      "z": 0.0018273826579075381
+    },
+    "rotation": {
+      "roll": -73.93864287595649,
+      "pitch": -89.32486629341383,
+      "yaw": -105.85666490231137
+    },
+    "simulate_motion_distortion": true,
+    "sensor_attach": "base_link",
+    "ignore_mounting_actor": true,
+    "RangeNoiseStdDevMeters": 0,
+    "RangeBiasMeters": 0,
+    "ReturnDropoutProbability": 0,
+    "MeasurementRandomSeed": 2,
+    "enabled": true,
+    "draw_points": false,
+    "random_scan": false,
+    "backend": "gpu"
+  }
+}

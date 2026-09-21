@@ -2,7 +2,7 @@
 
 [中文主页](README_CN.md) | [English](Robots_and_Maps.md)
 
-本文说明 MATRiX v1.0.13 Linux 运行包。地图 DLC 必须与该版本及其 Unreal Engine 构建匹配。
+本文说明 MATRiX v1.1.1 Linux 运行包。地图 DLC 必须与该版本及其 Unreal Engine 构建匹配。
 
 ## 机器人模型
 
@@ -19,7 +19,7 @@
 | `zgwt` | 有 | 有 | 支持 Passive / Stand / Walk |
 | `zgwsarm` | 有 | 有 | UI 中可能显示为 `zgws_arm` |
 
-模型标识需要与模型目录及 `mujoco_model` 指向的 MJCF 匹配。v1.0.13 为 `xgb`、`xg2`、`xgw`、`xgw2`、`xxg`、`zgws`、`zgwt` 和 `zgwsarm` 注册了内置运控。`go2`、`go2w` 是仿真模型，不在当前内置运控列表中。
+模型标识需要与模型目录及 `mujoco_model` 指向的 MJCF 匹配。v1.1.1 为 `xgb`、`xg2`、`xgw`、`xgw2`、`xxg`、`zgws`、`zgwt` 和 `zgwsarm` 注册了内置运控。`go2`、`go2w` 是仿真模型，不在当前内置运控列表中。
 
 ### 机器人预览
 
@@ -46,7 +46,7 @@
 3. 等待 DLC 下载和挂载完成；
 4. 地图卡片显示可进入后再选择地图。
 
-当前目录是 v1.0.13 可用地图的依据。不要继续使用旧数字地图 ID，也不要混用其他版本的目录。
+当前目录是 v1.1.1 可用地图的依据。不要继续使用旧数字地图 ID，也不要混用其他版本的目录。
 
 ## DLC 目录与加载行为
 

@@ -1,8 +1,8 @@
-# MATRiX v1.0.13 motion control
+# MATRiX v1.1.1 motion control
 
 [Back to README](../README.md) | [中文](Motion_Control_CN.md)
 
-The open v1.0.13 release uses built-in motion control by default. The external `robot_mc` runtime is not distributed in this package and must be downloaded separately when needed.
+The open v1.1.1 release uses built-in motion control by default. The external `robot_mc` runtime is not distributed in this package and must be downloaded separately when needed.
 
 ## Default built-in mode
 
@@ -49,13 +49,19 @@ python3 Tools/matrix_mc_udp_test.py passive
 
 Use `--host <SIMULATOR_IP>` for a remote simulator. UDP input listens on port 7447 by default and expires after 0.5 seconds without a valid packet.
 
+### Bundled v1.1.1 integration scope
+
+The bundled `robot_mc_provenance.json` records the 2026-09-08 integration of controller 0.6.6: XXG Walk/GaitWalk/Pace/Three/RPWalk/Run, XG2 Passive fold-down, and XGW2 stand-up wheel locking. Use the action menu for the selected robot.
+
+Bundled weights do not imply enabled behaviors. WMPOutdoor depth/RSSM, Measured_Mlp terrain input, XXG 25-motion Mimic, XG ZYShakeHand, and XXG gamepad double-click gear switching are outside the recorded integration scope.
+
 ## Optional external robot_mc (separate download)
 
 This release contains no external controller binary, model bundle, dependencies, or installer. Download the Linux x86_64 runtime asset from:
 
 <https://github.com/GENISOM-AI/MATRiX_Robot_MC/releases>
 
-The external controller and its dependency installer require Ubuntu 22.04 x86_64. This restriction applies only to the optional external controller, not to the UeSim simulator itself.
+The historical v0.6.4 example below targets Ubuntu 22.04 x86_64. Check the downloaded external release for its actual OS requirements and launcher arguments; these are separate from UeSim requirements.
 
 Do not use GitHub's automatically generated source archives; they do not contain the complete runtime.
 
@@ -66,7 +72,7 @@ chmod +x install_deps.sh run_mc.sh
 ./install_deps.sh
 ```
 
-The installer may use sudo, APT, network access, and bundled packages. The external v0.6.4 README checked for this release declares these mappings:
+The installer may use sudo, APT, network access, and bundled packages. These are historical external v0.6.4 examples, not a fresh audit of the latest external release or the bundled 0.6.6 controller integration:
 
 | UeSim model | External project model | `ROBOT_TYPE` |
 |---|---|---|
@@ -76,7 +82,7 @@ The installer may use sudo, APT, network access, and bundled packages. The exter
 | `zgws` / `zgwt` | `zsm-1w` | `ZGWS` |
 | `zgwsarm` | `zgwsarm` | `ZGWS_ARM` |
 
-`xg2` and `xxg` are supported by v1.0.13 built-in control but are not listed by the public external v0.6.4 README; do not invent a `ROBOT_TYPE` for them. The external project's supported list and launcher interface may change, so its downloaded README is authoritative.
+`xg2` and `xxg` are supported by v1.1.1 built-in control but are not listed by the public external v0.6.4 README; do not invent a `ROBOT_TYPE` for them. The external project's supported list and launcher interface may change, so its downloaded README is authoritative.
 
 Stop UeSim and edit `UeSim/Content/model/config/config.json`:
 

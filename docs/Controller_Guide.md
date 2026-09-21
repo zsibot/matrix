@@ -2,7 +2,7 @@
 
 [README](../README.md) | [中文](Controller_Guide_CN.md)
 
-MATRiX v1.0.13 separates robot motion input from simulation camera input. A packaged Blueprint or game mode can add or override bindings, so use the in-game help when it differs from this table.
+MATRiX v1.1.1 separates robot motion input from simulation camera input. A packaged Blueprint or game mode can add or override bindings, so use the in-game help when it differs from this table.
 
 ## Embedded motion controller
 
@@ -17,7 +17,7 @@ MATRiX v1.0.13 separates robot motion input from simulation camera input. A pack
 | Jump | RB + X | `xgb` only |
 | Front jump | RB + Y | `xgb` only |
 
-Input modes are `Hardware`, `UDP`, `Auto`, and `Disabled`. The v1.0.13 Linux runtime reads `/dev/input/js0` by default when hardware input is active. In `Auto` mode, a recent UDP packet takes priority; otherwise the controller reads the gamepad.
+Input modes are `Hardware`, `UDP`, `Auto`, and `Disabled`. The v1.1.1 Linux runtime reads `/dev/input/js0` by default when hardware input is active. In `Auto` mode, a recent UDP packet takes priority; otherwise the controller reads the gamepad.
 
 UDP input listens on `0.0.0.0:7447` by default and receives JSON gamepad state. This is UDP and is independent of the Zenoh TCP endpoint, even when both use port number 7447.
 

@@ -1,8 +1,8 @@
-# MATRiX v1.0.13 地图目录与 DLC
+# MATRiX v1.1.1 地图目录与 DLC
 
-[返回中文主页](README_CN.md) | [English](Map_DLC.md)
+[返回中文 README](README_CN.md) | [English](Map_DLC.md)
 
-v1.0.13 的地图选择界面支持动态更新目录，并自动识别基础包已有地图和已挂载的 DLC 地图。开源基础包不分发外部地图 `.pak`，只使用已获授权的地图资源。
+v1.1.1 的地图选择界面支持动态更新目录，并自动识别基础包已有地图和已挂载的 DLC 地图。开源基础包不分发外部地图 `.pak`，只使用已获授权的地图资源。
 
 ## 初始目录
 
@@ -35,9 +35,7 @@ UeSim/Content/model/MapDataTable.json
 
 [MATRiX 地图 DLC 百度网盘（提取码：6sth）](https://pan.baidu.com/s/1I87hQ9C8XzIGXgbyWk3i9A?pwd=6sth#list/path=%2F)
 
-下载与 v1.0.13 及目标地图匹配的 DLC 包；若下载的是压缩包，先解压得到 `.pak`。将 `.pak` 放入推荐目录：
-
-将获得授权且与 v1.0.13 匹配的 `.pak` 放入推荐目录：
+下载与 v1.1.1 及目标地图匹配的 DLC 包；若下载的是压缩包，先解压得到 `.pak`。将 `.pak` 放入推荐目录：
 
 ```bash
 mkdir -p UeSim/Saved/DLCs
@@ -65,3 +63,5 @@ UeSim/Content/model/MapDataTable.json
 - 下载后仍显示未安装：检查 `.pak` 是否位于 DLC 扫描目录、是否与当前版本和地图列表匹配，然后重启 UeSim。
 - 更新失败：确认目录可写、服务器可访问，且 JSON 格式有效、条目包含地图图像。
 - 地图无法进入：查看 `UeSim/Saved/Logs/UeSim.log` 中的 pak 挂载和地图加载错误。
+
+百度网盘中请选择与当前运行包版本匹配的最新 DLC，不要仅按文件名判断兼容性。

@@ -1,7 +1,7 @@
 # Contributing to MATRiX
 
 Thank you for helping improve MATRiX. This repository contains public
-documentation and GitHub Release metadata/assets for the Linux simulator.
+documentation, companion Python tools, release scripts and GitHub Release metadata for the Linux simulator.
 The Unreal Engine source project is maintained separately, so open an issue
 before starting a change that requires engine-source modifications.
 
@@ -18,10 +18,9 @@ By participating, you agree to follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 ## Development environment
 
 Documentation changes do not require the full simulator. For runtime-related
-documentation, verify claims against the v1.0.13 Linux package and its
+documentation, verify claims against the v1.1.1 Linux package and its
 corresponding source. The simulator requires Linux x86_64 and a working GPU
-driver; ROS 2 is optional. Ubuntu 22.04 is required only by the separately
-downloaded external motion controller.
+driver; ROS 2 is optional. Requirements of an external controller depend on the separately downloaded version.
 
 Before submitting a documentation pull request, check local Markdown links,
 balanced code fences, version strings, Linux paths, and commands copied from
@@ -31,7 +30,7 @@ request.
 ## Change guidelines
 
 - Keep each pull request focused on one problem.
-- Use Linux paths and commands for the public v1.0.13 documentation.
+- Use Linux paths and commands for the public v1.1.1 documentation.
 - Treat the root `VERSION` file as the repository release version.
 - Keep archive-part names and SHA-256 values synchronized with GitHub Release
   assets.
@@ -57,3 +56,5 @@ A pull request should contain:
 
 Maintainers may request that large changes be split so review and rollback
 remain practical.
+
+Run `python3 scripts/ci/check_repo.py` for the offline repository checks. Use `bash scripts/build_release.sh --help` for local release packaging.

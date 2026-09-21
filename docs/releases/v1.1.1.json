@@ -1,0 +1,42 @@
+{
+  "archive": "MATRiX_v1.1.1.tar.gz",
+  "archive_size_bytes": 5020891465,
+  "archive_sha256": "39bc1e41a06c018571be2b6c47fa2548b597f81175e4baea9d348c28b0fb5301",
+  "part_size_limit_bytes": 1900000000,
+  "parts": [
+    {
+      "name": "MATRiX_v1.1.1.tar.gz.part-001",
+      "size_bytes": 1900000000,
+      "sha256": "8d1425cacc54c0fb950e8bd27a40c94e75c9576992e215e3e598c06bb2924c36"
+    },
+    {
+      "name": "MATRiX_v1.1.1.tar.gz.part-002",
+      "size_bytes": 1900000000,
+      "sha256": "2c21940df51b11b464607326bf6b1e674ff47ef6e2c1102d9973f0dae8006a2a"
+    },
+    {
+      "name": "MATRiX_v1.1.1.tar.gz.part-003",
+      "size_bytes": 1220891465,
+      "sha256": "4be76e5703a353c35656c2d93212aa2bb278b0dbf5a813edf3ae78b0b7948ad9"
+    }
+  ],
+  "runtime_build": {
+    "version": "1.1.1",
+    "build_id": "20260921T070837079667Z-fd3f20ec",
+    "packaged_at": "2026-09-21T15:08:37+08:00",
+    "runtime_sha256": "2830a5bbbc7f11687d45acb22558be35be9cdee61a7d90f8a04e3f61a17f39ac",
+    "config_sha256": "e3954ce382032167d65cdb9ae81deadfbdeb0b9790202cb611ec4420620256da",
+    "default_sensor_types": [
+      "imu",
+      "odom",
+      "gps",
+      "rgb",
+      "depth",
+      "airy"
+    ],
+    "semantic_presets": [
+      "config_semantic.json",
+      "config_rgb_semantic.json"
+    ]
+  }
+}

@@ -1,10 +1,10 @@
 # 云台四方向图形测试工具
 
-> 适用于 MATRiX v1.0.13 Linux 运行包。
+> 适用于 MATRiX v1.1.1 Linux 运行包。
 
 ## 启动
 
-先在 Unreal 蓝图中启动云台：
+先在运行包中加载并应用 `UeSim/Content/model/config/sensors/config_ptzrgb.json`，进入能生成 PTZRGB 的仿真场景。场景需要启动云台 UDP 服务；以下为服务端 `StartGimbal` 参数参考（定制场景时由蓝图配置）：
 
 ```text
 StartGimbal
@@ -15,7 +15,7 @@ StartGimbal
     StatePublishRateHz  = 10
 ```
 
-在 MATRiX v1.0.13 运行包根目录执行：
+在 MATRiX v1.1.1 运行包根目录执行：
 
 ```bash
 python3 Tools/gimbal_udp_ui.py
@@ -67,7 +67,7 @@ python3 Tools/gimbal_udp_ui.py \
 
 NPC 状态区会占用窗口的主要可伸缩空间，支持横向和纵向滚动。拖动窗口边缘可以继续扩大显示区域；即使状态以`10 Hz`持续刷新，UI也会保持当前滚动位置，不会自动跳回 JSON 顶部。
 
-当前场景实测的任务 NPC 状态格式如下，`rotation`为四元数，`translation`和`scale3D`均使用`x/y/z`分量：
+任务 NPC 的示例状态格式如下，是否发布取决于当前场景。`rotation`为四元数，`translation`和`scale3D`均使用`x/y/z`分量：
 
 ```json
 {

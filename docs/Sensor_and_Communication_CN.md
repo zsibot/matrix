@@ -4,6 +4,8 @@
 
 本文依据当前 `RobotSensorSimulation`、`MujocoSceneImporter` 和 `MyProjectRobotZenohPlugin` 源码校正，说明传感器类型、默认频率、数据格式、时间戳和 Zenoh key 约定。完整 JSON 示例见[传感器配置教程](Sensor_Config_Tutorial.md)。
 
+当前活动配置包含 IMU、Odom、GPS、RGB、Depth 和 Airy 六个传感器，与 `config_default.json` 一致；默认开启同步模式。进入仿真并创建机器人后再接收数据，其他方案需要加载并应用。 完整方案和 GPU 说明见[传感器方案](Sensor_Schemes_CN.md)。点云的 `frame_id=map` 标签不表示 XYZ 已转为世界坐标。
+
 ## 配置位置
 
 ~~~text
@@ -19,7 +21,7 @@ Content/model/config/sensors/
 └── config_zg.json
 ~~~
 
-v1.0.13 Linux 运行包位于 `UeSim/Content/model/config/`。
+v1.1.1 Linux 运行包位于 `UeSim/Content/model/config/`。
 
 ## 当前传感器类型
 

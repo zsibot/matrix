@@ -1,0 +1,222 @@
+{
+	"IMU": {
+		"sensor_type": "imu",
+		"topic": "/imu",
+		"frame_id": "map",
+		"position": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"sensor_attach": "base_link",
+		"frequency": 500,
+		"ignore_mounting_actor": true,
+		"enabled": true
+	},
+	"front_lidar_imu": {
+		"sensor_type": "imu",
+		"topic": "/front_lidar/imu",
+		"frame_id": "map",
+		"position": {
+			"x": 0.361718237727878,
+			"y": 0.004205674593522,
+			"z": -0.004208218875391
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": -90,
+			"yaw": 0
+		},
+		"sensor_attach": "base_link",
+		"frequency": 500,
+		"ignore_mounting_actor": true,
+		"enabled": true
+	},
+	"rear_lidar_imu": {
+		"sensor_type": "imu",
+		"topic": "/rear_lidar/imu",
+		"frame_id": "map",
+		"position": {
+			"x": -0.3505894928423298,
+			"y": -0.0445561791460479,
+			"z": 0.051855984806235295
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": -90,
+			"yaw": 180
+		},
+		"sensor_attach": "base_link",
+		"frequency": 500,
+		"ignore_mounting_actor": true,
+		"enabled": true
+	},
+	"Odom": {
+		"sensor_type": "odom",
+		"topic": "/odom",
+		"frame_id": "map",
+		"position": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"sensor_attach": "base_link",
+		"frequency": 100,
+		"ignore_mounting_actor": true,
+		"enabled": true,
+		"child_frame_id": "base_link"
+	},
+	"GPS": {
+		"sensor_type": "gps",
+		"topic": "/gps",
+		"frame_id": "map",
+		"position": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"sensor_attach": "base_link",
+		"frequency": 100,
+		"ignore_mounting_actor": true,
+		"enabled": true,
+		"origin_latitude_deg": 39.906217,
+		"origin_longitude_deg": 116.3912757,
+		"origin_altitude_m": 0.0,
+		"position_noise_std_m": 0.15,
+		"altitude_noise_std_m": 0.25,
+		"heading_noise_std_deg": 0.15
+	},
+	"camera": {
+		"sensor_type": "rgb",
+		"topic": "/front_camera/image/compressed",
+		"frame_id": "map",
+		"frequency": 10,
+		"position": {
+			"x": 0.426132608865576,
+			"y": -0.010512812182730358,
+			"z": 0.08585034844521558
+		},
+		"rotation": {
+			"roll": -0.9823930803979426,
+			"pitch": 3.957646720707572,
+			"yaw": -0.006590140330950711
+		},
+		"height": 544,
+		"width": 960,
+		"fov": 100.74704085978787,
+		"sensor_attach": "base_link",
+		"ignore_mounting_actor": true,
+		"enabled": true,
+		"fx": 0.0,
+		"fy": 0.0,
+		"cx": -1.0,
+		"cy": -1.0,
+		"K1": 0.0,
+		"K2": 0.0,
+		"K3": 0.0,
+		"P1": 0.0,
+		"P2": 0.0
+	},
+	"rear_camera": {
+		"sensor_type": "rgb",
+		"topic": "/rear_camera/image/compressed",
+		"frame_id": "map",
+		"frequency": 10,
+		"position": {
+			"x": -0.39617921837165615,
+			"y": 0.02768334194133197,
+			"z": 0.0827582183268248
+		},
+		"rotation": {
+			"roll": 0.7447247509832025,
+			"pitch": -3.9121300416006233,
+			"yaw": -179.50383458055572
+		},
+		"height": 544,
+		"width": 960,
+		"fov": 100.816320157397,
+		"sensor_attach": "base_link",
+		"ignore_mounting_actor": true,
+		"enabled": true,
+		"fx": 0.0,
+		"fy": 0.0,
+		"cx": -1.0,
+		"cy": -1.0,
+		"K1": 0.0,
+		"K2": 0.0,
+		"K3": 0.0,
+		"P1": 0.0,
+		"P2": 0.0
+	},
+	"lidar": {
+		"sensor_type": "airy",
+		"max_distance": 100,
+		"topic": "/front_lidar",
+		"frame_id": "map",
+		"frequency": 10,
+		"position": {
+			"x": 0.4661499857902527,
+			"y": 0,
+			"z": 0.10000000149011612
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": -90,
+			"yaw": 0
+		},
+		"draw_points": false,
+		"random_scan": false,
+		"simulate_motion_distortion": true,
+		"sensor_attach": "base_link",
+		"ignore_mounting_actor": true,
+		"enabled": true,
+		"RangeBiasMeters": 0.0,
+		"RangeNoiseStdDevMeters": 0.0,
+		"ReturnDropoutProbability": 0.0,
+		"MeasurementRandomSeed": 1,
+		"backend": "gpu"
+	},
+	"rear_lidar": {
+		"sensor_type": "airy",
+		"max_distance": 100,
+		"topic": "/rear_lidar",
+		"frame_id": "map",
+		"frequency": 10,
+		"position": {
+			"x": -0.45474471428273355,
+			"y": -0.040322910888566446,
+			"z": 0.15635488185344684
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": -90,
+			"yaw": 180
+		},
+		"draw_points": false,
+		"random_scan": false,
+		"simulate_motion_distortion": true,
+		"sensor_attach": "base_link",
+		"ignore_mounting_actor": true,
+		"enabled": true,
+		"RangeBiasMeters": 0.0,
+		"RangeNoiseStdDevMeters": 0.0,
+		"ReturnDropoutProbability": 0.0,
+		"MeasurementRandomSeed": 1,
+		"backend": "gpu"
+	}
+}

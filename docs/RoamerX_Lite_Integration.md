@@ -1,12 +1,12 @@
-# GENISOM RoamerX Open Integration with MATRiX v1.0.13
+# GENISOM RoamerX Open Integration with MATRiX v1.1.1
 
 [Usage guide](Getting_Started.md) | [Motion control](Motion_Control.md)
 
-> This document covers only the integration boundary exposed by the MATRiX v1.0.13 Linux runtime. RoamerX installation, packages, launch arguments, and navigation tuning remain owned by the `genisom_roamerx_open` project and must be checked against that project's current README.
+> This document covers only the integration boundary exposed by the MATRiX v1.1.1 Linux runtime. RoamerX installation, packages, launch arguments, and navigation tuning remain owned by the `genisom_roamerx_open` project and must be checked against that project's current README.
 
 ## 1. Important change from older instructions
 
-The MATRiX v1.0.13 runtime package does **not** contain:
+The MATRiX v1.1.1 runtime package does **not** contain:
 
 ```text
 bin/sim_launcher
@@ -38,7 +38,7 @@ MATRiX is the simulator and sensor source. A compatible bridge is responsible fo
 ## 3. Requirements
 
 - a Linux environment supported by the selected ROS 2 distribution (the examples below use ROS 2 Humble);
-- MATRiX v1.0.13 running successfully;
+- MATRiX v1.1.1 running successfully;
 - a Zenoh-to-ROS2 bridge compatible with the current UeSim CDR payloads;
 - a built `genisom_roamerx_open` workspace;
 - matching ROS domain and RMW configuration for all ROS 2 processes;
@@ -54,7 +54,7 @@ The active configuration is:
 UeSim/Content/model/config/config.json
 ```
 
-The v1.0.13 release default contains IMU, odometry, GPS, RGB, depth, and Airy LiDAR entries. Confirm that the selected UI preset still provides the LiDAR, IMU, and odometry needed by navigation. Preset references include:
+The active configuration contains six sensors matching `config_default.json`: IMU, odometry, GPS, RGB, depth, and Airy. Synchronized scheduling is enabled. Enter the simulation and spawn the robot before receiving data; load and apply other schemes when needed. `mid360_slam.json` provides MID360, IMU, and odometry. Confirm active topics before navigation. Preset references include:
 
 ```text
 UeSim/Content/model/config/sensors/config_default.json
@@ -77,7 +77,7 @@ Relevant sensor fields:
 
 Use `sensor_sync_mode=true` for a common simulation-time schedule. Keep `simulate_motion_distortion=false` during basic integration unless the downstream localization stack explicitly deskews each point using correct per-point timing.
 
-MATRiX sensor frames use ROS FLU: X forward, Y left, Z up, in metres.
+MATRiX sensor frames use ROS FLU: X forward, Y left, Z up, in metres. The shared point-cloud publisher currently labels its Header `frame_id=map`, even though the points remain sensor-local. Your bridge must handle this convention before publishing TF-dependent ROS data; changing the frame label alone does not transform coordinates.
 
 ## 5. Start MATRiX and verify Zenoh first
 

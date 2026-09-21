@@ -1,0 +1,65 @@
+{
+	"lidar": {
+		"sensor_type": "mid360",
+		"max_distance": 100,
+		"ignore_mounting_actor": true,
+		"topic": "/front_lidar",
+		"frequency": 10,
+		"position": {
+			"x": 0.0,
+			"y": 0.0,
+			"z": 0.1
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"draw_points": false,
+		"random_scan": false,
+		"simulate_motion_distortion": false,
+		"sensor_attach": "base_link",
+		"enabled": true,
+		"frame_id": "map",
+		"backend": "gpu"
+	},
+	"Odom": {
+		"sensor_type": "odom",
+		"ignore_mounting_actor": true,
+		"topic": "/odom",
+		"position": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"sensor_attach": "base_link",
+		"frequency": 100,
+		"enabled": true,
+		"frame_id": "map",
+		"child_frame_id": "base_link"
+	},
+	"IMU": {
+		"sensor_type": "imu",
+		"ignore_mounting_actor": true,
+		"topic": "/front_lidar/imu",
+		"position": {
+			"x": 0,
+			"y": 0,
+			"z": 0.1
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"sensor_attach": "base_link",
+		"frequency": 500,
+		"enabled": true,
+		"frame_id": "map"
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"depth_sensor": {
+		"sensor_type": "infrared",
+		"ignore_mounting_actor": true,
+		"topic": "/front_infrared/image/compressed",
+		"frequency": 10,
+		"position": {
+			"x": 0.0,
+			"y": 0,
+			"z": 0.3
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"height": 480,
+		"width": 640,
+		"fov": 90,
+		"cloudmode": false,
+		"sensor_attach": "base_link",
+		"enabled": true,
+		"frame_id": "map"
+	}
+}

@@ -20,6 +20,15 @@ In `UeSim/Content/model/config/config.json`, enable synchronized sensor scheduli
 
 The selected camera and LiDAR should use the same `frequency` and `sensor_attach`. Their `position` and `rotation` fields define the fixed extrinsic when no calibration file is supplied.
 
+The default configuration already contains a camera and Airy LiDAR. Use the commands below after spawning the robot, or check a preset offline:
+
+```bash
+python3 Tools/visualize_lidar_camera_projection.py \
+  --sensor-config UeSim/Content/model/config/sensors/config_default.json --check-only
+```
+
+`--sensor-config` only selects what this tool reads; it does not activate sensors in UeSim.
+
 ## Run
 
 Start MATRiX, then run from the release root:

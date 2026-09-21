@@ -60,7 +60,7 @@
 
 | 文件 | 用途 |
 | --- | --- |
-| `Content/model/config/sensors/config_ptzrgb.json` | PTZRGB独立传感器配置示例 |
+| `UeSim/Content/model/config/sensors/config_ptzrgb.json` | PTZRGB独立传感器配置示例 |
 | `docs/Camera_Gimbal_UDP_JSON_Protocol_CN.md` | 本协议，外部控制器开发依据 |
 | `Tools/gimbal_udp_client.py` | 命令行控制及状态监听参考实现 |
 | `Tools/gimbal_udp_ui.py` | 上下左右控制及状态显示测试工具 |
@@ -1119,7 +1119,7 @@ UDP 源地址可以被伪造。`client_id`和`session_id`只用于顺序和幂�
 
 ## 14. Python参考客户端
 
-v1.0.13 发布包随附可直接运行、仅依赖 Python 标准库的完整客户端 `Tools/gimbal_udp_client.py`。它覆盖本协议全部命令，并自动生成 request/session/时间字段。例如：
+发布包随附可直接运行、仅依赖 Python 标准库的完整客户端：[`../Tools/gimbal_udp_client.py`](../Tools/gimbal_udp_client.py)。它覆盖本协议全部命令，并自动生成 request/session/时间字段。例如：
 
 需要人工交互测试时，可以使用带 Tkinter 界面的 `gimbal_udp_ui.py`。在 MATRiX 运行包根目录运行 `python3 Tools/gimbal_udp_ui.py`。详细操作和验收步骤见 [Camera_Gimbal_UI_Tool_CN.md](Camera_Gimbal_UI_Tool_CN.md)。
 

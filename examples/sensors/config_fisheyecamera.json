@@ -1,0 +1,29 @@
+{
+	"fisheye": {
+		"position": {
+			"x": 0.27,
+			"y": 0,
+			"z": 0.5
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"height": 1080,
+		"width": 1920,
+		"sensor_type": "fisheye",
+		"ignore_mounting_actor": true,
+		"topic": "/fisheye/front_left/compressed",
+		"fov": 210,
+		"frequency": 10,
+		"sensor_attach": "base_link",
+		"CubeFaceSize": 512,
+		"K1": 0.0,
+		"K2": 0.0,
+		"K3": 0.0,
+		"K4": 0.0,
+		"enabled": true,
+		"frame_id": "map"
+	}
+}

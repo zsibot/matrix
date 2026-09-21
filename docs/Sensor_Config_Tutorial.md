@@ -4,6 +4,8 @@
 
 This guide is aligned with the current `UMujocoConfigLibrary` implementation and the sensor templates under `Content/model/config/sensors`.
 
+The active configuration contains six sensors matching `config_default.json`: IMU, odometry, GPS, RGB, depth, and Airy. Synchronized scheduling is enabled. Enter the simulation and spawn the robot before receiving data; load and apply other schemes when needed. See [sensor schemes](Sensor_Schemes.md). The public repository contains configuration examples; the runtime model tree is downloaded separately.
+
 ## 1. Configuration files
 
 The source project uses:
@@ -21,20 +23,22 @@ Content/model/config/sensors/
 └── config_zg.json
 ~~~
 
-The v1.0.13 Linux package exposes this tree under `UeSim/Content/model/`.
+The v1.1.1 Linux package exposes this tree under `UeSim/Content/model/`.
 
 `config.json` is the active robot configuration. Files in `sensors/` are templates. Editing a template does not change `config.json` until the launcher or a config-library operation applies it.
 
 ## 2. Current robot-level schema
 
+The example below omits sensor details for readability. The actual default has six sensors; do not replace a full configuration with this reduced schema.
+
 ~~~json
 {
   "robot": {
-    "mujoco_model": "model/xgb/xgb.xml",
+    "mujoco_model": "Content/model/xgw2/xgw2.xml",
     "main_body": "base_link",
     "weapon": "",
     "network_mode": "standalone",
-    "sensor_sync_mode": false,
+    "sensor_sync_mode": true,
     "inside_mc": true,
     "zenoh_router": "tcp/0.0.0.0:7447",
     "position": { "x": 0, "y": 0, "z": 1 },
@@ -54,7 +58,7 @@ Important corrections from older configurations:
 - Do not use `synchronous_mode`, `synchronous_frequency`, `EgoView`, or per-sensor `synchronized`.
 - `sensor_master_rate_hz`, `sensor_overrun_policy`, and `require_realtime_sensor_frequency` are legacy runtime pins and are removed when the current config library saves JSON.
 
-The `mujoco_model` path is relative to `UeSim/Content`. Keep it relative so the extracted release can be moved.
+The `mujoco_model` path is relative to the `UeSim/` project directory. Keep it relative so the extracted release can be moved.
 
 ## 3. Dynamic sensor objects
 
@@ -82,6 +86,8 @@ The sensor list is not limited to `camera`, `depth_sensor`, and `lidar`. Multipl
 | `imu` | IMU | 500 Hz | ROS 2 IMU CDR |
 | `odom` | Odometry | 100 Hz | ROS 2 Odometry CDR |
 | `gps` | GPS | 100 Hz | Position/navigation data |
+| `semantic` | Perspective semantic class-ID camera | 10 Hz | Lossless CompressedImage PNG |
+| `ptzrgb` | Gimbal RGB camera | 10 Hz | CompressedImage and UDP gimbal control |
 | `rgb` | Perspective RGB camera | 10 Hz | CompressedImage |
 | `infrared` | Infrared/thermal camera | 10 Hz | CompressedImage |
 | `depth` | Perspective depth camera | 10 Hz | Lossless depth PNG; optional raw float32 depth |
@@ -111,7 +117,8 @@ Legacy `wargb` and `wadepth` types were replaced by `fisheye`. The current templ
 | `K1`–`K4` | Kannala–Brandt fisheye coefficients |
 | `cloudmode` | Depth compatibility option |
 | `draw_points` / `random_scan` | LiDAR display/scan options |
-| `simulate_motion_distortion` | Airy motion-distortion time model |
+| `simulate_motion_distortion` | LiDAR motion-distortion time model |
+| `backend` | Airy/MID360 backend request: `cpu` or `gpu`; confirm actual backend in logs |
 
 Local sensor axes are `+X forward`, `+Y right`, and `+Z up`. Positions are metres.
 

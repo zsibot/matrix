@@ -1,0 +1,157 @@
+{
+	"IMU": {
+		"sensor_type": "imu",
+		"ignore_mounting_actor": true,
+		"topic": "/imu",
+		"position": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"sensor_attach": "base_link",
+		"frequency": 500,
+		"enabled": true,
+		"frame_id": "map"
+	},
+	"Odom": {
+		"sensor_type": "odom",
+		"ignore_mounting_actor": true,
+		"topic": "/odom",
+		"position": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"sensor_attach": "base_link",
+		"frequency": 100,
+		"enabled": true,
+		"frame_id": "map",
+		"child_frame_id": "base_link"
+	},
+	"GPS": {
+		"sensor_type": "gps",
+		"ignore_mounting_actor": true,
+		"topic": "/gps",
+		"position": {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"sensor_attach": "base_link",
+		"frequency": 100,
+		"enabled": true,
+		"frame_id": "map",
+		"origin_latitude_deg": 39.906217,
+		"origin_longitude_deg": 116.3912757,
+		"origin_altitude_m": 0.0,
+		"position_noise_std_m": 0.15,
+		"altitude_noise_std_m": 0.25,
+		"heading_noise_std_deg": 0.15
+	},
+	"camera": {
+		"sensor_type": "rgb",
+		"ignore_mounting_actor": false,
+		"topic": "/front_camera/image/compressed",
+		"frequency": 10,
+		"position": {
+			"x": 0.0,
+			"y": 0,
+			"z": 0.1
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"height": 1080,
+		"width": 1920,
+		"fov": 90,
+		"fx": 0.0,
+		"fy": 0.0,
+		"cx": -1.0,
+		"cy": -1.0,
+		"K1": 0.0,
+		"K2": 0.0,
+		"K3": 0.0,
+		"P1": 0.0,
+		"P2": 0.0,
+		"sensor_attach": "base_link",
+		"enabled": true,
+		"frame_id": "map"
+	},
+	"depth_sensor": {
+		"sensor_type": "depth",
+		"ignore_mounting_actor": false,
+		"topic": "/front_depth/image/compressed",
+		"frequency": 10,
+		"position": {
+			"x": 0.0,
+			"y": 0,
+			"z": 0.1
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"height": 480,
+		"width": 640,
+		"fov": 120,
+		"fx": 0.0,
+		"fy": 0.0,
+		"cx": -1.0,
+		"cy": -1.0,
+		"K1": 0.0,
+		"K2": 0.0,
+		"K3": 0.0,
+		"P1": 0.0,
+		"P2": 0.0,
+		"cloudmode": false,
+		"sensor_attach": "base_link",
+		"enabled": true,
+		"frame_id": "map"
+	},
+	"lidar": {
+		"sensor_type": "airy",
+		"max_distance": 100,
+		"ignore_mounting_actor": false,
+		"topic": "/front_lidar",
+		"frequency": 10,
+		"position": {
+			"x": 0.0,
+			"y": 0,
+			"z": 0.1
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"draw_points": false,
+		"random_scan": false,
+		"simulate_motion_distortion": false,
+		"sensor_attach": "base_link",
+		"enabled": true,
+		"frame_id": "map",
+		"RangeBiasMeters": 0.0,
+		"RangeNoiseStdDevMeters": 0.0,
+		"ReturnDropoutProbability": 0.0,
+		"MeasurementRandomSeed": 1,
+		"backend": "gpu"
+	}
+}

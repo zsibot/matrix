@@ -53,3 +53,10 @@ bin/log.txt
 .DS_Store
 Thumbs.db
 .codex_tmp*
+
+# Generated release assets stay out of Git; metadata lives in docs/releases/.
+/releases/
+/dist/
+.venv/
+__pycache__/
+*.py[cod]

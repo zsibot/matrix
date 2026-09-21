@@ -1,0 +1,24 @@
+{
+	"panoramargb": {
+		"sensor_type": "panoramargb",
+		"ignore_mounting_actor": true,
+		"topic": "/panoramargb/front_camera/compressed",
+		"frequency": 10,
+		"position": {
+			"x": 0,
+			"y": 0,
+			"z": 0.3
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"height": 1080,
+		"width": 1920,
+		"sensor_attach": "base_link",
+		"CubeFaceSize": 512,
+		"enabled": true,
+		"frame_id": "map"
+	}
+}

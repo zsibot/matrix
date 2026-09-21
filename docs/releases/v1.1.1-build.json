@@ -1,0 +1,19 @@
+{
+  "version": "1.1.1",
+  "build_id": "20260921T070837079667Z-fd3f20ec",
+  "packaged_at": "2026-09-21T15:08:37+08:00",
+  "runtime_sha256": "2830a5bbbc7f11687d45acb22558be35be9cdee61a7d90f8a04e3f61a17f39ac",
+  "config_sha256": "e3954ce382032167d65cdb9ae81deadfbdeb0b9790202cb611ec4420620256da",
+  "default_sensor_types": [
+    "imu",
+    "odom",
+    "gps",
+    "rgb",
+    "depth",
+    "airy"
+  ],
+  "semantic_presets": [
+    "config_semantic.json",
+    "config_rgb_semantic.json"
+  ]
+}

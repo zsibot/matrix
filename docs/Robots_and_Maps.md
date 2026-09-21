@@ -2,7 +2,7 @@
 
 [README](../README.md) | [中文](Robots_and_Maps_CN.md)
 
-This page describes the MATRiX v1.0.13 Linux release. DLCs must match this release and its Unreal Engine build.
+This page describes the MATRiX v1.1.1 Linux release. DLCs must match this release and its Unreal Engine build.
 
 ## Robot models
 
@@ -19,7 +19,7 @@ This page describes the MATRiX v1.0.13 Linux release. DLCs must match this relea
 | `zgwt` | Yes | Yes | Embedded Passive / Stand / Walk |
 | `zgwsarm` | Yes | Yes | UI label may appear as `zgws_arm` |
 
-The model key must match the model directory and MJCF selected by `mujoco_model`. The embedded controller is registered for `xgb`, `xg2`, `xgw`, `xgw2`, `xxg`, `zgws`, `zgwt`, and `zgwsarm`. `go2` and `go2w` are simulation assets without a v1.0.13 built-in motion core.
+The model key must match the model directory and MJCF selected by `mujoco_model`. The embedded controller is registered for `xgb`, `xg2`, `xgw`, `xgw2`, `xxg`, `zgws`, `zgwt`, and `zgwsarm`. `go2` and `go2w` are simulation assets without a v1.1.1 built-in motion core.
 
 ### Robot previews
 
@@ -46,7 +46,7 @@ The open base package intentionally starts with an empty `UeSim/Content/model/Ma
 3. wait for the DLC download and mount to complete;
 4. enter the map when its card is marked ready.
 
-The catalog is the source of truth for the maps currently offered for v1.0.13. Do not rely on old numeric IDs or copy a catalog from another release.
+The catalog is the source of truth for the maps currently offered for v1.1.1. Do not rely on old numeric IDs or copy a catalog from another release.
 
 ## DLC locations and loading
 

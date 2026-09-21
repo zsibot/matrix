@@ -15,7 +15,7 @@
 MATRiX 是一个面向运行时工作流的机器人仿真平台，将 Unreal Engine 5 渲染与 MuJoCo 动力学整合到同一套流程中。用户可以直接加载 MJCF/XML 机器人、组合经过标定的虚拟传感器、使用内置运控，并通过 Zenoh 传输兼容 ROS 2 的数据；核心仿真器无需安装 ROS 2。
 
 > [!IMPORTANT]
-> 当前版本为 **v1.0.13**，提供 Linux x86_64 运行包。正确安装显卡驱动后即可运行，仿真器不限定 Ubuntu 22.04。只有另行下载的可选独立运控限定 Ubuntu 22.04 x86_64。
+> 当前版本为 **v1.1.1**，提供 Linux x86_64 运行包。正确安装显卡驱动后即可运行，仿真器不限定 Ubuntu 22.04。可选独立运控的系统要求以另行下载版本的说明为准。
 
 ## 核心优势
 
@@ -27,7 +27,7 @@ MATRiX 是一个面向运行时工作流的机器人仿真平台，将 Unreal En
 | **从仿真控制平滑过渡到控制器联调** | MuJoCo 在独立 worker 上运行，目标控制频率 500 Hz；默认内置运控开箱即用，可选外部 `robot_mc` 复用同一模拟硬件 ABI；关节与执行器目标由当前 MuJoCo 模型限位。 |
 | **无需 ROS 依赖也能使用 ROS 兼容数据** | Zenoh 发布兼容 ROS 2 CDR 的压缩图像、`PointCloud2` 等消息；仿真器可独立运行，ROS 2 bridge 按需接入。 |
 | **地图内容与基础包独立扩展** | 启动界面可更新经过校验的远程地图目录、识别已挂载内容并按需下载 DLC；标准 UE 场景、动态角色、Gaussian Splatting 和 Pixel Streaming 2 共用同一运行时。 |
-| **随包提供完整调试工具** | `Tools/` 包含传感器接收、话题监控、LiDAR-相机投影、2D/3D 包围盒、云台控制、运控 UDP、Spawn 和语音消息测试工具。 |
+| **随包提供完整调试工具** | `Tools/` 包含传感器接收、话题监控、LiDAR-相机投影、分类 XY 包围盒、鱼眼投影和录制回放、云台控制、运控 UDP、Spawn 和语音消息测试工具。 |
 
 ## 🎥 宣传片
 
@@ -73,37 +73,45 @@ MATRiX 是一个面向运行时工作流的机器人仿真平台，将 Unreal En
 
 ## 🚀 快速开始
 
-1. 任选一种方式下载 MATRiX v1.0.13：
-   - [GitHub Release](https://github.com/zsibot/matrix/releases/tag/v1.0.13)：下载全部 3 个压缩分片和 `SHA256SUMS`，保持原文件名并放在同一目录；
-   - [百度网盘 Linux 运行包](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q)：提取码 `118g`。
-2. 使用 GitHub 分片时，先校验并解压：
+1. 选择一种方式下载 MATRiX v1.1.1：
+   - [Linux 直链下载](http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz)：完整 `.tar.gz`，支持断点续传。**当前暂不可用（2026-09-21 15:22 检查为 HTTP 404），待服务器重新上传。**
+   - [GitHub Release](https://github.com/zsibot/matrix/releases/tag/v1.1.1)：下载**全部** `.part-*` 分卷及 `SHA256SUMS`，每卷低于 2 GB。若尚未显示此版本，请检查百度网盘的最新构建，或等待直链恢复。
+   - [百度网盘](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q)：提取码 `118g`，**请选择最新的 Linux 版本下载**（本文对应 v1.1.1）。
+2. 完整包直接解压；GitHub 分卷需校验后按文件名顺序合并解压：
 
-~~~bash
-sha256sum -c SHA256SUMS
-cat MATRiX_v1.0.13.tar.gz.part-* | tar -xzf -
-~~~
+```bash
+# 直链或网盘完整包
+tar -xzf MATRiX_v1.1.1.tar.gz
+# GitHub 分卷使用下面的命令，目录中只保留本次版本的分卷
+sha256sum -c SHA256SUMS && \
+  cat MATRiX_v1.1.1.tar.gz.part-* | tar -xzf -
+```
 
-3. 启动 MATRiX：
+3. 启动仿真器：
 
-~~~bash
-cd MATRiX_v1.0.13
+```bash
+cd MATRiX_v1.1.1
 ./UeSim.sh
-~~~
+```
 
-压缩包已保留可执行权限，不需要对 `UeSim.sh` 或 `UeSim/Binaries/Linux/UeSim` 执行 `chmod`。
+本 Git 仓库维护文档、Python 工具和发布脚本；UeSim 可执行程序、Engine 和模型通过下载包交付。克隆仓库不会安装仿真器。详细步骤见[下载与校验](Release_Download_CN.md)。
 
-默认启用内置运控（`robot.inside_mc=true`），无需启动额外控制器进程。开源运行包不包含独立 `robot_mc`；确需使用时，从 [MATRiX_Robot_MC](https://github.com/GENISOM-AI/MATRiX_Robot_MC/releases) 下载受支持的 Linux 运行包，并按[运动控制指南](Motion_Control_CN.md)配置。
+默认机器人为 `xgw2`，`inside_mc=true`、`sensor_sync_mode=true`。当前活动配置包含 IMU、Odom、GPS、RGB、Depth 和 Airy 六个传感器，与 `config_default.json` 一致；默认开启同步模式。进入仿真并创建机器人后再接收数据，其他方案需要加载并应用。 见[传感器方案](Sensor_Schemes_CN.md)。
 
-在地图选择界面先点击 **UPDATE LIST（更新列表）**，再点击目标地图下方的 **DOWNLOAD（下载）**。手动安装时，从[地图 DLC 百度网盘](https://pan.baidu.com/s/1I87hQ9C8XzIGXgbyWk3i9A?pwd=6sth#list/path=%2F)下载，提取码 `6sth`，具体步骤见[地图与 DLC](Map_DLC_CN.md)。
+默认内置运控无需单独启动控制器。可选独立 `robot_mc` 仍需[另行下载](https://github.com/GENISOM-AI/MATRiX_Robot_MC/releases)，按[运动控制指南](Motion_Control_CN.md)配置。
 
-如果运行包包含 `Tools/`，可按典型方式启动传感器接收器：
+地图界面先点击 **UPDATE LIST**，再点击目标地图的 **DOWNLOAD**。手动安装可从[地图 DLC 百度网盘](https://pan.baidu.com/s/1I87hQ9C8XzIGXgbyWk3i9A?pwd=6sth#list/path=%2F)下载（提取码 `6sth`），**选择与运行包版本兼容的最新 DLC**，见[地图与 DLC](Map_DLC_CN.md)。
 
-~~~bash
-python3 -m pip install eclipse-zenoh opencv-python numpy
-python3 Tools/zenoh_sensor_receiver.py
-~~~
+可选 Python 工具使用 Python 3.10+，从解压后的运行包根目录执行：
 
-完整平台要求、目录说明和工具验证步骤见[快速开始指南](Getting_Started_CN.md)。
+```bash
+python3 -m venv .venv
+. .venv/bin/activate
+python3 -m pip install -r Tools/requirements.txt
+python3 Tools/zenoh_sensor_receiver.py --key 'rt/**'
+```
+
+更多说明见[快速开始](Getting_Started_CN.md)和[工具清单](../Tools/README.md)。
 
 ## 📚 文档
 
@@ -124,7 +132,9 @@ python3 Tools/zenoh_sensor_receiver.py
 | 故障排查 | [常见问题](FAQ_CN.md) |
 | Docker | [Docker 支持状态](Docker_Tutorial.md) |
 | Pixel Streaming | [浏览器远程查看指南](pixelstreaming_tutorial.md) |
-| 版本变化 | [v1.0.13 发布说明](Release_Notes_CN.md) |
+| 传感器方案与 GPU 雷达 | [中文](Sensor_Schemes_CN.md) · [English](Sensor_Schemes.md) |
+| 鱼眼投影与录制回放 | [鱼眼投影](Lidar_Fisheye_Projection_CN.md) · [录制回放](Zenoh_Recording_CN.md) |
+| 版本变化 | [v1.1.1 发布说明](Release_Notes_CN.md) |
 | 英文项目首页 | [English](../README.md) |
 
 ## 💬 社区
@@ -148,3 +158,5 @@ python3 Tools/zenoh_sensor_receiver.py
 - [MuJoCo](https://github.com/google-deepmind/mujoco)
 - [Unreal Engine](https://github.com/EpicGames/UnrealEngine)
 - [CARLA](https://carla.org/)
+
+语义相机与 RGB 配对、类别 ID 和显示方法见[Semantic camera / 语义相机](Semantic_Camera_CN.md)。

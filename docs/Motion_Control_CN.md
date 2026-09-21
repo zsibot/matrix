@@ -1,8 +1,8 @@
-# MATRiX v1.0.13 运动控制指南
+# MATRiX v1.1.1 运动控制指南
 
-[返回中文主页](README_CN.md) | [English](Motion_Control.md)
+[返回中文 README](README_CN.md) | [English](Motion_Control.md)
 
-v1.0.13 开源发布包默认只使用内置运控。独立 `robot_mc` 不随包分发，需要时由用户自行下载。
+v1.1.1 开源发布包默认只使用内置运控。独立 `robot_mc` 不随包分发，需要时由用户自行下载。
 
 ## 1. 默认模式
 
@@ -58,6 +58,12 @@ UeSim/Saved/Logs/UeSim.log
 rg 'MatrixMotionControl|embedded motion|inside_mc' UeSim/Saved/Logs/UeSim.log
 ```
 
+### v1.1.1 随包内置运控范围
+
+随包 `robot_mc_provenance.json` 记录了 2026-09-08 的 0.6.6 集成：XXG 的 Walk、GaitWalk、Pace、Three、RPWalk、Run，XG2 Passive 趴下流程，以及 XGW2 起身轮关节锁定。动作以当前机型的内置菜单为准。
+
+模型文件存在不等于对应动作已启用。WMPOutdoor 深度/RSSM、Measured_Mlp 地形输入、XXG 25-motion Mimic、XG ZYShakeHand 和 XXG 手柄双击换挡未接入本次记录的内置通道。
+
 ## 3. 手柄与 UDP
 
 默认输入模式为 `Auto`：最近收到的 UDP 输入优先，否则读取硬件手柄。Linux 默认读取 `/dev/input/js0`。
@@ -103,7 +109,7 @@ python3 Tools/matrix_mc_udp_test.py --host <仿真器IP> stand
 
 <https://github.com/GENISOM-AI/MATRiX_Robot_MC/releases>
 
-独立运控的运行和依赖安装环境限定为 Ubuntu 22.04 x86_64。该限制只针对独立运控，不是 UeSim 仿真器本体的系统限制。
+以下历史 v0.6.4 示例针对 Ubuntu 22.04 x86_64。其他外部版本的系统要求和脚本参数以实际下载版本 README 为准；该要求不等于 UeSim 仿真器本体的系统限制。
 
 不要下载 GitHub 自动生成的 `Source code (zip)` 或 `Source code (tar.gz)`，它们不包含完整运行环境。
 
@@ -113,7 +119,7 @@ python3 Tools/matrix_mc_udp_test.py --host <仿真器IP> stand
 
 ```text
 workspace/
-├── MATRiX_v1.0.13/
+├── MATRiX_v1.1.1/
 └── MATRiX_Robot_MC-v0.6.4-linux-x86_64/
 ```
 
@@ -134,7 +140,7 @@ chmod +x install_deps.sh run_mc.sh
 export ROBOT_TYPE=XG
 ```
 
-随本次发布核对的独立运控 v0.6.4 README 声明以下类型：
+以下保留独立运控 v0.6.4 的历史配置示例，不代表当前外部 Release 的完整支持列表，也不同于随包内置运控的 0.6.6 集成记录：
 
 | UeSim 模型 | 独立项目机型 | `ROBOT_TYPE` |
 |---|---|---|
@@ -144,7 +150,7 @@ export ROBOT_TYPE=XG
 | `zgws` / `zgwt` | `zsm-1w` | `ZGWS` |
 | `zgwsarm` | `zgwsarm` | `ZGWS_ARM` |
 
-值区分大小写。`xg2`、`xxg` 虽可使用 v1.0.13 内置运控，但不在 v0.6.4 外部项目公开的支持表中，不要自行推测 `ROBOT_TYPE`。独立项目的新版本可能调整支持列表和启动参数，始终以实际下载版本的 README 为准。
+值区分大小写。`xg2`、`xxg` 虽可使用 v1.1.1 内置运控，但不在 v0.6.4 外部项目公开的支持表中，不要自行推测 `ROBOT_TYPE`。独立项目的新版本可能调整支持列表和启动参数，始终以实际下载版本的 README 为准。
 
 ### 4.3 切换并启动
 

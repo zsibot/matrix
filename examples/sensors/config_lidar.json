@@ -1,0 +1,54 @@
+{
+	"lidar": {
+		"sensor_type": "mid360",
+		"max_distance": 100,
+		"ignore_mounting_actor": true,
+		"topic": "/front_lidar",
+		"frequency": 10,
+		"position": {
+			"x": 0.2,
+			"y": 0.0,
+			"z": 0.1
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 0
+		},
+		"draw_points": false,
+		"random_scan": false,
+		"simulate_motion_distortion": false,
+		"sensor_attach": "base_link",
+		"enabled": true,
+		"frame_id": "map",
+		"backend": "gpu"
+	},
+	"lidar2": {
+		"sensor_type": "airy",
+		"max_distance": 100,
+		"ignore_mounting_actor": true,
+		"topic": "/front_lidar2",
+		"frequency": 10,
+		"position": {
+			"x": -0.2,
+			"y": 0.0,
+			"z": 0.1
+		},
+		"rotation": {
+			"roll": 0,
+			"pitch": 0,
+			"yaw": 180
+		},
+		"draw_points": false,
+		"random_scan": false,
+		"simulate_motion_distortion": false,
+		"sensor_attach": "base_link",
+		"enabled": true,
+		"frame_id": "map",
+		"RangeBiasMeters": 0.0,
+		"RangeNoiseStdDevMeters": 0.0,
+		"ReturnDropoutProbability": 0.0,
+		"MeasurementRandomSeed": 1,
+		"backend": "gpu"
+	}
+}

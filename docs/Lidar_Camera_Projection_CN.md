@@ -1,7 +1,5 @@
 # MATRiX LiDAR 到相机投影工具与传感器坐标系说明
 
-[返回中文主页](README_CN.md) | [English](Lidar_Camera_Projection.md)
-
 本文面向使用 MATRiX/UeSim 传感器数据的开发人员，配套工具为
 `Tools/visualize_lidar_camera_projection.py`。工具直接订阅 Zenoh 上的 ROS 2
 XCDR1 消息，只使用刚性安装的相机、LiDAR 和固定外参，不订阅 IMU、里程计，
@@ -15,12 +13,21 @@ XCDR1 消息，只使用刚性安装的相机、LiDAR 和固定外参，不订�
 python3 -m pip install numpy opencv-python eclipse-zenoh
 ```
 
+当前活动配置包含 IMU、Odom、GPS、RGB、Depth 和 Airy 六个传感器，与 `config_default.json` 一致；默认开启同步模式。进入仿真并创建机器人后再接收数据，其他方案需要加载并应用。 也可单独离线检查预设：
+
+```bash
+python3 Tools/visualize_lidar_camera_projection.py \
+  --sensor-config UeSim/Content/model/config/sensors/config_default.json --check-only
+```
+
+`--sensor-config` 只决定工具读取哪个文件，不会替仿真器启用传感器。
+
 ### 1.2 本机运行
 
 先启动 MATRiX 仿真器，再在发布包根目录执行：
 
 ```bash
-cd /path/to/MATRiX_v1.0.13
+cd /path/to/MATRiX_v1.1.1
 python3 Tools/visualize_lidar_camera_projection.py
 ```
 
@@ -260,10 +267,12 @@ rd = θ + k1·θ³ + k2·θ⁵ + k3·θ⁷ + k4·θ⁹
 x, y, z       float32，米，LiDAR FLU 坐标
 intensity     float32
 ring          uint16
-timestamp     float64，点相对帧时刻的纳秒偏移
+timestamp     float64，点的绝对时间（秒）
 ```
 
-坐标轴为 X 前、Y 左、Z 上。无回波射线保留为 NaN 槽，消息
+Airy 的 RoboSense 有组织输出使用 `Header秒数 + 点相对时间偏移秒数`，不是相对纳秒；关闭运动畸变时，各点时间等于 Header 时间。点步长为 26 字节，仍应按 `fields` 解码。
+
+坐标轴为 X 前、Y 左、Z 上。当前统一发布器写入 `frame_id=map`，但 XYZ 仍为传感器局部坐标，不能因此当作世界坐标；桥接 ROS TF 时需处理这一约定。`intensity` 在射线仿真中保留语义标签值，不是标定后的光学反射率。无回波射线保留为 NaN 槽，消息
 `is_dense=false`；消费者必须先过滤非有限 XYZ，不能把 NaN 当作零点。真实 RoboSense
 Airy 的产品坐标原点定义在 LiDAR 底座中心，设备还带独立 IMU 外参；使用真实设备时应从
 RoboSense SDK/DIFOP 读取该批次标定值，不要假设 IMU 与 LiDAR 原点重合。
@@ -280,8 +289,7 @@ line          uint8
 timestamp     float64，点时间字段
 ```
 
-消息通常为 `height=1, width=N`，默认 `frame_id=livox_frame`。UeSim 输出已经统一为
-ROS FLU。真实 Livox MID-360 原始协议可输出毫米整数坐标，官方
+消息通常为 `height=1, width=N`。当前统一发布器写入 `frame_id=map`，XYZ 仍为 MID360 局部 ROS FLU 坐标。逐点时间受发布选项控制，默认可能为 0；启用偏移时使用相对帧的纳秒值，与 Airy RoboSense 绝对秒不同。真实 Livox MID-360 原始协议可输出毫米整数坐标，官方
 `livox_ros_driver2` 的 PointXYZRTLT 则输出米；接入真实包时必须先确认单位和
 `timestamp` 是绝对时间还是相对 `timebase` 的偏移。
 

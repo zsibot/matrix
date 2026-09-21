@@ -1,0 +1,7 @@
+# Optional desktop Python tools; the simulator itself needs none of these.
+# Python 3.10+; install into a virtual environment.
+eclipse-zenoh>=1.0,<2
+numpy>=1.23,<3
+opencv-python>=4.8,<6
+matplotlib>=3.6,<4
+Pillow>=9,<13

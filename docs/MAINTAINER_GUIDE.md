@@ -2,7 +2,7 @@
 
 [README](../README.md) | [Contributing](../CONTRIBUTING.md)
 
-This guide records the v1.0.13 Linux release boundary and the corresponding `uesim` source architecture reviewed at commit `b666c0d9`.
+This guide describes the v1.1.1 Linux release boundary, checked against the 2026-09-21 15:08 CST runtime and its bundled configuration. Development source changes after packaging are not automatically part of this binary. The public repository maintains documentation, Tools, and release scripts; the Unreal source project and executable runtime are separate.
 
 ## Runtime architecture
 
@@ -82,7 +82,7 @@ Asynchronous scheduling uses absolute deadlines. On overrun it records actual ac
 
 ## Sensor contract
 
-Current families are RGB, infrared, depth, panorama RGB, fisheye, generic LiDAR, Mid-360, Airy, IMU, GPS, and odometry.
+Current families are RGB, perspective semantic, infrared, depth, panorama RGB, fisheye, generic LiDAR, Mid-360, Airy, IMU, GPS, and odometry.
 
 The maintained templates under `Content/model/config/sensors` are the source of truth for field names and example defaults. Legacy `wargb` and `wadepth` types have been replaced by `fisheye`, and the current template set does not define `panoramadepth`.
 
@@ -94,7 +94,7 @@ Public documentation lists `xgb`, `xg2`, `xgw`, `xgw2`, `xxg`, `zgws`, `zgwt`, a
 
 - All eight documented models have a built-in motion core; available actions must be queried per model.
 - Only `xgb` registers Jump and FrontJump.
-- The embedded loop targets 500 Hz and ONNX inference targets 100 Hz.
+- The embedded loop targets 500 Hz; inference rate depends on the model (the integrated XXG history policy runs at 50 Hz).
 - MuJoCo simulated hardware implements the original controller shared-memory ABI.
 - Built-in motion control connects to that ABI when `inside_mc=true`; an external controller uses it when `inside_mc=false`.
 - The shared-memory path is process-global and should be limited to one matching controller per robot runtime.
@@ -136,3 +136,22 @@ Also verify that documentation-only repositories do not advertise runtime tools,
 ## Security and repository hygiene
 
 Never commit router credentials, service tokens, private endpoints, licensed engine content, proprietary model weights, or user-specific absolute paths. Security reports follow [SECURITY.md](../SECURITY.md), not public issues.
+
+## Build GitHub Release assets locally
+
+```bash
+bash scripts/build_release.sh /path/to/MATRiX_v1.1.1 releases/v1.1.1
+python3 scripts/ci/check_repo.py
+```
+
+The packager requires GNU tar/coreutils, gzip and Python 3.10+. Set `GZIP_LEVEL=1` for faster compression or keep the default `6` for smaller output. It keeps runtime, engine, models and debug files; it excludes local logs, Saved configuration, crash/profiling output, Python caches and virtual environments. `UeSim/Saved/DLCs` is retained. The runtime source directory is not modified. Output must be outside the runtime and must not already exist.
+
+- `full/`: complete archive and its checksum, for separately managed mirrors.
+- `github/`: parts (at most 1,900,000,000 bytes each), part/full checksums, JSON manifest and extraction instructions. Upload these files as Release assets; do not upload the full archive as a single GitHub asset.
+- `archive-files.txt`: archive listing for local inspection.
+
+Compression, archive readability, every part size and hash, and the reassembled hash are checked before the output directory becomes final. These are packaging checks, not GPU/runtime acceptance tests. Mirror archives may be repacked separately; do not reuse the GitHub archive hash for an unverified mirror copy.
+
+`scripts/runtime/UeSim.sh` maintains the portable launcher used at the executable package root. The release script does not publish, push, create a tag or replace remote downloads. Store generated metadata under `docs/releases/`; generated large assets under `releases/` are ignored by Git.
+
+The 2026-09-21 15:08 CST rebuild is identified by `RELEASE_BUILD.json` inside the runtime. The packager carries this identity into its JSON manifest. Rebuilds retaining the version number require replacement of every part/checksum together.

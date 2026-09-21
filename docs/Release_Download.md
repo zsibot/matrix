@@ -1,48 +1,65 @@
-# Downloading MATRiX v1.0.13
+# Downloading MATRiX v1.1.1
 
 [README](../README.md) | [中文](Release_Download_CN.md)
 
-Two download sources are available:
+## Download sources
 
-- [GitHub Release v1.0.13](https://github.com/zsibot/matrix/releases/tag/v1.0.13): split archive with checksums.
-- [Baidu Netdisk Linux package](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q): complete package, access code `118g`.
+- [Direct Linux download](http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz): complete archive, resumable.
+- [GitHub Release v1.1.1](https://github.com/zsibot/matrix/releases/tag/v1.1.1): download every `.part-*`, `SHA256SUMS`, and `EXTRACT.md`. Each part is at most 1,900,000,000 bytes, strictly below 2 GB. If this tag is not published yet, check Baidu Netdisk for the latest build or wait for the direct endpoint to be restored.
+- [Baidu Netdisk Linux package](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q), access code `118g`: **select the latest version**. This guide and its checksum list target v1.1.1; never mix parts from different versions.
 
-The Linux runtime archive on GitHub is split because each Release asset must remain below 2 GB. Download these files:
-
-```text
-MATRiX_v1.0.13.tar.gz.part-001
-MATRiX_v1.0.13.tar.gz.part-002
-MATRiX_v1.0.13.tar.gz.part-003
-SHA256SUMS
-```
-
-Keep every part in one directory without renaming it.
-
-## Verify and extract without a combined archive
+## Complete archive
 
 ```bash
-sha256sum -c SHA256SUMS
-cat MATRiX_v1.0.13.tar.gz.part-* | tar -xzf -
+curl -fL -C - -o MATRiX_v1.1.1.tar.gz \
+  'http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz'
+tar -xzf MATRiX_v1.1.1.tar.gz
+cd MATRiX_v1.1.1
+./UeSim.sh
 ```
 
-## Rebuild the archive first
+For a Baidu download, start at the `tar` command. The direct endpoint returned HTTP 404 at 15:22 China Standard Time on 2026-09-21 and is unavailable until the server archive is restored. Use the mirror's own checksum manifest if supplied; byte identity with the newly built GitHub archive has not been assumed.
+
+## GitHub parts
+
+Keep all parts and `SHA256SUMS` in a directory containing only this release, without renaming files. Parts cannot be extracted individually.
 
 ```bash
-cat MATRiX_v1.0.13.tar.gz.part-* > MATRiX_v1.0.13.tar.gz
-sha256sum MATRiX_v1.0.13.tar.gz
-tar -xzf MATRiX_v1.0.13.tar.gz
+sha256sum -c SHA256SUMS && \
+  cat MATRiX_v1.1.1.tar.gz.part-* | tar -xzf -
+cd MATRiX_v1.1.1
+./UeSim.sh
 ```
 
-Complete archive SHA-256:
+To reconstruct the complete archive first, also download `SHA256SUMS-full`:
 
-```text
-92f17600a188ec92373847cb4bfb1df2c5a932ebfc2a49b276658e88d7f32539
+```bash
+sha256sum -c SHA256SUMS && \
+  cat MATRiX_v1.1.1.tar.gz.part-* > MATRiX_v1.1.1.tar.gz
+sha256sum -c SHA256SUMS-full && tar -xzf MATRiX_v1.1.1.tar.gz
 ```
 
-| Part | Size in bytes | SHA-256 |
+`SHA256SUMS` checks parts; `SHA256SUMS-full` checks the reconstructed archive. Redownload damaged files if validation fails.
+
+
+This delivery is the 2026-09-21 15:08 China Standard Time rebuild and retains the v1.1.1 filenames. Do not mix parts from earlier builds of the same version. Download all parts and checksum files from one release. `RELEASE_BUILD.json` identifies the binary and default configuration.
+
+## Generated GitHub Release assets
+
+This manifest identifies the 2026-09-21 15:08 CST rebuild. Do not mix these parts with earlier v1.1.1 builds.
+
+Build ID: `20260921T070837079667Z-fd3f20ec`
+
+| File | Bytes | SHA-256 |
 |---|---:|---|
-| `part-001` | 1,992,294,400 | `e1ae537d820c85ab844271a03ecb589f263bfaac4ae2e4b2513745312321277c` |
-| `part-002` | 1,992,294,400 | `d0a50d66fde1b8d6add86244e60dfeb81eec3c63b9b8c6e6c73a49627d300af9` |
-| `part-003` | 266,886,524 | `69d7e82deb1278700b1c96cee3fc325ddbe93d96b56deed049336d54a3a51453` |
+| `MATRiX_v1.1.1.tar.gz.part-001` | 1,900,000,000 | `8d1425cacc54c0fb950e8bd27a40c94e75c9576992e215e3e598c06bb2924c36` |
+| `MATRiX_v1.1.1.tar.gz.part-002` | 1,900,000,000 | `2c21940df51b11b464607326bf6b1e674ff47ef6e2c1102d9973f0dae8006a2a` |
+| `MATRiX_v1.1.1.tar.gz.part-003` | 1,220,891,465 | `4be76e5703a353c35656c2d93212aa2bb278b0dbf5a813edf3ae78b0b7948ad9` |
 
-Any missing, damaged, renamed, or reordered part causes extraction to fail.
+Complete archive / 完整包: 5,020,891,465 bytes
+
+```text
+39bc1e41a06c018571be2b6c47fa2548b597f81175e4baea9d348c28b0fb5301
+```
+
+[Release JSON](releases/v1.1.1.json) · [Runtime build identity](releases/v1.1.1-build.json)

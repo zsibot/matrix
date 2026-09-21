@@ -1,8 +1,8 @@
-# MATRiX v1.0.13 Pixel Streaming 2 Guide
+# MATRiX v1.1.1 Pixel Streaming 2 Guide
 
-[Getting Started](Getting_Started.md)
+[Usage guide](Getting_Started.md)
 
-> Updated for the Pixel Streaming 2 plugin and server downloader included in the MATRiX v1.0.13 Linux runtime.
+> Updated for the Pixel Streaming 2 plugin and server downloader included in the MATRiX v1.1.1 Linux runtime.
 
 The old source-tree path `src/UeSim/.../PixelStreaming2/WebServers` does not apply to this runtime package. Use the packaged path documented below.
 
@@ -26,7 +26,7 @@ Always use the ports printed by the signalling server. On Linux, some launch mod
 
 ## 2. Prerequisites
 
-- A working MATRiX v1.0.13 runtime and supported GPU driver;
+- A working MATRiX v1.1.1 runtime and supported GPU driver;
 - `curl`/`wget`, `tar`, Bash, Node.js and npm;
 - internet access for the first infrastructure download;
 - a graphical or off-screen rendering environment for UeSim.
@@ -50,7 +50,7 @@ chmod +x get_ps_servers.sh
 
 The runtime currently contains the downloader, not the complete server tree. After a successful download, this directory should contain `SignallingWebServer/`, `Frontend/`, `Common/` and related infrastructure files.
 
-Do not mix an arbitrary Pixel Streaming Infrastructure branch with this package. MATRiX v1.0.13 is built with UE 5.7 Pixel Streaming 2, so use the UE 5.7-compatible infrastructure.
+Do not mix an arbitrary Pixel Streaming Infrastructure branch with this package. MATRiX v1.1.1 is built with UE 5.7 Pixel Streaming 2, so use the UE 5.7-compatible infrastructure.
 
 ## 4. Start the signalling and web server
 

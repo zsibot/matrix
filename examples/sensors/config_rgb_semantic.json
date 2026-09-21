@@ -1,0 +1,64 @@
+{
+  "rgb_camera": {
+    "sensor_type": "rgb",
+    "ignore_mounting_actor": true,
+    "topic": "/front_camera/image/compressed",
+    "frequency": 10,
+    "position": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.3
+    },
+    "rotation": {
+      "roll": 0,
+      "pitch": 0,
+      "yaw": 0
+    },
+    "width": 640,
+    "height": 480,
+    "fov": 90,
+    "fx": 0.0,
+    "fy": 0.0,
+    "cx": -1.0,
+    "cy": -1.0,
+    "K1": 0.0,
+    "K2": 0.0,
+    "K3": 0.0,
+    "P1": 0.0,
+    "P2": 0.0,
+    "sensor_attach": "base_link",
+    "enabled": true,
+    "frame_id": "front_camera"
+  },
+  "semantic_camera": {
+    "sensor_type": "semantic",
+    "ignore_mounting_actor": true,
+    "topic": "/front_camera/semantic/image/compressed",
+    "frequency": 10,
+    "position": {
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.3
+    },
+    "rotation": {
+      "roll": 0,
+      "pitch": 0,
+      "yaw": 0
+    },
+    "width": 640,
+    "height": 480,
+    "fov": 90,
+    "fx": 0.0,
+    "fy": 0.0,
+    "cx": -1.0,
+    "cy": -1.0,
+    "K1": 0.0,
+    "K2": 0.0,
+    "K3": 0.0,
+    "P1": 0.0,
+    "P2": 0.0,
+    "sensor_attach": "base_link",
+    "enabled": true,
+    "frame_id": "front_camera"
+  }
+}

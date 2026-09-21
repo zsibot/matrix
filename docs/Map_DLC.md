@@ -1,8 +1,8 @@
-# MATRiX v1.0.13 map catalog and DLCs
+# MATRiX v1.1.1 map catalog and DLCs
 
 [Back to README](../README.md) | [中文](Map_DLC_CN.md)
 
-The v1.0.13 map-selection screen can update its catalog dynamically and detects maps already present in the base package or mounted from DLCs. The open base package does not distribute external map `.pak` files; use only assets you are authorized to install.
+The v1.1.1 map-selection screen can update its catalog dynamically and detects maps already present in the base package or mounted from DLCs. The open base package does not distribute external map `.pak` files; use only assets you are authorized to install.
 
 ## Initial catalog
 
@@ -35,9 +35,7 @@ If automatic download is unavailable, download the map DLC manually from Baidu N
 
 [MATRiX map DLCs on Baidu Netdisk (access code: 6sth)](https://pan.baidu.com/s/1I87hQ9C8XzIGXgbyWk3i9A?pwd=6sth#list/path=%2F)
 
-Choose a DLC matching v1.0.13 and the required map. If it is an archive, extract the `.pak`, then place it in the recommended user-content directory:
-
-Place an authorized v1.0.13-compatible `.pak` in the recommended user-content directory:
+Choose a DLC matching v1.1.1 and the required map. If it is an archive, extract the `.pak`, then place it in the recommended user-content directory:
 
 ```bash
 mkdir -p UeSim/Saved/DLCs
@@ -59,3 +57,5 @@ When online update is unavailable, obtain a matching `MapDataTable.json` from th
 - Still shown as not installed: verify the `.pak` path, catalog match, and release compatibility, then restart UeSim.
 - Catalog update fails: verify write access, server reachability, valid JSON, and map images in each row.
 - Map travel fails: inspect `UeSim/Saved/Logs/UeSim.log` for pak-mount and map-loading errors.
+
+On Baidu Netdisk, select the latest DLC compatible with your runtime version.
