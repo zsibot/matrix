@@ -18,7 +18,7 @@ cd MATRiX_v1.1.1
 ./UeSim.sh
 ```
 
-For a Baidu download, start at the `tar` command. The direct endpoint returned HTTP 404 at 15:22 China Standard Time on 2026-09-21 and is unavailable until the server archive is restored. Use the mirror's own checksum manifest if supplied; byte identity with the newly built GitHub archive has not been assumed.
+For a Baidu download, start at the `tar` command. The direct link provides the complete archive and supports resumable downloads. Use the mirror's own checksum manifest if supplied; byte identity with the newly built GitHub archive has not been assumed.
 
 ## GitHub parts
 

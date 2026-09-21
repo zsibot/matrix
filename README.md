@@ -74,7 +74,7 @@ MATRiX is a runtime-first robot simulation platform that combines Unreal Engine 
 ## 🚀 Quick Start
 
 1. Download MATRiX v1.1.1:
-   - [Direct Linux download](http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz): complete `.tar.gz`, supports resume. **Currently HTTP 404 (checked 2026-09-21 15:22 CST); awaiting server re-upload.**
+   - [Direct Linux download](http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz): complete `.tar.gz`, supports resume.
    - [GitHub Release](https://github.com/zsibot/matrix/releases/tag/v1.1.1): download **all** `.part-*` assets and `SHA256SUMS`. Each part is below 2 GB. If this tag is not visible yet, check Baidu Netdisk for the latest build or wait for the direct endpoint to be restored.
    - [Baidu Netdisk](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q), code `118g`: **select the latest Linux version** (this guide targets v1.1.1).
 2. Extract the complete archive, or verify and extract the GitHub parts:

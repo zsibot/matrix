@@ -74,7 +74,7 @@ MATRiX 是一个面向运行时工作流的机器人仿真平台，将 Unreal En
 ## 🚀 快速开始
 
 1. 选择一种方式下载 MATRiX v1.1.1：
-   - [Linux 直链下载](http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz)：完整 `.tar.gz`，支持断点续传。**当前暂不可用（2026-09-21 15:22 检查为 HTTP 404），待服务器重新上传。**
+   - [Linux 直链下载](http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz)：完整 `.tar.gz`，支持断点续传。
    - [GitHub Release](https://github.com/zsibot/matrix/releases/tag/v1.1.1)：下载**全部** `.part-*` 分卷及 `SHA256SUMS`，每卷低于 2 GB。若尚未显示此版本，请检查百度网盘的最新构建，或等待直链恢复。
    - [百度网盘](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q)：提取码 `118g`，**请选择最新的 Linux 版本下载**（本文对应 v1.1.1）。
 2. 完整包直接解压；GitHub 分卷需校验后按文件名顺序合并解压：
