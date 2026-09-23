@@ -1,10 +1,10 @@
-# MATRiX v1.1.1 传感器配置
+# MATRiX v1.1.2 传感器配置
 
 [使用教程](Getting_Started_CN.md) | [English](Sensor_Schemes.md)
 
 ## 活动配置与方案文件
 
-主配置为 `UeSim/Content/model/config/config.json`。当前活动配置包含 IMU、Odom、GPS、RGB、Depth 和 Airy 六个传感器，与 `config_default.json` 一致；默认开启同步模式。进入仿真并创建机器人后再接收数据，其他方案需要加载并应用。 方案文件不会仅因存在于磁盘就自动启用。
+主配置为 `UeSim/Content/model/config/config.json`。初始 `robot.sensors` 为空，不会自动发布传感器数据；`sensor_sync_mode=true`。请在传感器设置中加载并应用 `config_default.json`（IMU、Odom、GPS、RGB、Depth、Airy）或其他方案，再进入仿真并创建机器人。 方案文件不会仅因存在于磁盘就自动启用。
 
 在机器人/传感器设置中加载 `UeSim/Content/model/config/sensors/` 下的方案，检查挂载对象、频率和 topic，应用后再进入仿真。以保存到主配置的 `robot.sensors` 和实际收到的数据为准。手工编辑时先退出 UeSim，把方案 JSON 的传感器字典放入 `robot.sensors`；不要用方案文件直接覆盖整个 `config.json`，以免丢失模型和网络设置。
 
@@ -31,7 +31,7 @@
 | `config_rgb_semantic.json` | 相同位姿、内参和频率的 RGB/语义配对 |
 | `empty.json` | 空方案 |
 
-本次重打包已包含 `config_semantic.json`（语义相机）和 `config_rgb_semantic.json`（同位姿 RGB/语义配对）。输出无损类别 ID PNG；使用 `zenoh_sensor_receiver.py` 可按类别着色查看。语义相机不在默认六传感器方案中，需要另行选择并应用。
+本次重打包已包含 `config_semantic.json`（语义相机）和 `config_rgb_semantic.json`（同位姿 RGB/语义配对）。输出无损类别 ID PNG；使用 `zenoh_sensor_receiver.py` 可按类别着色查看。初始传感器为空，语义方案需要另行选择并应用。
 
 ## 参数与 GPU 雷达
 

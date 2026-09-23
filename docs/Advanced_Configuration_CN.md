@@ -2,7 +2,7 @@
 
 [← 返回项目首页](../README.md) · [中文文档索引](README_CN.md)
 
-本文依据 MATRiX v1.1.1 Linux 运行包的实际 `config.json` 和对应源码校正。普通用户优先通过界面修改配置；手动编辑适合自动化、批量修改和故障排查。
+本文依据 MATRiX v1.1.2 Linux 运行包的实际 `config.json` 和对应源码校正。普通用户优先通过界面修改配置；手动编辑适合自动化、批量修改和故障排查。
 
 ## 配置文件位置
 
@@ -17,12 +17,12 @@ UeSim/Content/model/config/sensors/*.json
 
 ## 当前 robot 配置结构
 
-下面是省略传感器明细的结构示例；实际默认配置含 IMU、Odom、GPS、RGB、Depth 和 Airy 六项，不能用此简化示例覆盖完整配置：
+下面展示当前初始配置；`sensors` 为空。启用传感器时在界面加载并应用方案，不要用此示例覆盖已经配置好的传感器：
 
 ~~~json
 {
   "robot": {
-    "mujoco_model": "Content/model/xgw2/xgw2.xml",
+    "mujoco_model": "Content/model/xgb/xgb.xml",
     "main_body": "base_link",
     "weapon": "",
     "network_mode": "standalone",
@@ -38,7 +38,7 @@ UeSim/Content/model/config/sensors/*.json
 }
 ~~~
 
-> `mujoco_model` 相对于 `UeSim/` 项目目录解析。使用 `Content/model/xgw2/xgw2.xml` 这类相对路径，不要写开发机绝对路径。
+> `mujoco_model` 相对于 `UeSim/` 项目目录解析。使用 `Content/model/xgb/xgb.xml` 这类相对路径，不要写开发机绝对路径。
 
 ## robot 字段
 

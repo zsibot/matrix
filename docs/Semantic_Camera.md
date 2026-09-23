@@ -1,6 +1,6 @@
-# Semantic camera — v1.1.1 rebuild
+# Semantic camera — v1.1.2 rebuild
 
-This guide targets the Linux runtime rebuilt on 2026-09-21 at 15:08 China Standard Time. Semantic capture is optional; the default six sensors remain IMU, odometry, GPS, RGB, depth and Airy.
+This guide targets the Linux runtime rebuilt on 2026-09-23 at 10:24 China Standard Time. Semantic capture is optional; the initial sensor dictionary is empty. Load and apply a scheme before capturing.
 
 ## Enable and receive
 

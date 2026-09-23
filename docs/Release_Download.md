@@ -1,20 +1,20 @@
-# Downloading MATRiX v1.1.1
+# Downloading MATRiX v1.1.2
 
 [README](../README.md) | [中文](Release_Download_CN.md)
 
 ## Download sources
 
-- [Direct Linux download](http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz): complete archive, resumable.
-- [GitHub Release v1.1.1](https://github.com/zsibot/matrix/releases/tag/v1.1.1): download every `.part-*`, `SHA256SUMS`, and `EXTRACT.md`. Each part is at most 1,900,000,000 bytes, strictly below 2 GB. If this tag is not published yet, check Baidu Netdisk for the latest build or wait for the direct endpoint to be restored.
-- [Baidu Netdisk Linux package](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q), access code `118g`: **select the latest version**. This guide and its checksum list target v1.1.1; never mix parts from different versions.
+- [Direct Linux download](http://39.96.31.125:18080/matrix/v1.1.2/Linux/MATRiX_v1.1.2.tar.gz): complete archive, resumable.
+- [GitHub Release v1.1.2](https://github.com/zsibot/matrix/releases/tag/v1.1.2): download every `.part-*`, `SHA256SUMS`, and `EXTRACT.md`. Each part is at most 1,900,000,000 bytes, strictly below 2 GB.
+- [Baidu Netdisk Linux package](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q), access code `118g`: **select the latest version**. This guide and its checksum list target v1.1.2; never mix parts from different versions.
 
 ## Complete archive
 
 ```bash
-curl -fL -C - -o MATRiX_v1.1.1.tar.gz \
-  'http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz'
-tar -xzf MATRiX_v1.1.1.tar.gz
-cd MATRiX_v1.1.1
+curl -fL -C - -o MATRiX_v1.1.2.tar.gz \
+  'http://39.96.31.125:18080/matrix/v1.1.2/Linux/MATRiX_v1.1.2.tar.gz'
+tar -xzf MATRiX_v1.1.2.tar.gz
+cd MATRiX_v1.1.2
 ./UeSim.sh
 ```
 
@@ -26,8 +26,8 @@ Keep all parts and `SHA256SUMS` in a directory containing only this release, wit
 
 ```bash
 sha256sum -c SHA256SUMS && \
-  cat MATRiX_v1.1.1.tar.gz.part-* | tar -xzf -
-cd MATRiX_v1.1.1
+  cat MATRiX_v1.1.2.tar.gz.part-* | tar -xzf -
+cd MATRiX_v1.1.2
 ./UeSim.sh
 ```
 
@@ -35,31 +35,26 @@ To reconstruct the complete archive first, also download `SHA256SUMS-full`:
 
 ```bash
 sha256sum -c SHA256SUMS && \
-  cat MATRiX_v1.1.1.tar.gz.part-* > MATRiX_v1.1.1.tar.gz
-sha256sum -c SHA256SUMS-full && tar -xzf MATRiX_v1.1.1.tar.gz
+  cat MATRiX_v1.1.2.tar.gz.part-* > MATRiX_v1.1.2.tar.gz
+sha256sum -c SHA256SUMS-full && tar -xzf MATRiX_v1.1.2.tar.gz
 ```
 
 `SHA256SUMS` checks parts; `SHA256SUMS-full` checks the reconstructed archive. Redownload damaged files if validation fails.
 
 
-This delivery is the 2026-09-21 15:08 China Standard Time rebuild and retains the v1.1.1 filenames. Do not mix parts from earlier builds of the same version. Download all parts and checksum files from one release. `RELEASE_BUILD.json` identifies the binary and default configuration.
+This delivery is the 2026-09-23 10:24 China Standard Time rebuild with versioned v1.1.2 filenames. Do not mix parts from earlier builds of the same version. Download all parts and checksum files from one release. `RELEASE_BUILD.json` identifies the binary and default configuration.
 
-## Generated GitHub Release assets
 
-This manifest identifies the 2026-09-21 15:08 CST rebuild. Do not mix these parts with earlier v1.1.1 builds.
+Mirrors synchronize independently; use GitHub Release if this version has not reached a mirror. File sizes and SHA-256 values are in the Release assets `release-manifest.json` and `SHA256SUMS`.
 
-Build ID: `20260921T070837079667Z-fd3f20ec`
+## GitHub Release assets
 
 | File | Bytes | SHA-256 |
 |---|---:|---|
-| `MATRiX_v1.1.1.tar.gz.part-001` | 1,900,000,000 | `8d1425cacc54c0fb950e8bd27a40c94e75c9576992e215e3e598c06bb2924c36` |
-| `MATRiX_v1.1.1.tar.gz.part-002` | 1,900,000,000 | `2c21940df51b11b464607326bf6b1e674ff47ef6e2c1102d9973f0dae8006a2a` |
-| `MATRiX_v1.1.1.tar.gz.part-003` | 1,220,891,465 | `4be76e5703a353c35656c2d93212aa2bb278b0dbf5a813edf3ae78b0b7948ad9` |
+| `MATRiX_v1.1.2.tar.gz.part-001` | 1,900,000,000 | `bacf28c84c528b66bb37ea0921243e2dd28560518bbbe5b2c920738790b21976` |
+| `MATRiX_v1.1.2.tar.gz.part-002` | 1,900,000,000 | `f0773807dde2ae3f9b41aff30e8f4ad7f55d4aab0f67e87f26db23f30d0dc19c` |
+| `MATRiX_v1.1.2.tar.gz.part-003` | 1,230,168,999 | `1ea4e7e26e77ed2d57ccbe7f5ffab4eea70ef2dd975cb74382843ba3fd213671` |
 
-Complete archive / 完整包: 5,020,891,465 bytes
+Complete archive: 5,030,168,999 bytes; SHA-256: `dd48005a7185d08d3dcdc700dd3f93716c95c5009a1a0ab6f8b1b5f1697da817`.
 
-```text
-39bc1e41a06c018571be2b6c47fa2548b597f81175e4baea9d348c28b0fb5301
-```
-
-[Release JSON](releases/v1.1.1.json) · [Runtime build identity](releases/v1.1.1-build.json)
+[Release JSON](releases/v1.1.2.json) · [Build identity](releases/v1.1.2-build.json)

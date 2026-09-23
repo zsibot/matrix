@@ -1,36 +1,29 @@
-# MATRiX v1.1.1 release notes
+# MATRiX v1.1.2 release notes
 
-[README](../README.md) | [中文](Release_Notes_CN.md)
+Based on the Linux x86_64 package built on 2026-09-23 at 10:24 China Standard Time. Build ID: `20260923T022450476117Z-6596e3e1`. The binary and PAK files match the packaging history.
 
-Updated on 2026-09-21 against the Linux x86_64 files packaged on 2026-09-21 at 15:08 China Standard Time, bundled configuration and schemes, and embedded-controller provenance. Unpackaged changes in the development source tree are not automatically features of this binary.
+## Release defaults and behavior
 
-## Package and tool updates
+- Default model: `xgb`, using `Content/model/xgb/xgb.xml` relative to `UeSim/`.
+- Built-in motion control is enabled (`inside_mc=true`); `network_mode=standalone` and `sensor_sync_mode=true` are retained.
+- The initial `robot.sensors` dictionary is empty. Load and apply a sensor scheme before entering the simulation and spawning the robot. Presets are not activated automatically.
+- XXG is hidden in open-source mode and is not a selectable robot in this release.
+- The six-sensor `config_default.json`, semantic-only `config_semantic.json`, and paired `config_rgb_semantic.json` presets remain available. Semantic images are lossless class-ID PNGs.
+- Updated runtime and robot-selection UI assets; repaired the generated launcher and replaced the developer-specific absolute model path.
+- Synchronized bilingual documentation, public configuration examples, tool instructions and the reusable split-archive build script.
 
-- Default robot: `xgw2`. The portable model path is `Content/model/xgw2/xgw2.xml`, relative to the `UeSim/` project directory.
-- Defaults remain `inside_mc=true`, `network_mode=standalone`, and `sensor_sync_mode=true`. The active configuration contains six sensors matching `config_default.json`: IMU, odometry, GPS, RGB, depth, and Airy. Synchronized scheduling is enabled. Enter the simulation and spawn the robot before receiving data; load and apply other schemes when needed.
-- Included schemes cover RGB, depth, infrared, fisheye, panorama, gimbal, IMU, odometry, GPS, Airy, and MID360. `config_data.json` uses MID360. Airy/MID360 use a shared `backend` configuration field; verify the actual CPU/GPU backend in logs.
-- Bundled provenance records the 2026-09-08 controller 0.6.6 integration, including XXG gait updates, XG2 Passive behavior and XGW2 stand-up wheel locking. Included weights are not evidence that every policy is integrated; see [motion control](Motion_Control.md).
-- Perspective projection now filters invalid high-order distortion branches. Four-view fisheye projection includes optional world-space bbox overlays.
-- `visualize_zenoh_bbox.py` is now a categorized XY view with velocity and actor details. `_2d.py` retains the older fixed-range view.
-- Raw Zenoh recording, offline preview and replay tools are included with their helper modules.
-- This rebuild includes `config_semantic.json` and `config_rgb_semantic.json` for semantic-only and aligned RGB/semantic capture. Semantic output is a lossless class-ID PNG that the receiver can colorize. Semantic cameras are optional schemes, not part of the default six-sensor configuration.
-- The launcher handles spaces and symlinks, reports a missing binary, preserves arguments and forwards the process exit status. The spawn sender defaults to localhost.
-- A Python dependency file, tool index, and revised bilingual setup instructions are provided.
+## Upgrade
 
-## Migration
+Extract v1.1.2 into a new directory and keep its runtime, Engine, plugins and models together. Back up old configuration and migrate selected fields instead of overwriting the new configuration directory. Start with `./UeSim.sh`.
 
-Use the complete v1.1.1 runtime, Engine, models and plugins together. Back up old configuration and migrate fields selectively. Do not overwrite the new configuration directory wholesale. Model paths should remain portable; retain the selected embedded/external controller mode.
+Use **UPDATE LIST** and **DOWNLOAD** in map selection to install a compatible DLC. Built-in control needs no separate process. An external `robot_mc` must be downloaded separately and used with built-in control disabled.
 
-The default six-sensor configuration supports camera/LiDAR checks. Apply a semantic or surround scheme explicitly before using those viewers. The historical filename `config_v1.0.12_zgwt.json` is retained intentionally.
+Apply `config_default.json` for sensor checks or `config_rgb_semantic.json` for paired images. A tool's `--sensor-config` only selects its input file; it does not activate sensors in UeSim.
 
-Update the map catalog and install DLCs matching this release. Verify old-map compatibility with the map distributor. Optional external `robot_mc` is still a separate download whose own README determines its requirements and robot types.
+## Download and verification
 
-Install [tool dependencies](../Tools/README.md) and keep the helper modules with their entry scripts.
+Every GitHub archive part is below 2 GB. Download all parts and `SHA256SUMS`, verify, then concatenate and extract. Never mix versions. Select the latest Baidu Netdisk version. Direct and Baidu mirrors synchronize independently; use their actual version and supplied checksums.
 
-## Validation boundary
+## Validation scope
 
-Offline `--help` and `--check-only` validate CLI interfaces and configuration, not live GPU operation, map loading, network throughput or robot behavior. This documentation/tool update does not rebuild or replace the simulator binary. Verify the full runtime on the target machine.
-
-Offline checks passed for 12 CLI help entry points, default/MID360/four-view fisheye calibration, 30 receiver/bbox/recording regression tests, relative documentation links and configuration JSON. A stub runtime verified launcher paths, symlinks, argument forwarding and exit status; the real GPU simulator was not launched.
-
-Rebuild ID: `20260921T070837079667Z-fd3f20ec` (2026-09-21 15:08 China Standard Time). XGW2 XML/URDF, body and mesh resources were updated; semantic/RGB presets are included and the default six-sensor configuration is restored. Replace all previous v1.1.1 parts and checksum files together; do not mix builds.
+Pre-publication checks cover the launcher, Python tools, configuration, documentation links, compressed archive and part integrity. This publication workflow does not run a live GPU scene; source test records are not a substitute for interactive acceptance of this package.

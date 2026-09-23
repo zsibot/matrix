@@ -1,0 +1,18 @@
+{
+  "version": "1.1.2",
+  "build_id": "20260923T022450476117Z-6596e3e1",
+  "packaged_at": "2026-09-23T10:24:50+08:00",
+  "runtime_sha256": "ed98e648c3298d0efec44170f48b0ad528c9d3010ad743a0f0dacf20d52f7bc1",
+  "config_sha256": "00aa466ea840ddcbc8cf9010c2433a5138c799c55ab07b29b18144ed8372c24e",
+  "default_model": "xgb",
+  "inside_mc": true,
+  "sensor_sync_mode": true,
+  "default_sensor_types": [],
+  "semantic_presets": [
+    "config_semantic.json",
+    "config_rgb_semantic.json"
+  ],
+  "hidden_in_open_source_mode": [
+    "xxg"
+  ]
+}

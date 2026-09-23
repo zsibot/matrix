@@ -1,8 +1,10 @@
-# MATRiX v1.1.1 运动控制指南
+# MATRiX v1.1.2 运动控制指南
+
+XXG 在开源模式中隐藏，不作为本发布版的可选机器人；默认模型为 `xgb`。
 
 [返回中文 README](README_CN.md) | [English](Motion_Control.md)
 
-v1.1.1 开源发布包默认只使用内置运控。独立 `robot_mc` 不随包分发，需要时由用户自行下载。
+v1.1.2 开源发布包默认只使用内置运控。独立 `robot_mc` 不随包分发，需要时由用户自行下载。
 
 ## 1. 默认模式
 
@@ -37,7 +39,7 @@ rg -n '"inside_mc"' UeSim/Content/model/config/config.json
 当前源码注册的内置运控机型：
 
 ```text
-xgb  xg2  xgw  xgw2  xxg  zgws  zgwt  zgwsarm
+xgb  xg2  xgw  xgw2  zgws  zgwt  zgwsarm
 ```
 
 `go2`、`go2w` 可作为仿真模型使用，但不在当前内置运控列表中。内置策略资源位于：
@@ -58,7 +60,7 @@ UeSim/Saved/Logs/UeSim.log
 rg 'MatrixMotionControl|embedded motion|inside_mc' UeSim/Saved/Logs/UeSim.log
 ```
 
-### v1.1.1 随包内置运控范围
+### v1.1.2 随包内置运控范围
 
 随包 `robot_mc_provenance.json` 记录了 2026-09-08 的 0.6.6 集成：XXG 的 Walk、GaitWalk、Pace、Three、RPWalk、Run，XG2 Passive 趴下流程，以及 XGW2 起身轮关节锁定。动作以当前机型的内置菜单为准。
 
@@ -119,7 +121,7 @@ python3 Tools/matrix_mc_udp_test.py --host <仿真器IP> stand
 
 ```text
 workspace/
-├── MATRiX_v1.1.1/
+├── MATRiX_v1.1.2/
 └── MATRiX_Robot_MC-v0.6.4-linux-x86_64/
 ```
 
@@ -150,7 +152,7 @@ export ROBOT_TYPE=XG
 | `zgws` / `zgwt` | `zsm-1w` | `ZGWS` |
 | `zgwsarm` | `zgwsarm` | `ZGWS_ARM` |
 
-值区分大小写。`xg2`、`xxg` 虽可使用 v1.1.1 内置运控，但不在 v0.6.4 外部项目公开的支持表中，不要自行推测 `ROBOT_TYPE`。独立项目的新版本可能调整支持列表和启动参数，始终以实际下载版本的 README 为准。
+值区分大小写。`xg2` 虽可使用 v1.1.2 内置运控，但不在 v0.6.4 外部项目公开的支持表中，不要自行推测 `ROBOT_TYPE`。独立项目的新版本可能调整支持列表和启动参数，始终以实际下载版本的 README 为准。
 
 ### 4.3 切换并启动
 

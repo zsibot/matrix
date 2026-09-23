@@ -1,0 +1,41 @@
+{
+  "archive": "MATRiX_v1.1.2.tar.gz",
+  "archive_size_bytes": 5030168999,
+  "archive_sha256": "dd48005a7185d08d3dcdc700dd3f93716c95c5009a1a0ab6f8b1b5f1697da817",
+  "part_size_limit_bytes": 1900000000,
+  "parts": [
+    {
+      "name": "MATRiX_v1.1.2.tar.gz.part-001",
+      "size_bytes": 1900000000,
+      "sha256": "bacf28c84c528b66bb37ea0921243e2dd28560518bbbe5b2c920738790b21976"
+    },
+    {
+      "name": "MATRiX_v1.1.2.tar.gz.part-002",
+      "size_bytes": 1900000000,
+      "sha256": "f0773807dde2ae3f9b41aff30e8f4ad7f55d4aab0f67e87f26db23f30d0dc19c"
+    },
+    {
+      "name": "MATRiX_v1.1.2.tar.gz.part-003",
+      "size_bytes": 1230168999,
+      "sha256": "1ea4e7e26e77ed2d57ccbe7f5ffab4eea70ef2dd975cb74382843ba3fd213671"
+    }
+  ],
+  "runtime_build": {
+    "version": "1.1.2",
+    "build_id": "20260923T022450476117Z-6596e3e1",
+    "packaged_at": "2026-09-23T10:24:50+08:00",
+    "runtime_sha256": "ed98e648c3298d0efec44170f48b0ad528c9d3010ad743a0f0dacf20d52f7bc1",
+    "config_sha256": "00aa466ea840ddcbc8cf9010c2433a5138c799c55ab07b29b18144ed8372c24e",
+    "default_model": "xgb",
+    "inside_mc": true,
+    "sensor_sync_mode": true,
+    "default_sensor_types": [],
+    "semantic_presets": [
+      "config_semantic.json",
+      "config_rgb_semantic.json"
+    ],
+    "hidden_in_open_source_mode": [
+      "xxg"
+    ]
+  }
+}

@@ -1,4 +1,4 @@
-# MATRiX v1.1.1 Python tools / Python 工具
+# MATRiX v1.1.2 Python tools / Python 工具
 
 [中文使用教程](../docs/Getting_Started_CN.md) | [English usage](../docs/Getting_Started.md)
 
@@ -34,8 +34,8 @@ The four helper modules are not CLI entry points. Keep the Tools directory toget
 
 ## Start / 启动
 
-当前活动配置包含 IMU、Odom、GPS、RGB、Depth 和 Airy 六个传感器，与 `config_default.json` 一致；默认开启同步模式。进入仿真并创建机器人后再接收数据，其他方案需要加载并应用。
-The active configuration contains six sensors matching `config_default.json`: IMU, odometry, GPS, RGB, depth, and Airy. Synchronized scheduling is enabled. Enter the simulation and spawn the robot before receiving data; load and apply other schemes when needed.
+初始 `robot.sensors` 为空，不会自动发布传感器数据；`sensor_sync_mode=true`。请在传感器设置中加载并应用 `config_default.json`（IMU、Odom、GPS、RGB、Depth、Airy）或其他方案，再进入仿真并创建机器人。
+The initial `robot.sensors` dictionary is empty, so sensors do not publish automatically. `sensor_sync_mode=true` is retained. Load and apply `config_default.json` (IMU, odometry, GPS, RGB, depth, Airy), or another scheme, before entering the simulation and spawning the robot.
 
 ```bash
 python3 Tools/zenoh_topic_monitor.py --key '**'

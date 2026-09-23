@@ -1,12 +1,12 @@
-# MATRiX v1.1.1 Python 工具
+# MATRiX v1.1.2 Python 工具
 
 [返回中文主页](README_CN.md) | [快速开始](Getting_Started_CN.md)
 
-v1.1.1 Linux 运行包在根目录提供 `Tools/`。以下脚本与本次 Release 中的版本一致；完整参数始终以 `python3 Tools/<脚本>.py --help` 为准。
+v1.1.2 Linux 运行包在根目录提供 `Tools/`。以下脚本与本次 Release 中的版本一致；完整参数始终以 `python3 Tools/<脚本>.py --help` 为准。
 
 工具源码也在本仓库的 [Tools](../Tools/README.md) 中维护。运行时把完整 `Tools/` 目录保留在解压的可执行包中，不能仅克隆此仓库就启动仿真。Python 3.10+，可用虚拟环境安装 `Tools/requirements.txt`；Tkinter 需系统提供。
 
-当前活动配置包含 IMU、Odom、GPS、RGB、Depth 和 Airy 六个传感器，与 `config_default.json` 一致；默认开启同步模式。进入仿真并创建机器人后再接收数据，其他方案需要加载并应用。
+初始 `robot.sensors` 为空，不会自动发布传感器数据；`sensor_sync_mode=true`。请在传感器设置中加载并应用 `config_default.json`（IMU、Odom、GPS、RGB、Depth、Airy）或其他方案，再进入仿真并创建机器人。
 
 ## 工具清单
 
@@ -68,7 +68,7 @@ python3 Tools/zenoh_sensor_receiver.py \
 然后从发布包根目录运行：
 
 ```bash
-python3 Tools/visualize_lidar_camera_projection.py --check-only
+python3 Tools/visualize_lidar_camera_projection.py --sensor-config UeSim/Content/model/config/sensors/config_default.json --check-only
 python3 Tools/visualize_lidar_camera_projection.py
 ```
 

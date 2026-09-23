@@ -2,7 +2,7 @@
 
 [README](../README.md) | [Contributing](../CONTRIBUTING.md)
 
-This guide describes the v1.1.1 Linux release boundary, checked against the 2026-09-21 15:08 CST runtime and its bundled configuration. Development source changes after packaging are not automatically part of this binary. The public repository maintains documentation, Tools, and release scripts; the Unreal source project and executable runtime are separate.
+This guide describes the v1.1.2 Linux release boundary, checked against the 2026-09-23 10:24 CST runtime and its bundled configuration. Development source changes after packaging are not automatically part of this binary. The public repository maintains documentation, Tools, and release scripts; the Unreal source project and executable runtime are separate.
 
 ## Runtime architecture
 
@@ -90,7 +90,7 @@ Sensor payloads use ROS 2-compatible CDR encodings over Zenoh. Keep `frame_id` /
 
 ## Motion-control contract
 
-Public documentation lists `xgb`, `xg2`, `xgw`, `xgw2`, `xxg`, `zgws`, `zgwt`, and `zgwsarm`. UI/protocol aliases include `xg` for `xgb` and `zgws_arm` for `zgwsarm`.
+Public documentation lists `xgb`, `xg2`, `xgw`, `xgw2`, `zgws`, `zgwt`, and `zgwsarm`. UI/protocol aliases include `xg` for `xgb` and `zgws_arm` for `zgwsarm`.
 
 - All eight documented models have a built-in motion core; available actions must be queried per model.
 - Only `xgb` registers Jump and FrontJump.
@@ -140,7 +140,7 @@ Never commit router credentials, service tokens, private endpoints, licensed eng
 ## Build GitHub Release assets locally
 
 ```bash
-bash scripts/build_release.sh /path/to/MATRiX_v1.1.1 releases/v1.1.1
+bash scripts/build_release.sh /path/to/MATRiX_v1.1.2 releases/v1.1.2
 python3 scripts/ci/check_repo.py
 ```
 
@@ -154,4 +154,4 @@ Compression, archive readability, every part size and hash, and the reassembled 
 
 `scripts/runtime/UeSim.sh` maintains the portable launcher used at the executable package root. The release script does not publish, push, create a tag or replace remote downloads. Store generated metadata under `docs/releases/`; generated large assets under `releases/` are ignored by Git.
 
-The 2026-09-21 15:08 CST rebuild is identified by `RELEASE_BUILD.json` inside the runtime. The packager carries this identity into its JSON manifest. Rebuilds retaining the version number require replacement of every part/checksum together.
+The 2026-09-23 10:24 CST rebuild is identified by `RELEASE_BUILD.json` inside the runtime. The packager carries this identity into its JSON manifest. Rebuilds retaining the version number require replacement of every part/checksum together.

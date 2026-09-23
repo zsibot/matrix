@@ -1,20 +1,20 @@
-# 下载 MATRiX v1.1.1
+# 下载 MATRiX v1.1.2
 
 [中文主页](README_CN.md) | [English](Release_Download.md)
 
 ## 下载方式
 
-- [Linux 直链下载](http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz)：完整压缩包，支持断点续传。
-- [GitHub Release v1.1.1](https://github.com/zsibot/matrix/releases/tag/v1.1.1)：下载全部 `.part-*`、`SHA256SUMS` 和 `EXTRACT.md`。分卷每个最多 1,900,000,000 字节，严格小于 2 GB。若该版本尚未上传，请检查百度网盘的最新构建，或等待直链恢复。
-- [百度网盘 Linux 运行包](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q)：提取码 `118g`。**请选择最新版本下载**；本文和校验清单对应 v1.1.1，不要混用其他版本的分卷。
+- [Linux 直链下载](http://39.96.31.125:18080/matrix/v1.1.2/Linux/MATRiX_v1.1.2.tar.gz)：完整压缩包，支持断点续传。
+- [GitHub Release v1.1.2](https://github.com/zsibot/matrix/releases/tag/v1.1.2)：下载全部 `.part-*`、`SHA256SUMS` 和 `EXTRACT.md`。分卷每个最多 1,900,000,000 字节，严格小于 2 GB。
+- [百度网盘 Linux 运行包](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q)：提取码 `118g`。**请选择最新版本下载**；本文和校验清单对应 v1.1.2，不要混用其他版本的分卷。
 
 ## 直链或网盘完整包
 
 ```bash
-curl -fL -C - -o MATRiX_v1.1.1.tar.gz \
-  'http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz'
-tar -xzf MATRiX_v1.1.1.tar.gz
-cd MATRiX_v1.1.1
+curl -fL -C - -o MATRiX_v1.1.2.tar.gz \
+  'http://39.96.31.125:18080/matrix/v1.1.2/Linux/MATRiX_v1.1.2.tar.gz'
+tar -xzf MATRiX_v1.1.2.tar.gz
+cd MATRiX_v1.1.2
 ./UeSim.sh
 ```
 
@@ -26,8 +26,8 @@ cd MATRiX_v1.1.1
 
 ```bash
 sha256sum -c SHA256SUMS && \
-  cat MATRiX_v1.1.1.tar.gz.part-* | tar -xzf -
-cd MATRiX_v1.1.1
+  cat MATRiX_v1.1.2.tar.gz.part-* | tar -xzf -
+cd MATRiX_v1.1.2
 ./UeSim.sh
 ```
 
@@ -35,31 +35,26 @@ cd MATRiX_v1.1.1
 
 ```bash
 sha256sum -c SHA256SUMS && \
-  cat MATRiX_v1.1.1.tar.gz.part-* > MATRiX_v1.1.1.tar.gz
-sha256sum -c SHA256SUMS-full && tar -xzf MATRiX_v1.1.1.tar.gz
+  cat MATRiX_v1.1.2.tar.gz.part-* > MATRiX_v1.1.2.tar.gz
+sha256sum -c SHA256SUMS-full && tar -xzf MATRiX_v1.1.2.tar.gz
 ```
 
 `SHA256SUMS` 校验分卷，`SHA256SUMS-full` 校验重建后的完整包。校验失败时重新下载对应文件，不要继续解压。
 
 
-本次对应 2026-09-21 15:08（北京时间）重打包，仍使用 v1.1.1 文件名。不要混用先前同版本的分卷；全部分卷和校验文件必须来自同一次发布。`RELEASE_BUILD.json` 记录二进制与默认配置身份。
+本次对应 2026-09-23 10:24（北京时间）重打包，使用 v1.1.2 文件名。不要混用先前同版本的分卷；全部分卷和校验文件必须来自同一次发布。`RELEASE_BUILD.json` 记录二进制与默认配置身份。
+
+
+镜像独立同步，未同步本版本时请使用 GitHub Release。文件大小和 SHA-256 以 Release 附件 `release-manifest.json`、`SHA256SUMS` 为准。
 
 ## 本次 GitHub Release 文件清单
 
-本清单对应 2026-09-21 15:08 重打包，不能与此前同版本分卷混用。
-
-Build ID: `20260921T070837079667Z-fd3f20ec`
-
 | File | Bytes | SHA-256 |
 |---|---:|---|
-| `MATRiX_v1.1.1.tar.gz.part-001` | 1,900,000,000 | `8d1425cacc54c0fb950e8bd27a40c94e75c9576992e215e3e598c06bb2924c36` |
-| `MATRiX_v1.1.1.tar.gz.part-002` | 1,900,000,000 | `2c21940df51b11b464607326bf6b1e674ff47ef6e2c1102d9973f0dae8006a2a` |
-| `MATRiX_v1.1.1.tar.gz.part-003` | 1,220,891,465 | `4be76e5703a353c35656c2d93212aa2bb278b0dbf5a813edf3ae78b0b7948ad9` |
+| `MATRiX_v1.1.2.tar.gz.part-001` | 1,900,000,000 | `bacf28c84c528b66bb37ea0921243e2dd28560518bbbe5b2c920738790b21976` |
+| `MATRiX_v1.1.2.tar.gz.part-002` | 1,900,000,000 | `f0773807dde2ae3f9b41aff30e8f4ad7f55d4aab0f67e87f26db23f30d0dc19c` |
+| `MATRiX_v1.1.2.tar.gz.part-003` | 1,230,168,999 | `1ea4e7e26e77ed2d57ccbe7f5ffab4eea70ef2dd975cb74382843ba3fd213671` |
 
-Complete archive / 完整包: 5,020,891,465 bytes
+Complete archive: 5,030,168,999 bytes; SHA-256: `dd48005a7185d08d3dcdc700dd3f93716c95c5009a1a0ab6f8b1b5f1697da817`.
 
-```text
-39bc1e41a06c018571be2b6c47fa2548b597f81175e4baea9d348c28b0fb5301
-```
-
-[Release JSON](releases/v1.1.1.json) · [Runtime build identity](releases/v1.1.1-build.json)
+[Release JSON](releases/v1.1.2.json) · [Build identity](releases/v1.1.2-build.json)

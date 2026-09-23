@@ -1,12 +1,12 @@
-# GENISOM RoamerX Open Integration with MATRiX v1.1.1
+# GENISOM RoamerX Open Integration with MATRiX v1.1.2
 
 [Usage guide](Getting_Started.md) | [Motion control](Motion_Control.md)
 
-> This document covers only the integration boundary exposed by the MATRiX v1.1.1 Linux runtime. RoamerX installation, packages, launch arguments, and navigation tuning remain owned by the `genisom_roamerx_open` project and must be checked against that project's current README.
+> This document covers only the integration boundary exposed by the MATRiX v1.1.2 Linux runtime. RoamerX installation, packages, launch arguments, and navigation tuning remain owned by the `genisom_roamerx_open` project and must be checked against that project's current README.
 
 ## 1. Important change from older instructions
 
-The MATRiX v1.1.1 runtime package does **not** contain:
+The MATRiX v1.1.2 runtime package does **not** contain:
 
 ```text
 bin/sim_launcher
@@ -38,7 +38,7 @@ MATRiX is the simulator and sensor source. A compatible bridge is responsible fo
 ## 3. Requirements
 
 - a Linux environment supported by the selected ROS 2 distribution (the examples below use ROS 2 Humble);
-- MATRiX v1.1.1 running successfully;
+- MATRiX v1.1.2 running successfully;
 - a Zenoh-to-ROS2 bridge compatible with the current UeSim CDR payloads;
 - a built `genisom_roamerx_open` workspace;
 - matching ROS domain and RMW configuration for all ROS 2 processes;
@@ -54,7 +54,7 @@ The active configuration is:
 UeSim/Content/model/config/config.json
 ```
 
-The active configuration contains six sensors matching `config_default.json`: IMU, odometry, GPS, RGB, depth, and Airy. Synchronized scheduling is enabled. Enter the simulation and spawn the robot before receiving data; load and apply other schemes when needed. `mid360_slam.json` provides MID360, IMU, and odometry. Confirm active topics before navigation. Preset references include:
+The initial `robot.sensors` dictionary is empty, so sensors do not publish automatically. `sensor_sync_mode=true` is retained. Load and apply `config_default.json` (IMU, odometry, GPS, RGB, depth, Airy), or another scheme, before entering the simulation and spawning the robot. `mid360_slam.json` provides MID360, IMU, and odometry. Confirm active topics before navigation. Preset references include:
 
 ```text
 UeSim/Content/model/config/sensors/config_default.json

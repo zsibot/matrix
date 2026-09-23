@@ -1,8 +1,8 @@
-# MATRiX v1.1.1 地图目录与 DLC
+# MATRiX v1.1.2 地图目录与 DLC
 
 [返回中文 README](README_CN.md) | [English](Map_DLC.md)
 
-v1.1.1 的地图选择界面支持动态更新目录，并自动识别基础包已有地图和已挂载的 DLC 地图。开源基础包不分发外部地图 `.pak`，只使用已获授权的地图资源。
+v1.1.2 的地图选择界面支持动态更新目录，并自动识别基础包已有地图和已挂载的 DLC 地图。开源基础包不分发外部地图 `.pak`，只使用已获授权的地图资源。
 
 ## 初始目录
 
@@ -35,7 +35,7 @@ UeSim/Content/model/MapDataTable.json
 
 [MATRiX 地图 DLC 百度网盘（提取码：6sth）](https://pan.baidu.com/s/1I87hQ9C8XzIGXgbyWk3i9A?pwd=6sth#list/path=%2F)
 
-下载与 v1.1.1 及目标地图匹配的 DLC 包；若下载的是压缩包，先解压得到 `.pak`。将 `.pak` 放入推荐目录：
+下载与 v1.1.2 及目标地图匹配的 DLC 包；若下载的是压缩包，先解压得到 `.pak`。将 `.pak` 放入推荐目录：
 
 ```bash
 mkdir -p UeSim/Saved/DLCs

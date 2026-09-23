@@ -1,6 +1,6 @@
 # 云台四方向图形测试工具
 
-> 适用于 MATRiX v1.1.1 Linux 运行包。
+> 适用于 MATRiX v1.1.2 Linux 运行包。
 
 ## 启动
 
@@ -15,7 +15,7 @@ StartGimbal
     StatePublishRateHz  = 10
 ```
 
-在 MATRiX v1.1.1 运行包根目录执行：
+在 MATRiX v1.1.2 运行包根目录执行：
 
 ```bash
 python3 Tools/gimbal_udp_ui.py

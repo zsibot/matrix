@@ -18,7 +18,7 @@ By participating, you agree to follow [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 ## Development environment
 
 Documentation changes do not require the full simulator. For runtime-related
-documentation, verify claims against the v1.1.1 Linux package and its
+documentation, verify claims against the v1.1.2 Linux package and its
 corresponding source. The simulator requires Linux x86_64 and a working GPU
 driver; ROS 2 is optional. Requirements of an external controller depend on the separately downloaded version.
 
@@ -30,7 +30,7 @@ request.
 ## Change guidelines
 
 - Keep each pull request focused on one problem.
-- Use Linux paths and commands for the public v1.1.1 documentation.
+- Use Linux paths and commands for the public v1.1.2 documentation.
 - Treat the root `VERSION` file as the repository release version.
 - Keep archive-part names and SHA-256 values synchronized with GitHub Release
   assets.

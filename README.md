@@ -15,7 +15,7 @@
 MATRiX is a runtime-first robot simulation platform that combines Unreal Engine 5 rendering with MuJoCo dynamics in one workflow. Load an MJCF/XML robot directly, assemble a calibrated sensor suite, run built-in motion control, and stream ROS 2-compatible data over Zenoh—without installing ROS 2 for the core simulator.
 
 > [!IMPORTANT]
-> The current release is **v1.1.1** and provides a Linux x86_64 runtime. Install a suitable graphics driver before running it; the simulator is not limited to Ubuntu 22.04. Requirements of optional external controllers depend on the separately downloaded version.
+> The current release is **v1.1.2** and provides a Linux x86_64 runtime. Install a suitable graphics driver before running it; the simulator is not limited to Ubuntu 22.04. Requirements of optional external controllers depend on the separately downloaded version.
 
 ## Why MATRiX
 
@@ -24,7 +24,7 @@ MATRiX is a runtime-first robot simulation platform that combines Unreal Engine 
 | **Bring up robots faster** | Load MJCF/XML at runtime and configure robots, initial poses, sensors, topics, and control mode through JSON instead of rebuilding the simulator for every model. |
 | **Test perception with sensor realism** | RGB, semantic ground truth, infrared, GPU depth, panorama, fisheye, generic LiDAR, Mid360, Airy, IMU, GPS, and odometry; camera calibration, Brown-Conrady and Kannala-Brandt distortion, LiDAR scan timing, and motion distortion are modeled in the simulation path. |
 | **Keep multi-sensor data coherent** | A unified ROS 2 time model supports stable UTC, Unreal simulation time, external `/clock`, and fixed-step time. Camera and LiDAR can share hardware-style trigger groups and timestamps. |
-| **Move from simulation control to controller integration** | MuJoCo runs on a dedicated worker with a 500 Hz target. Built-in motion control is ready by default, while the optional external `robot_mc` uses the same simulated-hardware ABI; joint and actuator targets are constrained by the active MuJoCo model. |
+| **Move from simulation control to controller integration** | MuJoCo runs on a dedicated worker with a 500 Hz target. Built-in motion control is enabled by default (`inside_mc=true`), while the optional external `robot_mc` uses the same simulated-hardware ABI; joint and actuator targets are constrained by the active MuJoCo model. |
 | **Use ROS-compatible data without a ROS dependency** | Zenoh publishes ROS 2-compatible CDR messages such as compressed images and `PointCloud2`. The simulator can run standalone, while ROS 2 bridges remain optional. |
 | **Scale scenes independently from the base runtime** | The launcher updates a validated remote map catalog, detects mounted content, and downloads map DLCs on demand. Standard UE scenes, dynamic actors, Gaussian-splatting content, and Pixel Streaming 2 can share the same runtime. |
 | **Debug with tools already in the release** | Sensor receiver, topic monitor, LiDAR-camera projection, categorized XY bounding boxes, fisheye projection, recording/replay, gimbal control, motion-control UDP tests, spawn tests, and voice-message tests are included under `Tools/`. |
@@ -73,30 +73,30 @@ MATRiX is a runtime-first robot simulation platform that combines Unreal Engine 
 
 ## 🚀 Quick Start
 
-1. Download MATRiX v1.1.1:
-   - [Direct Linux download](http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz): complete `.tar.gz`, supports resume.
-   - [GitHub Release](https://github.com/zsibot/matrix/releases/tag/v1.1.1): download **all** `.part-*` assets and `SHA256SUMS`. Each part is below 2 GB. If this tag is not visible yet, check Baidu Netdisk for the latest build or wait for the direct endpoint to be restored.
-   - [Baidu Netdisk](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q), code `118g`: **select the latest Linux version** (this guide targets v1.1.1).
+1. Download MATRiX v1.1.2:
+   - [Direct Linux download](http://39.96.31.125:18080/matrix/v1.1.2/Linux/MATRiX_v1.1.2.tar.gz): complete `.tar.gz`, supports resume.
+   - [GitHub Release](https://github.com/zsibot/matrix/releases/tag/v1.1.2): download **all** `.part-*` assets and `SHA256SUMS`. Each part is below 2 GB.
+   - [Baidu Netdisk](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q), code `118g`: **select the latest Linux version** (this guide targets v1.1.2).
 2. Extract the complete archive, or verify and extract the GitHub parts:
 
 ```bash
 # Direct/Baidu complete archive
-tar -xzf MATRiX_v1.1.1.tar.gz
+tar -xzf MATRiX_v1.1.2.tar.gz
 # GitHub parts: use this instead, in a directory containing only this release's parts
 sha256sum -c SHA256SUMS && \
-  cat MATRiX_v1.1.1.tar.gz.part-* | tar -xzf -
+  cat MATRiX_v1.1.2.tar.gz.part-* | tar -xzf -
 ```
 
 3. Start the runtime:
 
 ```bash
-cd MATRiX_v1.1.1
+cd MATRiX_v1.1.2
 ./UeSim.sh
 ```
 
 This Git repository contains documentation, Python tools and release scripts; the executable runtime, Engine and models are distributed as download assets. Cloning the repository does not install the simulator. See [download and checksum instructions](docs/Release_Download.md).
 
-Defaults are `xgw2`, `inside_mc=true`, and `sensor_sync_mode=true`. The active configuration contains six sensors matching `config_default.json`: IMU, odometry, GPS, RGB, depth, and Airy. Synchronized scheduling is enabled. Enter the simulation and spawn the robot before receiving data; load and apply other schemes when needed. See [sensor schemes](docs/Sensor_Schemes.md).
+Defaults are `xgb`, `inside_mc=true`, and `sensor_sync_mode=true`. The initial `robot.sensors` dictionary is empty, so sensors do not publish automatically. `sensor_sync_mode=true` is retained. Load and apply `config_default.json` (IMU, odometry, GPS, RGB, depth, Airy), or another scheme, before entering the simulation and spawning the robot. See [sensor schemes](docs/Sensor_Schemes.md).
 
 Built-in motion control requires no external process. Optional standalone `robot_mc` remains a [separate download](https://github.com/GENISOM-AI/MATRiX_Robot_MC/releases); follow the [motion-control guide](docs/Motion_Control.md).
 
@@ -134,7 +134,7 @@ See [Getting Started](docs/Getting_Started.md) and the [tool index](Tools/README
 | Pixel Streaming | [Pixel Streaming Guide](docs/pixelstreaming_tutorial.md) |
 | Sensor schemes and GPU LiDAR | [English](docs/Sensor_Schemes.md) · [中文](docs/Sensor_Schemes_CN.md) |
 | Fisheye projection and recording | [Fisheye (Chinese)](docs/Lidar_Fisheye_Projection_CN.md) · [Recording (Chinese)](docs/Zenoh_Recording_CN.md) |
-| Release changes | [v1.1.1 Release Notes (Chinese)](docs/Release_Notes_CN.md) |
+| Release changes | [v1.1.2 Release Notes (Chinese)](docs/Release_Notes_CN.md) |
 | Chinese documentation index | [Simplified Chinese](docs/README_CN.md) |
 
 ## 💬 Community
@@ -164,3 +164,7 @@ This project builds upon the incredible work of the following open-source projec
 - [CARLA](https://carla.org/)
 
 For semantic/RGB pairing, class IDs and display, see [Semantic camera / 语义相机](docs/Semantic_Camera.md)。
+
+XXG is hidden in open-source mode. The defaults are `xgb`, built-in motion control enabled, and no active sensors.
+
+Mirrors synchronize independently. If this version is not available there, use GitHub Release; select the latest version on Baidu Netdisk.

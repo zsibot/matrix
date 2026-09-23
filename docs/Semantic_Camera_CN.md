@@ -4,7 +4,7 @@
 
 ## 使用随包方案
 
-本说明对应 2026-09-21 15:08（北京时间）重打包的 v1.1.1。默认六传感器方案不含语义相机。在传感器设置中加载并应用 `UeSim/Content/model/config/sensors/config_rgb_semantic.json`，进入仿真后运行下方接收器，即可同时订阅 RGB 和语义话题。仅需要语义图时使用 `config_semantic.json`。配对预设为 640×480、10 Hz、90° FOV，两路安装位姿与标定参数相同。
+本说明对应 2026-09-23 10:24（北京时间）重打包的 v1.1.2。初始传感器为空；`config_default.json` 六传感器预设不含语义相机。在传感器设置中加载并应用 `UeSim/Content/model/config/sensors/config_rgb_semantic.json`，进入仿真后运行下方接收器，即可同时订阅 RGB 和语义话题。仅需要语义图时使用 `config_semantic.json`。配对预设为 640×480、10 Hz、90° FOV，两路安装位姿与标定参数相同。
 
 ## 类别与输出
 

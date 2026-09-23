@@ -1,6 +1,6 @@
 # Zenoh 2D 包围盒可视化工具使用说明
 
-v1.1.1 同时提供新版 `Tools/visualize_zenoh_bbox.py`，支持类别颜色、速度箭头和目标详情，依赖同目录 `bbox_motion.py`。本文记录的 `_2d.py` 仍是兼容入口，参数和固定视野保持原有行为。
+v1.1.2 同时提供新版 `Tools/visualize_zenoh_bbox.py`，支持类别颜色、速度箭头和目标详情，依赖同目录 `bbox_motion.py`。本文记录的 `_2d.py` 仍是兼容入口，参数和固定视野保持原有行为。
 
 ## 1. 工具用途
 
@@ -21,7 +21,7 @@ v1.1.1 同时提供新版 `Tools/visualize_zenoh_bbox.py`，支持类别颜色�
 MATRiX 发布目录中的文件为：
 
 ```text
-MATRiX_v1.1.1/
+MATRiX_v1.1.2/
 ├── Tools/
 │   └── visualize_zenoh_bbox_2d.py
 └── docs/
@@ -45,7 +45,7 @@ python3 -m pip install eclipse-zenoh matplotlib
 先启动 UeSim，并确认 Zenoh Router 或 UeSim 内置的 Zenoh 服务正在监听。然后在 MATRiX 目录运行：
 
 ```bash
-cd /path/to/MATRiX_v1.1.1
+cd /path/to/MATRiX_v1.1.2
 python3 Tools/visualize_zenoh_bbox_2d.py
 ```
 
@@ -269,6 +269,6 @@ Matplotlib 需要可用的桌面图形环境。在 SSH 环境中需要启用 X11
 
 ## 11. 与分类查看器的区别
 
-`visualize_zenoh_bbox.py` 在 v1.1.1 中是分类 XY 查看器，按车辆/行人着色，显示速度箭头和目标详情，并自动调整坐标范围；需同目录 `bbox_motion.py`。运行本文的固定范围 `_2d.py` 不依赖这两个文件。
+`visualize_zenoh_bbox.py` 在 v1.1.2 中是分类 XY 查看器，按车辆/行人着色，显示速度箭头和目标详情，并自动调整坐标范围；需同目录 `bbox_motion.py`。运行本文的固定范围 `_2d.py` 不依赖这两个文件。
 
 `visualize_zenoh_bbox_2d.py` 采用固定范围的 XY 俯视图，适合同时观察大量目标的位置和朝向。它忽略 Z 高度对轮廓的影响，并使用 `extent` 和 `forward` 重建二维矩形。

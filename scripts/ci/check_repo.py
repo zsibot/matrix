@@ -55,7 +55,7 @@ def main():
         try:
             manifest = json.loads(path.read_text())
             if path.name.endswith('-build.json'):
-                if manifest['version'] != version or not manifest['build_id']:
+                if manifest['version'] != path.name.removeprefix('v').removesuffix('-build.json') or not manifest['build_id']:
                     raise ValueError('invalid runtime build identity')
                 for key in ('runtime_sha256', 'config_sha256'):
                     if not re.fullmatch(r'[a-f0-9]{64}', manifest[key]):

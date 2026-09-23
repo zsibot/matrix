@@ -1,10 +1,10 @@
-# MATRiX v1.1.1 sensor configuration
+# MATRiX v1.1.2 sensor configuration
 
 [Usage](Getting_Started.md) | [中文](Sensor_Schemes_CN.md)
 
 ## Activate a scheme
 
-The active file is `UeSim/Content/model/config/config.json`. The active configuration contains six sensors matching `config_default.json`: IMU, odometry, GPS, RGB, depth, and Airy. Synchronized scheduling is enabled. Enter the simulation and spawn the robot before receiving data; load and apply other schemes when needed. Preset files do not become active merely by existing on disk.
+The active file is `UeSim/Content/model/config/config.json`. The initial `robot.sensors` dictionary is empty, so sensors do not publish automatically. `sensor_sync_mode=true` is retained. Load and apply `config_default.json` (IMU, odometry, GPS, RGB, depth, Airy), or another scheme, before entering the simulation and spawning the robot. Preset files do not become active merely by existing on disk.
 
 Load a scheme from `UeSim/Content/model/config/sensors/` in the robot/sensor settings UI, check mounting frames, rates and topics, and apply it before entering the simulation. Verify the saved `robot.sensors` and received topics. For manual edits, close UeSim and copy only the scheme's sensor dictionary into `robot.sensors`; do not replace the entire main configuration.
 
@@ -31,7 +31,7 @@ Start with `config_default.json`. A tool's `--sensor-config` argument only selec
 | `config_rgb_semantic.json` | Matched RGB/semantic pose, intrinsics and rate |
 | `empty.json` | Empty scheme |
 
-This rebuild includes `config_semantic.json` and `config_rgb_semantic.json` for semantic-only and aligned RGB/semantic capture. Semantic output is a lossless class-ID PNG that the receiver can colorize. Semantic cameras are optional schemes, not part of the default six-sensor configuration.
+This rebuild includes `config_semantic.json` and `config_rgb_semantic.json` for semantic-only and aligned RGB/semantic capture. Semantic output is a lossless class-ID PNG that the receiver can colorize. Semantic cameras are optional schemes; no sensors are active initially.
 
 ## Parameters and GPU LiDAR
 

@@ -2,7 +2,7 @@
 
 [中文主页](README_CN.md) | [English](Controller_Guide.md)
 
-MATRiX v1.1.1 将机器人运控输入和仿真相机输入分开处理。发布包中的 Blueprint 或 GameMode 可能增加或覆盖按键；若界面提示不同，以当前运行包为准。
+MATRiX v1.1.2 将机器人运控输入和仿真相机输入分开处理。发布包中的 Blueprint 或 GameMode 可能增加或覆盖按键；若界面提示不同，以当前运行包为准。
 
 ## 内置机器人运控
 
@@ -17,7 +17,7 @@ MATRiX v1.1.1 将机器人运控输入和仿真相机输入分开处理。发布
 | 原地跳跃 | RB + X | 仅 `xgb` |
 | 向前跳跃 | RB + Y | 仅 `xgb` |
 
-输入模式包括 `Hardware`、`UDP`、`Auto` 和 `Disabled`。v1.1.1 Linux 运行包在硬件输入模式下默认读取 `/dev/input/js0`。`Auto` 模式优先采用最近收到的 UDP 输入，否则读取硬件手柄。
+输入模式包括 `Hardware`、`UDP`、`Auto` 和 `Disabled`。v1.1.2 Linux 运行包在硬件输入模式下默认读取 `/dev/input/js0`。`Auto` 模式优先采用最近收到的 UDP 输入，否则读取硬件手柄。
 
 UDP 手柄输入默认监听 `0.0.0.0:7447` 并接收 JSON 状态。这是 UDP socket，与 Zenoh TCP endpoint 相互独立，即使二者都使用 7447 端口号。
 

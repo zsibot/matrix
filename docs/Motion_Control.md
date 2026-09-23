@@ -1,8 +1,10 @@
-# MATRiX v1.1.1 motion control
+# MATRiX v1.1.2 motion control
+
+XXG is hidden in open-source mode and is not a selectable robot in this release. The default model is `xgb`.
 
 [Back to README](../README.md) | [中文](Motion_Control_CN.md)
 
-The open v1.1.1 release uses built-in motion control by default. The external `robot_mc` runtime is not distributed in this package and must be downloaded separately when needed.
+The open v1.1.2 release uses built-in motion control by default. The external `robot_mc` runtime is not distributed in this package and must be downloaded separately when needed.
 
 ## Default built-in mode
 
@@ -29,7 +31,7 @@ Restart UeSim after manually changing the mode.
 Built-in controller IDs registered by the current source are:
 
 ```text
-xgb  xg2  xgw  xgw2  xxg  zgws  zgwt  zgwsarm
+xgb  xg2  xgw  xgw2  zgws  zgwt  zgwsarm
 ```
 
 `go2` and `go2w` simulation assets are present but are not in the current embedded-controller list.
@@ -49,7 +51,7 @@ python3 Tools/matrix_mc_udp_test.py passive
 
 Use `--host <SIMULATOR_IP>` for a remote simulator. UDP input listens on port 7447 by default and expires after 0.5 seconds without a valid packet.
 
-### Bundled v1.1.1 integration scope
+### Bundled v1.1.2 integration scope
 
 The bundled `robot_mc_provenance.json` records the 2026-09-08 integration of controller 0.6.6: XXG Walk/GaitWalk/Pace/Three/RPWalk/Run, XG2 Passive fold-down, and XGW2 stand-up wheel locking. Use the action menu for the selected robot.
 
@@ -82,7 +84,7 @@ The installer may use sudo, APT, network access, and bundled packages. These are
 | `zgws` / `zgwt` | `zsm-1w` | `ZGWS` |
 | `zgwsarm` | `zgwsarm` | `ZGWS_ARM` |
 
-`xg2` and `xxg` are supported by v1.1.1 built-in control but are not listed by the public external v0.6.4 README; do not invent a `ROBOT_TYPE` for them. The external project's supported list and launcher interface may change, so its downloaded README is authoritative.
+`xg2` is supported by v1.1.2 built-in control but are not listed by the public external v0.6.4 README; do not invent a `ROBOT_TYPE` for them. The external project's supported list and launcher interface may change, so its downloaded README is authoritative.
 
 Stop UeSim and edit `UeSim/Content/model/config/config.json`:
 

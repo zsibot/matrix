@@ -13,7 +13,7 @@ XCDR1 消息，只使用刚性安装的相机、LiDAR 和固定外参，不订�
 python3 -m pip install numpy opencv-python eclipse-zenoh
 ```
 
-当前活动配置包含 IMU、Odom、GPS、RGB、Depth 和 Airy 六个传感器，与 `config_default.json` 一致；默认开启同步模式。进入仿真并创建机器人后再接收数据，其他方案需要加载并应用。 也可单独离线检查预设：
+初始 `robot.sensors` 为空，不会自动发布传感器数据；`sensor_sync_mode=true`。请在传感器设置中加载并应用 `config_default.json`（IMU、Odom、GPS、RGB、Depth、Airy）或其他方案，再进入仿真并创建机器人。 也可单独离线检查预设：
 
 ```bash
 python3 Tools/visualize_lidar_camera_projection.py \
@@ -27,7 +27,7 @@ python3 Tools/visualize_lidar_camera_projection.py \
 先启动 MATRiX 仿真器，再在发布包根目录执行：
 
 ```bash
-cd /path/to/MATRiX_v1.1.1
+cd /path/to/MATRiX_v1.1.2
 python3 Tools/visualize_lidar_camera_projection.py
 ```
 
@@ -50,7 +50,7 @@ tcp/127.0.0.1:7447
 
 ```bash
 # 只检查传感器选择、内参和外参，不连接 Zenoh
-python3 Tools/visualize_lidar_camera_projection.py --check-only
+python3 Tools/visualize_lidar_camera_projection.py --sensor-config UeSim/Content/model/config/sensors/config_default.json --check-only
 
 # 指定配置文件
 python3 Tools/visualize_lidar_camera_projection.py \

@@ -2,7 +2,7 @@
 
 [中文主页](README_CN.md) | [快速开始](Getting_Started_CN.md)
 
-以下说明依据 MATRiX v1.1.1 Linux 运行包及对应源码整理。
+以下说明依据 MATRiX v1.1.2 Linux 运行包及对应源码整理。
 
 ## 启动与显示
 
@@ -69,7 +69,7 @@ depth_m = R + G / 255
 
 **Q：DLC 应放在哪里？**
 
-推荐使用地图界面的 **UPDATE LIST** 和地图卡片下方的 **DOWNLOAD** 自动安装。手动安装目录为 `UeSim/Saved/DLCs/*.pak`，运行时也扫描 `UeSim/Content/DLCs/*.pak`。DLC 必须与 v1.1.1 Linux 包兼容。
+推荐使用地图界面的 **UPDATE LIST** 和地图卡片下方的 **DOWNLOAD** 自动安装。手动安装目录为 `UeSim/Saved/DLCs/*.pak`，运行时也扫描 `UeSim/Content/DLCs/*.pak`。DLC 必须与 v1.1.2 Linux 包兼容。
 
 **Q：添加 DLC 后一定要重启吗？**
 
@@ -93,7 +93,7 @@ depth_m = R + G / 255
 
 **Q：文档中的 `Tools/` 在哪里？**
 
-v1.1.1 Release 包含 `Tools/`。从发布根目录运行 `python3 Tools/<脚本>.py --help`，工具清单见 [Python 工具](Python_Tools_CN.md)。
+v1.1.2 Release 包含 `Tools/`。从发布根目录运行 `python3 Tools/<脚本>.py --help`，工具清单见 [Python 工具](Python_Tools_CN.md)。
 
 **Q：官方 Docker 脚本在哪里？**
 

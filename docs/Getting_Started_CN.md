@@ -1,15 +1,15 @@
-# MATRiX v1.1.1 使用教程
+# MATRiX v1.1.2 使用教程
 
 [返回中文 README](README_CN.md) | [English](Getting_Started.md)
 
-下载方式： [Linux 直链](http://39.96.31.125:18080/matrix/v1.1.1/Linux/MATRiX_v1.1.1.tar.gz)、[GitHub Release](https://github.com/zsibot/matrix/releases/tag/v1.1.1) 或 [百度网盘](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q)（提取码 `118g`，**请选择最新版本下载**）。完整包直接解压；GitHub 下载全部分卷后校验合并。详细命令见 [下载与校验](Release_Download_CN.md)。
+下载方式： [Linux 直链](http://39.96.31.125:18080/matrix/v1.1.2/Linux/MATRiX_v1.1.2.tar.gz)、[GitHub Release](https://github.com/zsibot/matrix/releases/tag/v1.1.2) 或 [百度网盘](https://pan.baidu.com/s/1dweDOFO5AzRmzY1-gEI53Q)（提取码 `118g`，**请选择最新版本下载**）。完整包直接解压；GitHub 下载全部分卷后校验合并。详细命令见 [下载与校验](Release_Download_CN.md)。
 
 ## 1. 启动
 
 要求 Linux x86_64 环境并正确安装显卡驱动，不限定 Ubuntu 22.04。建议 6 核以上 CPU、16 GB 以上内存。仿真器本体不依赖 ROS 2。
 
 ```bash
-cd MATRiX_v1.1.1
+cd MATRiX_v1.1.2
 ./UeSim.sh
 ```
 
@@ -36,7 +36,7 @@ UeSim/Content/model/config/config.json
 发布默认值：
 
 ```text
-mujoco_model: Content/model/xgw2/xgw2.xml
+mujoco_model: Content/model/xgb/xgb.xml
 inside_mc: true
 network_mode: standalone
 sensor_sync_mode: true
@@ -44,13 +44,13 @@ zenoh_router: tcp/0.0.0.0:7447
 state_port: mujoco/state
 cmd_port: mujoco/cmd
 mujoco_running: false
-sensors: IMU, Odom, GPS, camera (rgb), depth_sensor (depth), lidar (airy)
+sensors: {} (load and apply a scheme before receiving sensor data)
 ```
 
 模型路径使用相对于 `UeSim/` 项目目录的路径，移动整个发布目录后仍然有效。当前主要模型目录：
 
 ```text
-go2  go2w  xg2  xgb  xgw  xgw2  xxg  zgws  zgwsarm  zgwt
+go2  go2w  xg2  xgb  xgw  xgw2  zgws  zgwsarm  zgwt
 ```
 
 ## 3. 运动控制
@@ -88,7 +88,7 @@ python3 Tools/zenoh_topic_monitor.py \
   --connect tcp/192.168.1.100:7447
 ```
 
-当前活动配置包含 IMU、Odom、GPS、RGB、Depth 和 Airy 六个传感器，与 `config_default.json` 一致；默认开启同步模式。进入仿真并创建机器人后再接收数据，其他方案需要加载并应用。 GPU 后端以运行日志为准，最终 key 以主题监控结果为准。
+初始 `robot.sensors` 为空，不会自动发布传感器数据；`sensor_sync_mode=true`。请在传感器设置中加载并应用 `config_default.json`（IMU、Odom、GPS、RGB、Depth、Airy）或其他方案，再进入仿真并创建机器人。 GPU 后端以运行日志为准，最终 key 以主题监控结果为准。
 
 传感器预设：
 
@@ -117,7 +117,7 @@ UeSim/Content/model/config/sensors/
 python3 -m pip install numpy opencv-python eclipse-zenoh
 
 # 先检查传感器选择、内参和外参，不连接 Zenoh
-python3 Tools/visualize_lidar_camera_projection.py --check-only
+python3 Tools/visualize_lidar_camera_projection.py --sensor-config UeSim/Content/model/config/sensors/config_default.json --check-only
 
 # 启动实时叠加窗口
 python3 Tools/visualize_lidar_camera_projection.py
@@ -131,7 +131,7 @@ python3 Tools/visualize_lidar_camera_projection.py
 
 自动下载不可用时，可从 [百度网盘（提取码：6sth）](https://pan.baidu.com/s/1I87hQ9C8XzIGXgbyWk3i9A?pwd=6sth#list/path=%2F) 手动下载。
 
-将获得授权且与 v1.1.1 匹配的 `.pak` 放入：
+将获得授权且与 v1.1.2 匹配的 `.pak` 放入：
 
 ```text
 UeSim/Saved/DLCs/
@@ -167,3 +167,5 @@ tail -n 200 UeSim/Saved/Logs/UeSim.log
 ```
 
 Zenoh 无数据时先订阅 `**`，再核对 UeSim 日志、IP、7447/TCP、防火墙和传感器状态。
+
+镜像独立同步；若尚无本版本，请使用 GitHub Release，并在百度网盘选择最新版本。

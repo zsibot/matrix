@@ -4,7 +4,7 @@
 
 This guide is aligned with the current `UMujocoConfigLibrary` implementation and the sensor templates under `Content/model/config/sensors`.
 
-The active configuration contains six sensors matching `config_default.json`: IMU, odometry, GPS, RGB, depth, and Airy. Synchronized scheduling is enabled. Enter the simulation and spawn the robot before receiving data; load and apply other schemes when needed. See [sensor schemes](Sensor_Schemes.md). The public repository contains configuration examples; the runtime model tree is downloaded separately.
+The initial `robot.sensors` dictionary is empty, so sensors do not publish automatically. `sensor_sync_mode=true` is retained. Load and apply `config_default.json` (IMU, odometry, GPS, RGB, depth, Airy), or another scheme, before entering the simulation and spawning the robot. See [sensor schemes](Sensor_Schemes.md). The public repository contains configuration examples; the runtime model tree is downloaded separately.
 
 ## 1. Configuration files
 
@@ -23,7 +23,7 @@ Content/model/config/sensors/
 └── config_zg.json
 ~~~
 
-The v1.1.1 Linux package exposes this tree under `UeSim/Content/model/`.
+The v1.1.2 Linux package exposes this tree under `UeSim/Content/model/`.
 
 `config.json` is the active robot configuration. Files in `sensors/` are templates. Editing a template does not change `config.json` until the launcher or a config-library operation applies it.
 

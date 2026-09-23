@@ -35,7 +35,7 @@ Start MATRiX, then run from the release root:
 
 ```bash
 # Validate sensor selection, intrinsics, and extrinsics without opening Zenoh.
-python3 Tools/visualize_lidar_camera_projection.py --check-only
+python3 Tools/visualize_lidar_camera_projection.py --sensor-config UeSim/Content/model/config/sensors/config_default.json --check-only
 
 # Open the live overlay.
 python3 Tools/visualize_lidar_camera_projection.py
