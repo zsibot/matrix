@@ -85,3 +85,5 @@ See [Map_DLC.md](Map_DLC.md) for the complete automatic and manual workflow.
     <td><img src="../demo_gif/Maps/Moon.png" alt="MoonWorld" width="280"/><br/><code>MoonWorld</code></td>
   </tr>
 </table>
+
+The open-source runtime excludes `UeSim/Content/model/xxg`.

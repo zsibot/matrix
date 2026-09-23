@@ -51,10 +51,10 @@ sha256sum -c SHA256SUMS-full && tar -xzf MATRiX_v1.1.2.tar.gz
 
 | File | Bytes | SHA-256 |
 |---|---:|---|
-| `MATRiX_v1.1.2.tar.gz.part-001` | 1,900,000,000 | `bacf28c84c528b66bb37ea0921243e2dd28560518bbbe5b2c920738790b21976` |
-| `MATRiX_v1.1.2.tar.gz.part-002` | 1,900,000,000 | `f0773807dde2ae3f9b41aff30e8f4ad7f55d4aab0f67e87f26db23f30d0dc19c` |
-| `MATRiX_v1.1.2.tar.gz.part-003` | 1,230,168,999 | `1ea4e7e26e77ed2d57ccbe7f5ffab4eea70ef2dd975cb74382843ba3fd213671` |
+| `MATRiX_v1.1.2.tar.gz.part-001` | 1,900,000,000 | `b23f641a5ba82eacaa80cc210e632cb8157b9db29ea14d9f6766e3b5701c5eb8` |
+| `MATRiX_v1.1.2.tar.gz.part-002` | 1,900,000,000 | `7fdcdda8b7af7454330273d40ca90239ea081d107ebf684f96eb50d6904e3a98` |
+| `MATRiX_v1.1.2.tar.gz.part-003` | 1,191,256,614 | `08aa1e2618b4b33d1db6cf1983f6e8b8bf4fd090b14f63247d076ec59a59a349` |
 
-Complete archive: 5,030,168,999 bytes; SHA-256: `dd48005a7185d08d3dcdc700dd3f93716c95c5009a1a0ab6f8b1b5f1697da817`.
+Complete archive: 4,991,256,614 bytes; SHA-256: `baaeaf01817e90baf20e3fd6f74ae2fe885ef69f7d862fa36f50222f69cfea81`.
 
 [Release JSON](releases/v1.1.2.json) · [Build identity](releases/v1.1.2-build.json)

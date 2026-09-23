@@ -33,6 +33,7 @@ archive="$name.tar.gz"
 printf 'Compressing %s (runtime and debug files retained; local logs/config/cache excluded)...\n' "$name"
 # Do not distribute previous runs or development environments. Saved/DLCs is retained.
 tar -C "$(dirname -- "$runtime")" \
+    --exclude="$name/UeSim/Content/model/xxg" \
     --exclude="$name/UeSim/Saved/Logs" \
     --exclude="$name/UeSim/Saved/Config" \
     --exclude="$name/UeSim/Saved/Crashes" \

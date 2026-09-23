@@ -1,23 +1,23 @@
 {
   "archive": "MATRiX_v1.1.2.tar.gz",
-  "archive_size_bytes": 5030168999,
-  "archive_sha256": "dd48005a7185d08d3dcdc700dd3f93716c95c5009a1a0ab6f8b1b5f1697da817",
+  "archive_size_bytes": 4991256614,
+  "archive_sha256": "baaeaf01817e90baf20e3fd6f74ae2fe885ef69f7d862fa36f50222f69cfea81",
   "part_size_limit_bytes": 1900000000,
   "parts": [
     {
       "name": "MATRiX_v1.1.2.tar.gz.part-001",
       "size_bytes": 1900000000,
-      "sha256": "bacf28c84c528b66bb37ea0921243e2dd28560518bbbe5b2c920738790b21976"
+      "sha256": "b23f641a5ba82eacaa80cc210e632cb8157b9db29ea14d9f6766e3b5701c5eb8"
     },
     {
       "name": "MATRiX_v1.1.2.tar.gz.part-002",
       "size_bytes": 1900000000,
-      "sha256": "f0773807dde2ae3f9b41aff30e8f4ad7f55d4aab0f67e87f26db23f30d0dc19c"
+      "sha256": "7fdcdda8b7af7454330273d40ca90239ea081d107ebf684f96eb50d6904e3a98"
     },
     {
       "name": "MATRiX_v1.1.2.tar.gz.part-003",
-      "size_bytes": 1230168999,
-      "sha256": "1ea4e7e26e77ed2d57ccbe7f5ffab4eea70ef2dd975cb74382843ba3fd213671"
+      "size_bytes": 1191256614,
+      "sha256": "08aa1e2618b4b33d1db6cf1983f6e8b8bf4fd090b14f63247d076ec59a59a349"
     }
   ],
   "runtime_build": {
@@ -36,6 +36,9 @@
     ],
     "hidden_in_open_source_mode": [
       "xxg"
+    ],
+    "excluded_model_directories": [
+      "UeSim/Content/model/xxg"
     ]
   }
 }

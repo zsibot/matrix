@@ -14,5 +14,8 @@
   ],
   "hidden_in_open_source_mode": [
     "xxg"
+  ],
+  "excluded_model_directories": [
+    "UeSim/Content/model/xxg"
   ]
 }

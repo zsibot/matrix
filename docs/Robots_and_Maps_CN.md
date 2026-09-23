@@ -85,3 +85,5 @@ UeSim/Saved/DLCs/*.pak
     <td><img src="../demo_gif/Maps/Moon.png" alt="MoonWorld" width="280"/><br/><code>MoonWorld</code></td>
   </tr>
 </table>
+
+本开源运行包不包含 `UeSim/Content/model/xxg` 模型目录。

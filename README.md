@@ -168,3 +168,5 @@ For semantic/RGB pairing, class IDs and display, see [Semantic camera / 语义�
 XXG is hidden in open-source mode. The defaults are `xgb`, built-in motion control enabled, and no active sensors.
 
 Mirrors synchronize independently. If this version is not available there, use GitHub Release; select the latest version on Baidu Netdisk.
+
+The open-source runtime excludes `UeSim/Content/model/xxg`.

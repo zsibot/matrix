@@ -27,3 +27,5 @@ Every GitHub archive part is below 2 GB. Download all parts and `SHA256SUMS`, ve
 ## Validation scope
 
 Pre-publication checks cover the launcher, Python tools, configuration, documentation links, compressed archive and part integrity. This publication workflow does not run a live GPU scene; source test records are not a substitute for interactive acceptance of this package.
+
+The open-source runtime excludes `UeSim/Content/model/xxg`.

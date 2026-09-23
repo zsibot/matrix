@@ -162,3 +162,5 @@ python3 Tools/zenoh_sensor_receiver.py --key 'rt/**'
 语义相机与 RGB 配对、类别 ID 和显示方法见[Semantic camera / 语义相机](Semantic_Camera_CN.md)。
 
 镜像独立同步；若尚无本版本，请使用 GitHub Release，并在百度网盘选择最新版本。
+
+本开源运行包不包含 `UeSim/Content/model/xxg` 模型目录。
